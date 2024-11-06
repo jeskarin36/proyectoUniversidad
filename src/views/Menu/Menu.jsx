@@ -20,26 +20,22 @@ function Menu({cambio}) {
                     <span className="material-icons-sharp">grid_view </span>
                     <h3>INICIO</h3>
                 </a>
-                <a href="#">
+                <a href="/Usuario">
                     <span className="material-icons-sharp">person</span>
                     <h3>USUARIOS</h3>
                 </a>
-                <a href="/prueba-vite/Matricula" onClick={()=>(cambio(false))}>
+                <a href="/Matricula" onClick={()=>(cambio(false))}>
                     <span className="material-icons-sharp">receipt_long</span>
                     <h3>MATRICULA</h3>
                 </a>
-                <a href="#">
+                <a href="/Inventario">
                     <span className="material-icons-sharp">insights</span>
                     <h3>INVENTARIO</h3>
                 </a>
-                <a href="#">
-                    <span className="material-icons-sharp">mail_outline </span>
-                    <h3>MENSAJES</h3>
-                    <span className="message-count">26</span>
-                </a>
-                <a href="#">
+               
+                <a href="/Representante">
                     <span className="material-icons-sharp">inventory</span>
-                    <h3>PERSONAL</h3>
+                    <h3>Representantes</h3>
                 </a>
                 <a href="#">
                     <span className="material-icons-sharp">report_gmailerrorred</span>
@@ -49,10 +45,7 @@ function Menu({cambio}) {
                     <span className="material-icons-sharp">settings</span>
                     <h3>CONFIGURACION</h3>
                 </a>
-                <a href="#">
-                    <span className="material-icons-sharp">add</span>
-                    <h3>Add Product</h3>
-                </a>
+               
                 <a href="#">
                     <span className="material-icons-sharp">logout</span>
                     <h3>SALIR</h3>

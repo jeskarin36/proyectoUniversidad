@@ -1,0 +1,265 @@
+.container-matricula{
+    width: 90%;
+    height: 100vh;
+
+ 
+}
+
+
+.cabeza{
+    width: 100%;
+    height: 6%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-start;
+    padding: 1rem 0;
+
+
+}
+
+
+.cabeza .top{
+    display: flex;
+    justify-content: center;
+    width:20%;
+    height: 100%;
+   
+}
+
+.cabeza .top button{
+    display: none;
+}
+
+.cabeza .theme-toggler{
+    background: var(--color-light);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 1.6rem;
+    width: 4.2rem;
+    cursor: pointer;
+    border-radius: var(--border-radius-1);
+   
+}
+
+
+.cabeza .theme-toggler span{
+    font-size: 1.2rem;
+    width: 500%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+}
+
+.cabeza .theme-toggler .active{
+    background: var(--color-primary);
+    color: white;
+   
+    border-radius: var(--border-radius-1);
+}
+
+ .cabeza .top .profilee .info{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+   gap: 0;
+    text-align: right;
+    
+}
+
+
+.cabeza .top .profilee .info p{
+ margin: .5rem;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/**
+Opcio nessss
+
+
+
+
+
+*/
+
+
+
+
+.contenedor-opcioness{
+    width: 100%;
+    height: 8vh;
+    display: flex;
+    justify-content: space-between;
+   align-items: center;
+
+}
+
+.contenedor-opcioness button{
+    width: 10rem;
+    height: 50%;
+    color: white;
+    border-radius:5%;
+    border: none;
+    cursor: pointer;
+    font-weight: 500;
+    margin-left: 1rem;
+    background-color: blueviolet;
+    font-family: "Poppins",sans-serif;
+}
+
+.opciones{
+    width: 60%;
+    height: 100%;
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    gap: 1rem;
+padding-right: 2rem;
+color: var(--color-dark-variant);
+}
+
+
+.opciones label{
+font-family: "Poppins",sans-serif;
+}
+
+
+
+
+
+
+
+
+
+
+/**Formualrio Tablaa
+
+
+
+
+*/
+
+
+
+.contenedor-tabla{
+width: 100%;
+max-height: 80%;
+margin-top: 1%;
+overflow: scroll;
+display:flex ;
+flex-direction: column;
+}
+
+.contenedor-formulario{
+width: 98%;
+height: 8%;
+background-color: rgb(255, 255, 255);
+border-radius: 5PX;
+display: flex;
+justify-content: flex-start;
+align-items: center;
+padding: 0 1%;
+}
+
+.contenedor-formulario form{
+display: flex;
+justify-content: flex-start;
+align-items: center;
+}
+
+.contenedor-formulario form input{
+    width: 80%;
+    padding: 1%  5%;
+    outline: none;
+    border: none;
+    }
+
+
+
+
+
+    /**tablaaa**/
+
+.contenedor-registro{
+    width: 100%;
+    height: 90%;
+
+    margin-top: 1%;
+    }
+
+
+    .contenedor-registro table{
+        background:var(--color-white);
+        width: 100%;
+        border-radius: 1%;
+        padding: var(--card-padding);
+        text-align: center;
+        box-shadow: var(--box-shadow);
+        transition: all 300ms ease;
+    }
+    
+    .contenedor-registro table:hover{
+        box-sizing: none;
+    }
+
+    .contenedor-registro table th{
+        padding-bottom: 1rem;
+        color: var(--color-dark-variant);
+        border-bottom: 2px solid var(--color-light);
+    }
+    
+    .contenedor-registro table tbody td{
+        height: 2.8rem;
+       
+        border-bottom: 2px solid var(--color-light);
+        color: var(--color-dark-variant);
+    }
+    
+    .contenedor-registro table tbody tr:last-child td{
+    border: none;
+    }
+
+
+    .primary{
+        display: flex;
+     gap: 6%;
+     align-items: center;
+     justify-content: center;
+     
+    }
+
+    .primary button{
+        background-color: transparent;
+        border: none;
+        cursor: pointer;
+    }
+
+    .primary button:hover{
+        background-color: rgba(222, 222, 222, 0.659);
+      
+    }

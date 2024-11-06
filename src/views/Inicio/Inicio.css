@@ -1,10 +1,9 @@
 .container-inicio{
     grid-column:2;
     display: grid;
-    width: 100%;
-    overflow: hidden;
-    margin: 0 auto;
-    
+    width: 90%;
+   
+
     grid-template-columns: 85% 15%;
     
 }

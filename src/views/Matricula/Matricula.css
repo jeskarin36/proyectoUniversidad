@@ -1,7 +1,7 @@
 .container-matricula{
-    width: 100%;
+    width: 90%;
     height: 100vh;
- 
+
  
 }
 
@@ -175,33 +175,64 @@ display:flex ;
 flex-direction: column;
 }
 
-.contenedor-formulario{
+.contenedor-formularioo{
 width: 98%;
 height: 8%;
-background-color: rgb(255, 255, 255);
+background:var(--color-white);
 border-radius: 5PX;
 display: flex;
 justify-content: flex-start;
 align-items: center;
 padding: 0 1%;
+gap: 2%;
 }
 
-.contenedor-formulario form{
+.contenedor-formularioo form{
+    width: 100%;
 display: flex;
 justify-content: flex-start;
 align-items: center;
+
+gap: 1%;
 }
 
-.contenedor-formulario form input{
-    width: 80%;
-    padding: 1%  5%;
+.contenedor-formularioo form input{
+    width: 20%;
+    padding: 1%  1%;
     outline: none;
     border: none;
+    background:var(--color-white);
     }
 
 
+    .contenedor-formularioo .opciones-combo{
+        width: 10rem;
+        height: 90%;
+        
+       
+    }
+    .contenedor-formularioo select{
+        width: 15%;
+        padding: .5rem 0;
+        border: none;
+        outline: none;
+        background:var(--color-white);
+        color: var(--color-dark-variant);
+        font-family: "Poppins",sans-serif;
+        margin-right: 2%;
+    }
 
-
+ form .buscarbtn{
+    width: 7rem;
+    height: 2rem;
+    border-radius: 5px;
+    background-color: seagreen;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    box-shadow: var(--box-shadow);
+    font-family: "Poppins",sans-serif;
+}
 
     /**tablaaa**/
 

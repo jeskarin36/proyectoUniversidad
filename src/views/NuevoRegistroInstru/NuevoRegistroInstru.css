@@ -1,35 +1,34 @@
-.container-nuevo-alumno{
-    width: 100%;
-    height: 100vh;
- 
+.container-nuevo-instrumento{
+    width:  100%;
+    height: 100vh; 
+    position: absolute;
+    background-color:var(--color-background);
 }
 
-
-.cabeza{
-    width: 100%;
+.cabeza-usuario{
+    min-width: 15%;
     height: 6%;
     display: flex;
-    justify-content: flex-end;
+    justify-content: flex-start;
     align-items: flex-start;
     padding: 1rem 0;
-
-
+   float: right;
 }
 
 
-.cabeza .top{
+.cabeza-usuario .top{
     display: flex;
     justify-content: center;
-    width:20%;
+    width:100%;
     height: 100%;
    
 }
 
-.cabeza .top button{
+.cabeza-usuario .top button{
     display: none;
 }
 
-.cabeza .theme-toggler{
+.cabeza-usuario .theme-toggler{
     background: var(--color-light);
     display: flex;
     justify-content: space-between;
@@ -42,7 +41,7 @@
 }
 
 
-.cabeza .theme-toggler span{
+.cabeza-usuario .theme-toggler span{
     font-size: 1.2rem;
     width: 500%;
     height: 100%;
@@ -52,14 +51,14 @@
     
 }
 
-.cabeza .theme-toggler .active{
+.cabeza-usuario .theme-toggler .active{
     background: var(--color-primary);
     color: white;
    
     border-radius: var(--border-radius-1);
 }
 
- .cabeza .top .profilee .info{
+ .cabeza-usuario .top .profilee .info{
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -70,7 +69,7 @@
 }
 
 
-.cabeza .top .profilee .info p{
+.cabeza-usuario .top .profilee .info p{
  margin: .5rem;
 }
 
@@ -92,25 +91,20 @@
 
 
 
-
-
-
-
-
-
-
-
-.contenedor-opciones-instru{
+.contenedor-opciones-instrumento{
     padding-right: 2%;
-    width: 98%;
+    width: 80%;
     height: 8vh;
     display: flex;
     justify-content: space-between;
    align-items: center;
    font-family: "Poppins",sans-serif;
-   background-color: var(--color-white);}
 
-   .contenedor-back-instru{
+  
+}
+
+  
+.contenedor-back-instrumento{
     width: 60%;
     height: 100%;
     display: flex;
@@ -120,14 +114,14 @@
    
 }
 
-.contenedor-back-instru > h6{
+.contenedor-back-instrumento> h6{
     font-weight: 400;
 }
-.contenedor-opciones-instru > h3{
+.contenedor-back-instrumento> h3{
     color: var(--color-dark-variant);
 }
 
-.contenedor-opciones-instru button{
+.contenedor-back-instrumento button{
     width: 5em;
     height: 50%;
     color: white;
@@ -160,94 +154,107 @@
 
 
 
-
-
-
-
-
-
-
-
-.contenedor-formulario-nuevo-alumno{
+.contenedor-formulario-nuevo-instrumento{
     width: 100%;
     height: 80%;
-    overflow: scroll;
-    background-color: var(--color-white);
+
 }
 
-.contenedor-formulario-nuevo-instru form{
-    display: flex;
+.contenedor-formulario-nuevo-instrumento form{
+     display: flex;
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
-     gap: 2%;
 }
 
-.form-groupp{
+.contenedor-formulario-nuevo-instrumento .container-form-info{
+    width: 100%;
     display: flex;
-    flex-direction: column;
-    background-color: var(--color-background);
-    padding: 2rem;
-    margin: 1%;
-    box-shadow: var(--box-shadow);
+    justify-content: center;
+    align-items: center;
+    margin: 1rem 1rem;
+   
 }
 
-.form-groupp label{
-    font-weight: 500;
+.contenedor-formulario-nuevo-instrumento .container-form-info h3{
+    color:  rgb(7, 107, 161);
+}
+
+.form-group-instrumento{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+ 
+    height: 3rem;
+    width: 30rem;
+    padding: 1rem;
+    margin: 1%;
+   
+   
+}
+
+.contenedor-formulario-nuevo-instrumento label{
+    font-weight: 400;
     font-size: 1.1rem;
-    margin-bottom:3%;
     font-family: "Poppins",sans-serif;
+    color: var(--color-dark-variant);
+    margin-right: 1rem;
+    
+}
+
+.contenedor-formulario-nuevo-instrumento input{
+    width: 15rem;
+    padding: .8em;
+    border: none;
+    border-bottom: 2px solid rgb(46, 52, 139);
+    outline: none;
+    border-radius: 5px;
+    background: none;
+    color: var(--color-dark-variant);
+    
+}
+
+.contenedor-formulario-nuevo-instrumento input::placeholder{
     color: var(--color-dark-variant);
 }
 
-.form-groupp input{
-    
-    padding: .4rem;
-    border: none;
-    border: 2px solid rgb(231, 231, 231);
-    outline: none;
-    border-radius: 5px;
-}
-
-.form-groupp input[type="text"],
-.form-groupp input[type="number"]
+.contenedor-formulario-nuevo-instrumentoinput[type="text"],
+.contenedor-formulario-nuevo-instrumento input[type="number"]
 {
-    margin-bottom: 2rem;
-    width: 14rem;
+    margin-bottom: 0rem;
+    width: 18rem;
 }
 
-.form-groupp select{
-    width: 14rem;
-    padding: .4rem;
+
+.form-group-instrumento select{
+    width: 16rem;
+    padding: .6rem;
     font-family: "Poppins",sans-serif;
+    outline: none;
+    border-radius: 5%;
+    border: none;
+    border-bottom: 2px solid rgb(46, 52, 139);
+    background-color: none;
 }
 
-
-.bloque{
-    width: 100%;
-    height: 2%;
-    display: block;
+.contenedor-formulario-nuevo-instrumento form input[type="submit"]{
     
-}
-
-.bloquee {
-    width: 100%;
-    height: 2%;
-    display: block;
-    color: transparent;
-}
-
-form input[type="submit"]{
-    margin-bottom:-15rem;
     width: 10rem;
     height: 3rem;
     border-radius: 5px;
-    background-color: seagreen;
+    background-color: rgb(7, 107, 161);
     border: none;
     outline: none;
     cursor: pointer;
     box-shadow: var(--box-shadow);
     font-family: "Poppins",sans-serif;
-    
-    
+    font-weight: 600;
+    font-size: 1rem;
+    color: white;
 }
+
+.error-form{
+    margin: 0;
+background-color: aquamarine
+};

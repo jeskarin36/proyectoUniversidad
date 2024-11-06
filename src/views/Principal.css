@@ -44,11 +44,13 @@
 .container{
     display: grid;
     width: 100vw;
-    height: 100vh;
+    min-height: 100vh;
     margin: 0 auto;
     gap: 1.8rem;
     grid-template-columns: 15rem 72rem ;
     background-color:var(--color-background);
+   
+  
 }
 
 a{   font-family: "Poppins",sans-serif;

@@ -132,20 +132,26 @@ Opcio nessss
     font-family: "Poppins",sans-serif;
 }
 
-.opciones{
-    width: 60%;
+.opciones-buscar{
+    width: 40%;
     height: 100%;
-    display: flex;
-    justify-content: end;
-    align-items: center;
-    gap: 1rem;
-padding-right: 2rem;
 color: var(--color-dark-variant);
+display: flex;
+justify-content: flex-end;
+align-items: flex-end;
+}
+
+.opciones-buscar  input{
+    
+    padding: 5rem 5rem;
 }
 
 
-.opciones label{
+
+.opciones-buscar label{
 font-family: "Poppins",sans-serif;
+width: 8rem;
+
 }
 
 
@@ -185,6 +191,7 @@ justify-content: flex-start;
 align-items: center;
 padding: 0 1%;
 gap: 2%;
+
 }
 
 .contenedor-formularioo form{
@@ -196,8 +203,8 @@ align-items: center;
 gap: 1%;
 }
 
-.contenedor-formularioo form input{
-    width: 20%;
+.contenedor-formularioo form input[type=text]{
+    width: 20rem;
     padding: 1%  1%;
     outline: none;
     border: none;
@@ -212,7 +219,7 @@ gap: 1%;
        
     }
     .contenedor-formularioo select{
-        width: 15%;
+        width: 30rem;
         padding: .5rem 0;
         border: none;
         outline: none;

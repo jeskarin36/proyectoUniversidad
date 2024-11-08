@@ -24,13 +24,14 @@ const NuevoRepresentante = ({ Manejador}) => {
   const [municipio,setMunicipio]=useState("");
   const [sector,setSector]=useState("");
   const [calle,setCalle]=useState("");
-  const[nombrev, setNombrev]=useState("");
+  const[erro, seterro]=useState(false);
+  const[representante, setRepresentante]=useState([]);
 
   const { register,formState:{errors}, handleSubmit } = useForm({mode:"all"});
 
   const agregar=async(e)=>{
     
-    alert("hola")
+    alert(telefono)
     await axios.post(URL,{
       
       Nombre:nombre,
@@ -47,14 +48,43 @@ const NuevoRepresentante = ({ Manejador}) => {
     navigate("/Representante")
   }
 
-
-
-
-  
-  
-
-
    
+
+  const getRepresentante=async()=>{
+    const res = await axios.get(URL)
+    setRepresentante(res.data)
+  
+  }
+
+useEffect(()=>{
+   getRepresentante()
+}
+ ,[])
+
+
+ 
+    const verificarCedula=async(cedul)=>{
+     
+      setCedula(cedul);
+    
+      if(cedul.length===8 ){
+       
+        
+        representante.map(represen=>{
+         if(represen.Cedula===parseInt(cedul)) {
+           alert("Esa Cedula Ya Existe la cedula")
+         setCedula("")
+           seterro(true)
+          }
+          
+         })
+       
+      }
+ 
+
+    }
+
+
 
   return (<div className="contenedor_representantee">
     <div className="cabeza-usuario">
@@ -110,10 +140,10 @@ const NuevoRepresentante = ({ Manejador}) => {
         </div>
         <div className="form-group-representante">
           <label htmlFor="">CEDULA *</label>
-          <input type="number" value={cedula}{...register("cedula",{  required:true, maxLength:8 } )}  onChange={(e)=>setCedula(e.target.value)} placeholder='ESCRIBA SU CEDULA' />
+          <input type="number" value={cedula}{...register("cedula",{  required:true, maxLength:8 } )}  onChange={(e)=>verificarCedula(e.target.value)} placeholder='ESCRIBA SU CEDULA' />
           {errors.cedula?.type==='required' && <small>El campo es necesario</small> }
           {errors.cedula?.type==='maxLength' && <small>No corresponde a una cedula</small> }
-          
+           {erro===true? <p className="text-error">La Cedula Ya Existe</p>:null}
           </div>
         <div className="form-group-representante">
           <label htmlFor="">TELEFONO*</label>

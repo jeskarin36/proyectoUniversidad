@@ -8,7 +8,7 @@ const RepresentanteModelo= db.define('Representante', {
     Nombre:{ type: DataTypes.STRING},
     Apellido:{ type: DataTypes.STRING},
     Cedula:{ type: DataTypes.INTEGER},
-    Telefono: {type: DataTypes.INTEGER},
+    Telefono: {type: DataTypes.STRING},
     Estado:{ type: DataTypes.STRING},
     Municipio:{ type: DataTypes.STRING},
     Sector:{ type: DataTypes.STRING},

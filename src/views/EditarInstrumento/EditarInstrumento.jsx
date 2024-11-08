@@ -174,7 +174,7 @@ function NuevoRegistroInstru({Manejador}) {
     
     <div className="form-group-instrumento">
       <label htmlFor="">Codigo*</label>
-      <input type="text" value={codigo}  onChange={(e) => setCodigo(e.target.value)} id="" placeholder='ESCRIBA EL CODIGO'/>
+      <input type="text" value={codigo}  onChange={(e) => setCodigo(e.target.value)} id="" placeholder='ESCRIBA EL CODIGO' readOnly/>
      
     </div>
     <div><bt /></div>

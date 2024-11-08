@@ -15,10 +15,10 @@ function NuevoRegistroAlum({ Manejador }) {
 
   const [nombre, setnombre] = useState("")
   const [apellido, setapellido] = useState("")
-  const [cedula, setcedula] = useState("")
+  const [cedula, setcedula] = useState(null)
   const [edad, setedad] = useState("")
   const [sexoo, setsexoo] = useState("")
-  const [id_instrumento, setid_instrumento] = useState("")
+  const [id_instrumento, setid_instrumento] = useState(null)
   const [id_representante, setid_representante] = useState("")
   const [modulo, setmodulo] = useState("")
   const [colegio, setcolegio] = useState("")
@@ -50,11 +50,13 @@ function NuevoRegistroAlum({ Manejador }) {
   const [getmodulo, setModel] = useState([])
 
   const [id_modulo, setid_modulo] = useState("")
-  const [id_programa, setid_programa] = useState("")
+  const [id_programa, setid_programa] = useState(null)
   const [codigo2,setcodigo2]=useState("")
   const [essss,setessss]=useState("Asignado")
   const navigate = useNavigate();
-  
+  const[err, seterr]=useState(false);
+  const[erredad, seterredad]=useState(false);
+  const[alumnos, setAlumnos]=useState([]);
  
   const subirAlumno = async (e) => {
     alert("gfdgdfgdfg")
@@ -66,10 +68,12 @@ alert(id_representante)
 alert(id_modulo)
 alert(id_programa)
 
+
+
 await axios.post(URL, {
   Nombre: nombre,
   Apellido: apellido,
-  Cedula: cedula,
+  Cedula:cedula===null? "No Posee":cedula,
   Edad: edad,
   Sexo: sexoo,
   Modulo: modulo,
@@ -107,9 +111,95 @@ await axios.put(`${url2}${id_instrumento}`, {
 
   }
 
+
+  const getAlumnos=async()=>{
+    const res = await axios.get(URL)
+    setAlumnos(res.data)
+    
+  }
+
   useEffect(() => {
     Cargarcodigos();
+    getAlumnos()
 }, [])
+
+const verificarCedula=async(cedul)=>{
+     
+  setcedula(cedul);
+
+  if(cedul.length===8 ){
+   
+    
+    alumnos.map(alumn=>{
+      
+     if(alumn.Cedula===String(cedul)) {
+      
+       alert("Esa Cedula Ya Existe")
+     setcedula("")
+       seterr(true)
+      }
+      
+     })
+   
+  }
+
+
+}
+
+
+ const revisondeEdad=(eda)=>{
+  setedad(eda)
+    if(eda>8 && cedula===null){
+      alert("Por Favor Digite La cedula Del Alumno")
+      seterredad(true)
+      setedad("")
+    }else{
+      seterredad(false)
+    }
+ }
+
+
+ const revisondePrograma=(prog)=>{
+  setid_programa(prog)
+
+     if(prog==="9" && id_instrumento!==null){
+      alert("El Programa Coro No lleva Instrumento")
+      setid_instrumento(null)
+      setcodigo2("")
+        setinstrumento("")
+        setmarca("")
+        settamaño("")
+        setprograma("")
+      
+        setestadoinstr("")
+        setmoduloinstru("")
+     }
+
+     if(prog==="10" && id_instrumento!==null){
+      alert("El Programa Kinder Musical No lleva Instrumento")
+      setid_instrumento(null)
+      setcodigo2("")
+        setinstrumento("")
+        setmarca("")
+        settamaño("")
+        setprograma("")
+      
+        setestadoinstr("")
+        setmoduloinstru("")
+     }
+
+   
+ }
+
+
+ const revisondeGrado=(grad)=>{
+  
+     if(grad!=="Univeridad" && edad!==18){
+      alert("El Programa Coro No lleva Instrumento")
+     }
+   
+ }
+
 
   const Cargarcodigos= async()=>{
       const co= await axios.get(url2);
@@ -128,17 +218,96 @@ await axios.put(`${url2}${id_instrumento}`, {
 
 const BuscarInstrumento= async(id)=>{
   const instru= await axios.get(`${url2}${id}`);
-  console.log(instru.data)
-  setid_instrumento(instru.data.id)
-  setcodigo2(instru.data.Codigo)
-    setinstrumento(instru.data.Nombre)
-    setmarca(instru.data.Marca)
-    settamaño(instru.data.Tamaño)
-    setprograma(instru.data.Programa)
   
-    setestadoinstr(instru.data.Estado)
-    setmoduloinstru(instru.data.Deposito.Nombre)
+  if(id_programa==="9" && instru.data.Nombre!==null){
+    alert("El Programa Coro no necesita Instrumento")
+  }
+
+  else if(id_programa==="10" && instru.data.Nombre!==null){
+    alert("El Programa Kinder Musical no necesita Instrumento")
+   
+  }
+  else{
  
+    setid_instrumento(instru.data.id)
+    setcodigo2(instru.data.Codigo)
+      setinstrumento(instru.data.Nombre)
+      setmarca(instru.data.Marca)
+      settamaño(instru.data.Tamaño)
+      setprograma(instru.data.Programa)
+    
+      setestadoinstr(instru.data.Estado)
+      setmoduloinstru(instru.data.Deposito.Nombre)
+  }
+
+
+  if(id_programa===null ){
+    alert("Seleccione el Programa Primero")
+    setid_instrumento(null)
+        setcodigo2("")
+          setinstrumento("")
+          setmarca("")
+          settamaño("")
+          setprograma("")
+        
+          setestadoinstr("")
+          setmoduloinstru("")
+  }
+ 
+
+
+  if(id_programa==="8" && instru.data.Nombre==="Trompeta" ||
+    id_programa==="8" && instru.data.Nombre==="Flauta"||
+    id_programa==="8" && instru.data.Nombre==="Cello"||
+    id_programa==="8" && instru.data.Nombre==="Violin"||
+    id_programa==="8" && instru.data.Nombre==="Viola"||
+    id_programa==="8" && instru.data.Nombre==="Oboe"||
+    id_programa==="8" && instru.data.Nombre==="Clarinete"||
+    id_programa==="8" && instru.data.Nombre==="Trombon"||
+    id_programa==="8" && instru.data.Nombre==="Fagot"||
+    id_programa==="8" && instru.data.Nombre==="Contrabajo"
+  ){
+     
+  }else{
+     if(id_programa==="8"){
+      alert("No Puedes Ingresar "+ instru.data.Nombre+"Con el programa "+"Sinfonico")
+      setid_instrumento(null)
+        setcodigo2("")
+          setinstrumento("")
+          setmarca("")
+          settamaño("")
+          setprograma("")
+        
+          setestadoinstr("")
+          setmoduloinstru("")
+     }
+  }
+   
+
+
+  if(id_programa==="7" && instru.data.Nombre==="Mandolina" ||
+    id_programa==="7" && instru.data.Nombre==="Mandola"||
+    id_programa==="7" && instru.data.Nombre==="Cuatro"||
+    id_programa==="7" && instru.data.Nombre==="Guitarra"||
+    id_programa==="7" && instru.data.Nombre==="Bandola"||
+    id_programa==="7" && instru.data.Nombre==="Contrabajo"
+
+  ){
+     
+  }else{
+    if(id_programa==="7"){
+      alert("No Puedes Ingresar "+ instru.data.Nombre+"Con el programa "+"Alma Llanera")
+    setid_instrumento(null)
+      setcodigo2("")
+        setinstrumento("")
+        setmarca("")
+        settamaño("")
+        setprograma("")
+      
+        setestadoinstr("")
+        setmoduloinstru("")
+    }
+  }
 }
 
 const BuscarRepresentante= async(id)=>{
@@ -207,7 +376,9 @@ const BuscarRepresentante= async(id)=>{
           </div>
           <div className="form-group-alumno">
             <label htmlFor="">CEDULA*</label>
-            <input type="text" name="" value={cedula} onChange={(e) => setcedula(e.target.value)} id="" placeholder='ESCRIBA LA CEDULA' />
+            <input type="text" name="" value={cedula} onChange={(e) => verificarCedula(e.target.value)} id="" placeholder='ESCRIBA LA CEDULA' />
+            {err===true? <p className="text-error">La Cedula Ya Existe</p>:null}
+            {erredad===true? <p className="text-error">Digite La Cedula Del Alumno</p>:null}
           </div>
           <div className="form-group-alumno">
             <label htmlFor="">SEXO*</label>
@@ -218,12 +389,12 @@ const BuscarRepresentante= async(id)=>{
           </div>
           <div className="form-group-alumno">
             <label htmlFor="">EDAD*</label>
-            <input type="number" value={edad} onChange={(e) => setedad(e.target.value)} name="" id="" placeholder='ESCRIBA LA EDAD' />
+            <input type="number" value={edad} onChange={(e) => revisondeEdad(e.target.value)} name="" id="" placeholder='ESCRIBA LA EDAD' />
           </div>
 
           <div className="form-group-alumno">
             <label htmlFor="">PROGRAMA*</label>
-            <select name="" id="" onChange={e=>setid_programa(e.target.value)}>
+            <select name="" id="" onChange={e=>revisondePrograma(e.target.value)}>
             <option value="">Seleccione una Opcion</option>
             {  getprogr.map(prog=>(
               <option value={prog.id}>{prog.Nombre}</option>

@@ -21,14 +21,48 @@ function NuevoRegistroInstru({ Manejador }) {
   const [estado, setEstado] = useState("");
   const [valor, setValor] = useState(0);
 
+
+  const[erro, seterro]=useState(false);
+  const[instrumento, setinstrumento]=useState([]);
+
   const { register, formState: { errors }, handleSubmit } = useForm({ mode: "all" });
 
 
+
+  const getInstrumentos=async()=>{
+    const res = await axios.get(URL2)
+    setinstrumento(res.data)
+  
+  }
+
   useEffect(() => {
     getDeposito();
-  
+  getInstrumentos()
     
   }, [])
+
+
+  const verificarCodigo=async(codi)=>{
+     
+    setCodigo(codi);
+
+  
+    if(codi.length===5 ){
+
+      
+      instrumento.map(instrument=>{
+       if(instrument.Codigo===codi) {
+         alert("Ese Codigo Ya Existe")
+       setCodigo("")
+         seterro(true)
+        }
+        
+       })
+     
+    }
+
+
+  }
 
 
   const getDeposito = async () => {
@@ -116,9 +150,9 @@ function NuevoRegistroInstru({ Manejador }) {
             <label htmlFor="">INSTRUMENTO*</label>
             <select {...register("instrumento", { required: true, })} onChange={(e) => setNombre(e.target.value)}>
               <option value="">SELECCIONA UNA OPCION</option>
-              <option value="flauta">Flauta</option>
-              <option value="violin">Violin</option>
-              <option value="cuatro">Cuatro</option>
+              <option value="Flauta">Flauta</option>
+              <option value="Violin">Violin</option>
+              <option value="Cuatro">Cuatro</option>
               <option value="Mandolina">Mandolina</option>
               <option value="Mandola">Mandola</option>
               <option value="Guitarra">Guitarra</option>
@@ -174,10 +208,10 @@ function NuevoRegistroInstru({ Manejador }) {
 
           <div className="form-group-instrumento">
             <label htmlFor="">Codigo*</label>
-            <input type="text" {...register("codigo", { required: true, maxLength: 6 })} valeue={codigo} onChange={(e) => setCodigo(e.target.value)} id="" placeholder='ESCRIBA EL CODIGO' />
+            <input type="text" {...register("codigo", { required: true, maxLength: 6 })} value={codigo} onChange={(e) =>verificarCodigo(e.target.value)} id="" placeholder='ESCRIBA EL CODIGO' />
             {errors.codigo?.type === 'required' && <p>introduzca el codigo</p>}
-
-            {errors.codigo?.type === 'maxLength' && <p>no es un codigo valido</p>}
+           {errors.codigo?.type === 'maxLength' && <p>no es un codigo valido</p>}
+           {erro===true? <p className="text-error">El Codigo Ya Existe</p>:null}
           </div>
 
 
@@ -211,11 +245,9 @@ function NuevoRegistroInstru({ Manejador }) {
 
 
 
-
-          <div className='bloquee'>
-
-          </div>
-         
+          <div className="container-form-info">
+                   
+                    </div>
           <input  type="submit" value="Registrar" />
           
         </form>

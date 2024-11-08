@@ -259,8 +259,17 @@
     width: 30rem;
     padding: 1rem;
     margin: 1%;
+    position: relative;
    
-   
+}
+
+.form-group-representante .text-error{
+    position: absolute;
+    
+   color: red;
+    
+    margin-top: 5rem;
+    
 }
 
 .contenedor-formulario-nuevo-representante label{
@@ -325,3 +334,5 @@
     margin: 0;
 background-color: aquamarine
 };
+
+

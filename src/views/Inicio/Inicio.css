@@ -1,7 +1,7 @@
 .container-inicio{
     grid-column:2;
     display: grid;
-    width: 90%;
+    width: 100%;
    
 
     grid-template-columns: 85% 15%;
@@ -9,17 +9,22 @@
 }
 
 
+
+
 /*==========Main===================*/
 
 main{
-    grid-column: 1;
+  
+ 
+    grid-row: 1;
     margin-top: 1.4rem;
     color: var(--color-dark-variant);
+    align-items: end;
   }
 
 
   main .date{
-    display: inline-block;
+    display: flow-root;
     background: var(--color-light);
     border-radius: var(--border-radius-1);
     margin-top: 1rem;
@@ -34,8 +39,9 @@ main{
 
   main .insights{
     display: grid;
-    grid-template-columns: repeat(3, 30%);
-    gap: 1.6rem;
+    grid-template-rows: repeat(3, 30%);
+    
+    gap: 0rem;
     
 }
 
@@ -46,8 +52,14 @@ main{
     margin-top: 1rem;
     box-shadow: var(--box-shadow);
     
-  }
-
+    }
+    .fotis{
+      display: flex;
+      max-width: 100rem; 
+       height: auto;
+    
+        }
+ 
   main .insights > div:hover{
     box-shadow: none;
   }

@@ -194,6 +194,15 @@
    
 }
 
+.form-group-instrumento .text-error{
+    position: absolute;
+    
+   color: red;
+    
+    margin-top: 5rem;
+    
+}
+
 .contenedor-formulario-nuevo-instrumento label{
     font-weight: 400;
     font-size: 1.1rem;

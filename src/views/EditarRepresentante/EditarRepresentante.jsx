@@ -125,7 +125,7 @@ const EditarRepresentante = ({ Manejador }) => {
         </div>
         <div className="form-group-Editar-representante">
           <label htmlFor="">CEDULA *</label>
-          <input type="number" value={cedula} onChange={(e) => setCedula(e.target.value)} placeholder='ESCRIBA SU CEDULA' />
+          <input type="number" value={cedula} onChange={(e) => setCedula(e.target.value)} placeholder='ESCRIBA SU CEDULA' readOnly/>
 
         </div>
         <div className="form-group-Editar-representante">

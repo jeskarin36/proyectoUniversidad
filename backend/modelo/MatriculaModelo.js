@@ -10,7 +10,7 @@ const MatriculaModelo= db.define('Matricula', {
         primaryKey: true},
     Nombre:{ type: DataTypes.STRING},
     Apellido:{ type: DataTypes.STRING},
-    Cedula:{ type: DataTypes.INTEGER},
+    Cedula:{ type: DataTypes.STRING},
     Edad: {type: DataTypes.INTEGER},
     Sexo: {type: DataTypes.STRING},
     Colegio: {type: DataTypes.STRING},

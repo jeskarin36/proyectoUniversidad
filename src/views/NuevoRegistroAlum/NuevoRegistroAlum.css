@@ -238,6 +238,16 @@
    
 }
 
+.form-group-alumno .text-error{
+    position: absolute;
+    
+   color: red;
+    padding-bottom: 1rem;
+    margin-top: 6rem;
+    margin-left: 3rem;
+    
+}
+
 .contenedor-formulario-nuevo-alumno label{
     font-weight: 400;
     font-size: 1.1rem;

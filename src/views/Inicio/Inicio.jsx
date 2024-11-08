@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import "./Inicio.css"
 import axios from "axios"
+import foto from'../../assets/fo.jpg'
+
 
 function Inicio({ Manejador }) {
 
@@ -30,7 +32,9 @@ function Inicio({ Manejador }) {
                 
 
                 <div className="insights">
+                    
                     <div className="sales">
+                        
                         <span className="material-icons-sharp">analytics</span>
                         <div className="middle">
                             <div className="left">
@@ -87,8 +91,14 @@ function Inicio({ Manejador }) {
                         </div>
                         <small className="text-muted">Last 24 Hours </small>
                     </div>
+                   
                 </div>
+                
 
+
+                <div className='fotis'>
+                        <img src={foto} alt="" />
+                    </div>
             </main>
             <div className="right">
                 <div className="top">

@@ -4,6 +4,7 @@ import RepresentanteModelo from "../modelo/RepresentanteModelo.js"
 import ProgramaModelo from "../modelo/ProgramaModelo.js"
 import ModuloModelo from "../modelo/ModuloModelo.js"
 
+
 export const getallMatricula = async (req, res) => {
     try{
       const alumnos = await MatriculaModelo.findAll(
@@ -12,7 +13,8 @@ export const getallMatricula = async (req, res) => {
           include:[{model:RepresentanteModelo},
             {model:InstrumentoModelo } ,
             {model:ModuloModelo },
-            {model:ProgramaModelo } 
+            {model:ProgramaModelo },
+           
           ]
         }
       )

@@ -166,19 +166,20 @@ font-family: "Poppins",sans-serif;
 
 
 
-.contenedor-tabla{
+.contenedor-tabla-representante{
 width: 100%;
-max-height: 80%;
+max-height: 70%;
 margin-top: 1%;
-overflow: scroll;
+overflow-y: scroll;
+
 display:flex ;
 flex-direction: column;
 }
 
-.contenedor-formulario{
+.contenedor-formulario-representante{
 width: 98%;
-height: 8%;
-background-color: rgb(255, 255, 255);
+height: 2.5rem;
+background:var(--color-white);
 border-radius: 5PX;
 display: flex;
 justify-content: flex-start;
@@ -186,17 +187,18 @@ align-items: center;
 padding: 0 1%;
 }
 
-.contenedor-formulario form{
+.contenedor-formulario-representante form{
 display: flex;
 justify-content: flex-start;
 align-items: center;
 }
 
-.contenedor-formulario form input{
-    width: 80%;
-    padding: 1%  5%;
+.contenedor-formulario-representante form input[type="text"] {
+    width: 18rem;
+    background:var(--color-white);
     outline: none;
     border: none;
+   
     }
 
 

@@ -202,15 +202,18 @@
 .contenedor-formulario-nuevo-alumno{
     width: 100%;
     height: 80%;
-  
+    padding: 0;
+   
 }
 
 .contenedor-formulario-nuevo-alumno form{
+    width: 100%;
+    
     display: flex;
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
-
+  
 }
 
 .contenedor-formulario-nuevo-alumno .container-form-info{
@@ -224,17 +227,76 @@
 
 .contenedor-formulario-nuevo-alumno .container-form-info h3{
     color:  rgb(7, 107, 161);
+    
 }
-.form-group-alumno{
+
+
+
+.envoltorio2{
+    width:90%;
+    height: 20%;
+    display: flex;
+    flex-wrap: wrap;
+    position: relative;
+}
+
+.envoltorio-datos2{
+    width:85%;
+    height: 20%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin-left: 1rem;
+}
+
+.form-group-matricula-img{
+    width: 10rem;
+    height: 10rem;
+
+}
+
+.form-group-matricula-img > img{
+    width: 100%;
+    height: 100%;
+}
+
+.form-group-matricula-img > input[type="file"]{
+   display: none;
+}
+
+.form-group-matricula-img > .foto{
+   position: absolute;
+   bottom: 0;
+   left: 0;
+   font-size: 1rem;
+   text-wrap: nowrap;
+
+   margin-bottom: -2rem;
+ }
+
+.form-group-alumno2{
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
- 
+    height: 3rem;
+    width: 20rem;
+    padding: 1rem;
+    margin:1rem .5rem;
+   
+}
+
+
+.form-group-alumno22{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
     height: 3rem;
     width: 30rem;
     padding: 1rem;
-    margin: 1%;
+    margin:1rem .5rem;
    
 }
 

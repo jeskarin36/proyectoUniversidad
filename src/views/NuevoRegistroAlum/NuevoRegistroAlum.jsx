@@ -3,30 +3,36 @@ import "./NuevoRegistroAlum.css"
 import axios from 'axios'
 import { useState,useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-
+import silueta from "../../assets/63699.png"
+import { useForm } from "react-hook-form"
 
 const URL = "http://localhost:8000/Matricula/"
 const url2="http://localhost:8000/Instrumento/";
 const url3="http://localhost:8000/Representante/";
 const url4="http://localhost:8000/Programa/";
 const url5="http://localhost:8000/Modulo/";
+const URL6 = "http://localhost:8000/Audiografia/"
+ const URL7 = "http://localhost:8000/upload/"
 
 function NuevoRegistroAlum({ Manejador }) {
+  const { register, formState: { errors }, handleSubmit } = useForm({ mode: "all" });
 
+  const UsuarioCabeza1=sessionStorage.getItem('Nombre');
+  const UsuarioCabeza2=sessionStorage.getItem('Cargo');
   const [nombre, setnombre] = useState("")
   const [apellido, setapellido] = useState("")
-  const [cedula, setcedula] = useState(null)
+  const [cedula, setcedula] = useState("")
   const [edad, setedad] = useState("")
   const [sexoo, setsexoo] = useState("")
   const [id_instrumento, setid_instrumento] = useState(null)
   const [id_representante, setid_representante] = useState("")
   const [modulo, setmodulo] = useState("")
-  const [colegio, setcolegio] = useState("")
-  const [turno, setturno] = useState("")
-  const [grado, setgrado] = useState("")
-  const [enfermedad, setenfermedad] = useState("")
+  const [colegio, setcolegio] = useState(null)
+  const [turno, setturno] = useState(null)
+  const [grado, setgrado] = useState(null)
+  const [enfermedad, setenfermedad] = useState(null)
   const [codigo, setcodigo] = useState([])
- 
+  const [codigoImg, setcodigoImg] = useState(parseInt(Date.now()*Math.random()-Math.random()-Math.random() ))
   
   //insturmento
   const [instrumento, setinstrumento] = useState("")
@@ -57,57 +63,77 @@ function NuevoRegistroAlum({ Manejador }) {
   const[err, seterr]=useState(false);
   const[erredad, seterredad]=useState(false);
   const[alumnos, setAlumnos]=useState([]);
+  const[imgRepre, setImgRepre]=useState(silueta);
+  const[imgbase, setImgbase]=useState(silueta);
+  const[img,setImg]=useState(silueta)
  
-  const subirAlumno = async (e) => {
-    alert("gfdgdfgdfg")
- e.preventDefault();
-
-
-alert(id_instrumento)
-alert(id_representante)
-alert(id_modulo)
-alert(id_programa)
-
-
-
-await axios.post(URL, {
-  Nombre: nombre,
-  Apellido: apellido,
-  Cedula:cedula===null? "No Posee":cedula,
-  Edad: edad,
-  Sexo: sexoo,
-  Modulo: modulo,
-  Colegio: colegio,
-  Turno: turno,
-  Grado: grado,
-  Enfermedad: enfermedad,
-  id_representante: id_representante,
-  id_instrumento: id_instrumento,
-  id_modulo:id_modulo,
-  id_programa:id_programa,
-  createdAt: "2024-10-23",
-  updatedAt: "2024-10-23"
-})
-
-
-
-await axios.put(`${url2}${id_instrumento}`, {
-     
-  Nombre: instrumento,
-  Marca: marca,
-  Tamaño: tamaño,
-  Codigo: codigo2,
-  Estado:essss,
-  Id_Deposito:null,
-  createdAt: "2024-10-23",
-  updatedAt: "2024-10-23",
-  Deposito: null
-})    
 
    
 
+  const[mostrari,setmostrari]=useState(false)
+  const subirAlumno = async (e) => {
+   e.preventDefault()
+     alert(imgbase)
 
-    navigate("/Matricula")
+     if(imgbase==="/src/assets/63699.png"){
+        alert("Por Favor Eliga Una Imagen para subir")
+     }else{
+      await axios.post(URL6,{
+        id:codigoImg,
+        Nombre:nombre,
+        File:imgbase.name,
+        createdAt:"2024-10-23",
+        updatedAt:"2024-10-23"
+      })
+       
+      
+      
+      
+      
+      await axios.post(URL, {
+        Nombre: nombre,
+        Apellido: apellido,
+        Cedula:cedula==="" ? "No Posee":cedula,
+        Edad: edad,
+        Sexo: sexoo,
+        Modulo: modulo,
+        Colegio: colegio,
+        Turno: turno,
+        Grado: grado,
+        Enfermedad: enfermedad,
+        id_audiografia:codigoImg,
+        id_representante: id_representante,
+        id_instrumento: id_instrumento,
+        id_modulo:id_modulo,
+        id_programa:id_programa,
+        createdAt: "2024-10-23",
+        updatedAt: "2024-10-23"
+      }) 
+      
+      const formData = new FormData();
+      formData.append('file', imgbase);
+      await axios.post(URL7,formData)
+      
+      
+      
+      await axios.put(`${url2}${id_instrumento}`, {
+           
+        Nombre: instrumento,
+        Marca: marca,
+        Tamaño: tamaño,
+        Codigo: codigo2,
+        Estado:essss,
+        Id_Deposito:null,
+        createdAt: "2024-10-23",
+        updatedAt: "2024-10-23",
+        Deposito: null
+      })    
+      
+      
+      
+      
+          navigate("/Matricula")
+     }
 
   }
 
@@ -121,13 +147,15 @@ await axios.put(`${url2}${id_instrumento}`, {
   useEffect(() => {
     Cargarcodigos();
     getAlumnos()
+    
 }, [])
+
+
 
 const verificarCedula=async(cedul)=>{
      
   setcedula(cedul);
-
-  if(cedul.length===8 ){
+  if(cedul.length===8 || cedul.length===7){
    
     
     alumnos.map(alumn=>{
@@ -312,6 +340,7 @@ const BuscarInstrumento= async(id)=>{
 
 const BuscarRepresentante= async(id)=>{
   const represen= await axios.get(`${url3}${id}`);
+  const res2 = await axios.get(`${URL6}${represen.data.Id_Audiografia}`);
   console.log(represen.data)
   setid_representante(represen.data.id)
   
@@ -322,9 +351,22 @@ const BuscarRepresentante= async(id)=>{
    setmunicipioubica(represen.data.Municipio);
    setsectorrepresen(represen.data.Sector);
    setcallerepresenta(represen.data.Calle);
- 
+   setImgRepre(`http://localhost:8000/${res2.data.File}`)
 }
 
+
+const cambiarImg=(e)=>{
+  e.preventDefault()
+  alert("cambio")
+  setImgbase(e.target.files[0])
+ 
+  setImg(window.URL.createObjectURL(e.target.files[0]))
+
+}
+const confirmacion=()=>{
+  
+  
+  };
 
   return (
     <div className="container-nuevo-alumno2">
@@ -339,10 +381,11 @@ const BuscarRepresentante= async(id)=>{
           </div>
           <div className="profilee">
             <div className="info">
-              <p>
-                Hey, <b>Daniel</b>
+            <p>
+                
+                Hey, <b>{UsuarioCabeza1}</b>
               </p>
-              <small className="text-muted">Admin</small>
+              <small className="text-muted">{UsuarioCabeza2}</small>
             </div>
             <div className="profile-photo">
               <img src="" alt="" />
@@ -363,62 +406,92 @@ const BuscarRepresentante= async(id)=>{
       <div className='contenedor-formulario-nuevo-alumno'>
 
         <form action="" onSubmit={subirAlumno}>
-        <div className="container-form-info">
-                    <h3>Datos Del Alumno</h3>
-                    </div>
-          <div className="form-group-alumno">
-            <label htmlFor="">NOMBRES* </label>
-            <input type="text" name="" value={nombre} onChange={(e) => setnombre(e.target.value)} id="" placeholder='ESCRIBA LOS NOMBRES' />
+          <div className="container-form-info">
+            <h3>Datos Del Alumno</h3>
           </div>
-          <div className="form-group-alumno">
-            <label htmlFor="">APELLIDOS*</label>
-            <input type="text" name="" value={apellido} onChange={(e) => setapellido(e.target.value)} id="" placeholder='ESCRIBA LOS APELLIDOS' />
-          </div>
-          <div className="form-group-alumno">
-            <label htmlFor="">CEDULA*</label>
-            <input type="text" name="" value={cedula} onChange={(e) => verificarCedula(e.target.value)} id="" placeholder='ESCRIBA LA CEDULA' />
-            {err===true? <p className="text-error">La Cedula Ya Existe</p>:null}
-            {erredad===true? <p className="text-error">Digite La Cedula Del Alumno</p>:null}
-          </div>
-          <div className="form-group-alumno">
-            <label htmlFor="">SEXO*</label>
-            <div>
-              <label htmlFor="">Femenino  <input type="checkbox" name="sexo" value="femenino" id="" onChange={(e) => setsexoo("femenino")} /></label>
-              <label htmlFor="">Masculino  <input type="checkbox" name="sexo" value="masculino" id="" onChange={(e) => setsexoo("masculino")} /></label>
+          <div className="envoltorio2">
+            <div className="form-group-matricula-img">
+              <img src={img} alt="" />
+              <label htmlFor="foto" className="foto">Subir Imagen aqui+</label>
+              <input type="file" name="foto" id="foto" onChange={e => cambiarImg(e)} />
+             
             </div>
-          </div>
-          <div className="form-group-alumno">
-            <label htmlFor="">EDAD*</label>
-            <input type="number" value={edad} onChange={(e) => revisondeEdad(e.target.value)} name="" id="" placeholder='ESCRIBA LA EDAD' />
-          </div>
+            <div className="envoltorio-datos2">
+              <div className="form-group-alumno2">
+                <label htmlFor="">NOMBRES* </label>
+                <input type="text"{...register("nombre", { required: true})} name="" value={nombre} onChange={(e) => setnombre(e.target.value)} id="" placeholder='ESCRIBA LOS NOMBRES' />
+                {errors.nombre?.type === 'required' && <p>introduzca el nombre</p>}
+          
+              </div>
 
-          <div className="form-group-alumno">
+              <div className="form-group-alumno2">
+                <label htmlFor="">APELLIDOS*</label>
+                <input type="text" {...register("apellido", { required: true})} name="" value={apellido} onChange={(e) => setapellido(e.target.value)} id="" placeholder='ESCRIBA LOS APELLIDOS' />
+                {errors.apellido?.type === 'required' && <p>introduzca el apellido</p>}
+              
+              </div>
+              <div className="form-group-alumno2">
+                <label htmlFor="">CEDULA*</label>
+                <input type="text"   name="" value={cedula} onChange={(e) => verificarCedula(e.target.value)} id="" placeholder='ESCRIBA LA CEDULA' />
+                {err === true ? <p className="text-error">La Cedula Ya Existe</p> : null}
+                {erredad === true ? <p className="text-error">Digite La Cedula Del Alumno</p> : null}
+                
+              </div>
+              <div className="form-group-alumno2">
+                <label htmlFor="">SEXO*</label>
+               
+                  <label htmlFor="">Femenino</label>   <input type="checkbox" name="sexo" value="femenino" id="" onChange={(e) => setsexoo("femenino")} />
+                  <label htmlFor="">Masculino </label> <input type="checkbox" name="sexo" value="masculino" id="" onChange={(e) => setsexoo("masculino")} />
+               
+              </div>
+              <div className="form-group-alumno2">
+                <label htmlFor="">EDAD*</label>
+                <input type="number"  {...register("edad", { required: true})}  value={edad} onChange={(e) => revisondeEdad(e.target.value)} name="" id="" placeholder='ESCRIBA LA EDAD' />
+                {errors.edad?.type === 'required' && <p>introduzca el edad</p>}
+              
+              </div>
+
+              <div className="form-group-alumno2">
             <label htmlFor="">PROGRAMA*</label>
-            <select name="" id="" onChange={e=>revisondePrograma(e.target.value)}>
+            <select name="" {...register("programa", { required: true, })}id="" onChange={e=>revisondePrograma(e.target.value)}>
             <option value="">Seleccione una Opcion</option>
             {  getprogr.map(prog=>(
               <option value={prog.id}>{prog.Nombre}</option>
             ))}
-              
+             
             </select>
-          </div>
+            {errors.programa?.type === 'required' && <p>seleccione un programa</p>}
 
-          <div className="form-group-alumno">
+          </div>
+            </div>
+            
+          </div>
+          <div className="form-group-alumno2">
             <label htmlFor="">MODULO*</label>
-            <select name="" id=""  onChange={e=>setid_modulo(e.target.value)} >
+            <select name="" {...register("modulo", { required: true, })} id=""  onChange={e=>setid_modulo(e.target.value)} >
               <option value="">Selecciones una Opcion</option>
               {  getmodulo.map(mo=>(
               <option value={mo.id}>{mo.Nombre}</option>
             ))}
             </select>
-          </div>
+            {errors.modulo?.type === 'required' && <p>seleccione un modulo</p>}
 
+          </div>
+        
+         {
+         
+       id_programa!==null && id_programa!=="9" && id_programa!=="10" ? <div className="envoltorio2">
           <div className="container-form-info">
-                    <h3>Datos Del Instrumento</h3>
-                    </div>
-          <div className="form-group-alumno">
+            <h3>Datos Del Instrumento</h3>
+          </div>
+          <div className="form-group-matricula-img">
+             
+            </div>
+          
+         <div className="envoltorio-datos">
+         <div className="form-group-alumno2">
             <label htmlFor="">Codigo*</label>
-            <select name="" id=""  onChange={(e)=>BuscarInstrumento(e.target.value)}>
+            <select name="" id=""  {...register("codigo", { required: true, })} onChange={(e)=>BuscarInstrumento(e.target.value)}>
               <option key="15"  value="">SELECCIONA UNA OPCION</option>
                {codigo.map((codi)=>(
                
@@ -427,55 +500,71 @@ const BuscarRepresentante= async(id)=>{
                ))}
               
             </select>
+            {errors.codigo?.type === 'required' && <p>seleccione un codigo</p>}
+
           </div>
-          <div className="form-group-alumno">
+          <div className="form-group-alumno2">
             <label htmlFor="">INSTRUMENTO*</label>
             <select name="" id="" >
               <option value="Alma Llanera">{instrumento}</option>
             </select>
+           
           </div>
-          <div className="form-group-alumno">
+          <div className="form-group-alumno2">
             <label htmlFor="">MARCA*</label>
             <select name="" id="" >
               <option value="Alma Llanera">{marca}</option>
             </select>
+          
           </div>
-          <div className="form-group-alumno">
+          <div className="form-group-alumno2">
             <label htmlFor="">TAMAÑO*</label>
-            <select name="" id="" >
+            <select name="" id="">
               <option value="">{tamaño}</option>
               
             </select>
+          
           </div>
           
          
           
-          <div className="form-group-alumno">
+          <div className="form-group-alumno2">
             <label htmlFor="">ESTADO*</label>
             <select name="" id="" >
               <option value="">{estadoinstr}</option>
              
             </select>
+          
           </div>
-          <div className="form-group-alumno">
+          <div className="form-group-alumno2">
             <label htmlFor="">Deposito*</label>
-            <select name="" id="">
+            <select name=""id="">
               <option value="">{moduloinstru}</option>
             
             </select>
+          
           </div>
+         </div>
+          </div> :null
+         }
           <div className='bloque'>
             <hr />
           </div>
 
           <div className="container-form-info">
-                    <h3>Datos Del Representante</h3>
-                    </div>
+            <h3>Datos Del Representante</h3>
+          </div>
 
 
-          <div className="form-group-alumno">
+      <div className="envoltorio2">
+      <div className="form-group-matricula-img">
+              <img src={imgRepre} alt="" />
+            
+            </div>
+    <div className="envoltorio-datos">
+    <div className="form-group-alumno2">
             <label htmlFor="">CEDULA*</label>
-            <select name="" id="" onChange={(e)=>BuscarRepresentante(e.target.value)}>
+            <select name="" {...register("cedula", { required: true, })} id="" onChange={(e)=>BuscarRepresentante(e.target.value)}>
             <option value="">"SELECCIONA UNA OPCION"</option>
               {cedularepresen.map((cedu)=>(
                
@@ -483,61 +572,77 @@ const BuscarRepresentante= async(id)=>{
            
                ))}
             </select>
+            {errors.cedula?.type === 'required' && <p>seleccione un cedula</p>}
+
           </div>
-          <div className="form-group-alumno">
+          <div className="form-group-alumno2">
             <label htmlFor="">NOMBRE*</label>
-            <select name="" id="" >
+            <select name=""  id="" >
               <option value="">{nombrerepre}</option>
              
             </select>
+         
           </div>
-          <div className="form-group-alumno">
+          <div className="form-group-alumno2">
             <label htmlFor="">APELLIDO*</label>
             <select name="" id="" >
               <option value="">{apellidorepre}</option>
              
             </select>
+          
           </div>
-          <div className="form-group-alumno">
+          <div className="form-group-alumno2">
             <label htmlFor="">TELEFONO*</label>
             <select name="" id="" >
               <option value="">{telefonorepresenta}</option>
              
             </select>
+           
           </div>
 
-          <div className="form-group-alumno">
+          <div className="form-group-alumno2">
             <label htmlFor="">ESTADO*</label>
             <select name="" id="">
               <option value="">{estadoubica}</option>
             </select>
+        
           </div>
-          <div className="form-group-alumno">
+          <div className="form-group-alumno2">
             <label htmlFor="">MUNICIPIO*</label>
             <select name="" id="" >
               <option value="">{municipioubica}</option>
             
             </select>
+          
           </div>
-          <div className="form-group-alumno">
+          <div className="form-group-alumno2">
             <label htmlFor="">SECTOR*</label>
             <select name="" id="" >
               <option value="">{sectorrepresen}</option>
               
             </select>
+        
           </div>
-          <div className="form-group-alumno">
+          <div className="form-group-alumno2">
             <label htmlFor="">CALLE*</label>
             <select name="" id="" >
               <option value="">{callerepresenta}</option>
              
             </select>
+              
           </div>
+    </div>
+      </div>
          
           <div className="container-form-info">
                     <h3>Datos Del Alumno</h3>
                     </div>
-          <div className="form-group-alumno">
+         <div className="envoltorio">
+         <div className="form-group-matricula-img">
+             
+            </div>
+          <div className="envoltorio-datos">
+          <div className="form-group-alumno2">
             <label htmlFor="">Donde Estudia*</label>
             <select name="" id="" onChange={(e) => setcolegio(e.target.value)}>
               <option value="">SELECCIONA UNA OPCION</option>
@@ -546,7 +651,7 @@ const BuscarRepresentante= async(id)=>{
               <option value="San Jose">San Jose</option>
             </select>
           </div>
-          <div className="form-group-alumno">
+          <div className="form-group-alumno22">
             <label htmlFor="">Turno del cole*</label>
             <select name="" id="" onChange={(e) => setturno(e.target.value)}>
               <option value="">SELECCIONA UNA OPCION</option>
@@ -555,7 +660,7 @@ const BuscarRepresentante= async(id)=>{
 
             </select>
           </div>
-          <div className="form-group-alumno">
+          <div className="form-group-alumno2">
             <label htmlFor="">Grado*</label>
             <select name="" id="" onChange={(e) => setgrado(e.target.value)}>
               <option value="">SELECCIONA UNA OPCION</option>
@@ -574,14 +679,14 @@ const BuscarRepresentante= async(id)=>{
               
             </select>
           </div>
-          <div className="container-form-info">
-                  
-                    </div>
-          <div className="form-group-alumno">
+          
+          <div className="form-group-alumno22">
             <label htmlFor="">Padece alguna Enfermedad*</label>
             <input type="text" name="" placeholder='Escriba la Enfermedad' id="" onChange={(e) => setenfermedad(e.target.value)} />
           </div>
           
+          </div>
+         </div>
           <div className="container-form-info">
                    
                     </div>

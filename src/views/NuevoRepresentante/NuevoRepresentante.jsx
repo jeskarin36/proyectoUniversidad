@@ -4,7 +4,7 @@ import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import {useForm} from "react-hook-form"
 import { useEffect } from "react"
-
+import silueta from "../../assets/63699.png"
 
 const NuevoRepresentante = ({ Manejador}) => {
 
@@ -15,7 +15,10 @@ const NuevoRepresentante = ({ Manejador}) => {
 
   const navigate = useNavigate();
   const URL = "http://localhost:8000/Representante/"
-
+  const URL2 = "http://localhost:8000/upload/"
+    const URL3 = "http://localhost:8000/Audiografia/"
+  const UsuarioCabeza1=sessionStorage.getItem('Nombre');
+  const UsuarioCabeza2=sessionStorage.getItem('Cargo');
   const [nombre,setNombre]=useState("");
   const [apellido,setApellido]=useState("");
   const [cedula,setCedula]=useState("");
@@ -26,12 +29,28 @@ const NuevoRepresentante = ({ Manejador}) => {
   const [calle,setCalle]=useState("");
   const[erro, seterro]=useState(false);
   const[representante, setRepresentante]=useState([]);
+  const[img, setImg]=useState(silueta);
+  const[imgbase, setImgbase]=useState(silueta);
+  const [codigoImg, setcodigoImg] = useState((Date.now()*Math.random()-Math.random()-Math.random() ))
+  
 
   const { register,formState:{errors}, handleSubmit } = useForm({mode:"all"});
 
+
+  
+
   const agregar=async(e)=>{
     
-    alert(telefono)
+   
+    
+    await axios.post(URL3,{
+      id:codigoImg.toString(),
+      Nombre:nombre,
+      File:imgbase.name,
+      createdAt:"2024-10-23",
+      updatedAt:"2024-10-23"
+    })
+    
     await axios.post(URL,{
       
       Nombre:nombre,
@@ -42,13 +61,17 @@ const NuevoRepresentante = ({ Manejador}) => {
       Municipio:municipio,
       Sector:sector,
       Calle:calle,
+      Id_Audiografia:codigoImg.toString(),
       createdAt:"2024-10-23",
       updatedAt:"2024-10-23"
     })
+    const formData = new FormData();
+    formData.append('file', imgbase);
+    await axios.post(URL2,formData)
     navigate("/Representante")
   }
 
-   
+
 
   const getRepresentante=async()=>{
     const res = await axios.get(URL)
@@ -58,6 +81,7 @@ const NuevoRepresentante = ({ Manejador}) => {
 
 useEffect(()=>{
    getRepresentante()
+
 }
  ,[])
 
@@ -67,7 +91,7 @@ useEffect(()=>{
      
       setCedula(cedul);
     
-      if(cedul.length===8 ){
+      if(cedul.length===8 || cedul.length===7){
        
         
         representante.map(represen=>{
@@ -85,6 +109,15 @@ useEffect(()=>{
     }
 
 
+    const cambiarImg=(e)=>{
+      e.preventDefault()
+      alert("cambio")
+      setImgbase(e.target.files[0])
+     
+      setImg(window.URL.createObjectURL(e.target.files[0]))
+
+  }
+
 
   return (<div className="contenedor_representantee">
     <div className="cabeza-usuario">
@@ -98,10 +131,11 @@ useEffect(()=>{
         </div>
         <div className="profilee">
           <div className="info">
-            <p>
-              Hey, <b>Daniel</b>
-            </p>
-            <small className="text-muted">Admin</small>
+          <p>
+                
+                Hey, <b>{UsuarioCabeza1}</b>
+              </p>
+              <small className="text-muted">{UsuarioCabeza2}</small>
           </div>
           <div className="profile-photo">
             <img src="" alt="" />
@@ -128,30 +162,42 @@ useEffect(()=>{
                     <h3>Datos Del Representante</h3>
                     </div>
 
-        <div className="form-group-representante">
-          <label htmlFor="">Nombre*</label>
-          <input type="text"  value={nombre} {...register("nombre",{  required:true,  } )} onChange={(e)=>setNombre(e.target.value)} placeholder='ESCRIBA SU NOMBRE' />
-        {errors.nombre?.type==='required'&& <p>El campo es necesario</p> } 
+        <div className="envoltorio">
+        <div className="form-group-representante-img">
+          <img src={img} alt="" />
+          <label htmlFor="foto" className="foto">Subir Imagen aqui+</label>
+         <input type="file" name="foto" id="foto" onChange={e=>cambiarImg(e)} />
+         </div>
+ 
+ 
+       <div className="envoltorio-datos">
+       <div className="form-group-representante">
+           <label htmlFor="">Nombre*</label>
+           <input type="text"  value={nombre} {...register("nombre",{  required:true,  } )} onChange={(e)=>setNombre(e.target.value)} placeholder='ESCRIBA SU NOMBRE' />
+         {errors.nombre?.type==='required'&& <p>El campo es necesario</p> } 
+         </div>
+         <div className="form-group-representante">
+           <label htmlFor="">Apellido *</label>
+           <input type="text" value={apellido}{...register("apellido",{  required:true,  } )} onChange={(e)=>setApellido(e.target.value)} placeholder='ESCRIBA SU APELLIDO' />
+           {errors.apellido?.type==='required' && <p>El campo es necesario</p> } 
+         </div>
+         <div className="form-group-representante">
+           <label htmlFor="">CEDULA *</label>
+           <input type="number" value={cedula}{...register("cedula",{  required:true, maxLength:8 } )}  onChange={(e)=>verificarCedula(e.target.value)} placeholder='ESCRIBA SU CEDULA' />
+           {errors.cedula?.type==='required' && <small>El campo es necesario</small> }
+           {errors.cedula?.type==='maxLength' && <small>No corresponde a una cedula</small> }
+            {erro===true? <p className="text-error">La Cedula Ya Existe</p>:null}
+           </div>
+         <div className="form-group-representante">
+           <label htmlFor="">TELEFONO*</label>
+           <input type="number" value={telefono}{...register("telefono",{  required:true, maxLength:11, } )} onChange={(e)=>setTelefono(e.target.value)} placeholder='ESCRIBA SU TELEFONO' />
+           {errors.telefono?.type==='required' && <small>El campo es necesario</small> }
+           {errors.telefono?.type==='maxLength' && <small>no corresponde a un TELEFONO</small> }
+          
+         </div>
+       </div>
         </div>
-        <div className="form-group-representante">
-          <label htmlFor="">Apellido *</label>
-          <input type="text" value={apellido}{...register("apellido",{  required:true,  } )} onChange={(e)=>setApellido(e.target.value)} placeholder='ESCRIBA SU APELLIDO' />
-          {errors.apellido?.type==='required' && <p>El campo es necesario</p> } 
-        </div>
-        <div className="form-group-representante">
-          <label htmlFor="">CEDULA *</label>
-          <input type="number" value={cedula}{...register("cedula",{  required:true, maxLength:8 } )}  onChange={(e)=>verificarCedula(e.target.value)} placeholder='ESCRIBA SU CEDULA' />
-          {errors.cedula?.type==='required' && <small>El campo es necesario</small> }
-          {errors.cedula?.type==='maxLength' && <small>No corresponde a una cedula</small> }
-           {erro===true? <p className="text-error">La Cedula Ya Existe</p>:null}
-          </div>
-        <div className="form-group-representante">
-          <label htmlFor="">TELEFONO*</label>
-          <input type="number" value={telefono}{...register("telefono",{  required:true, maxLength:11, } )} onChange={(e)=>setTelefono(e.target.value)} placeholder='ESCRIBA SU TELEFONO' />
-          {errors.telefono?.type==='required' && <small>El campo es necesario</small> }
-          {errors.telefono?.type==='maxLength' && <small>no corresponde a un TELEFONO</small> }
-         
-        </div>
+     
         <div className="container-form-info">
                     <h3>Ubicacion Del Representante</h3>
                     </div>

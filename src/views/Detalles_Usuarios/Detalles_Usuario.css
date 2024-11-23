@@ -1,0 +1,123 @@
+.contenedor_Usuario{
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    background-color:var(--color-background); 
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.contenedor_Usuario form{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+.contenedor_Usuario .container-form-info{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 1rem 1rem;
+   
+}
+
+.contenedor_Usuario .container-form-info h3{
+    color:  rgb(7, 107, 161);
+}
+
+.form-group-Detalles-Usuario{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+ 
+    height: 3rem;
+    width: 30rem;
+    padding: 1rem;
+    margin: 1%;
+  
+   
+   
+}
+
+.contenedor_Usuario label{
+    font-weight: 400;
+    font-size: 1.1rem;
+    font-family: "Poppins",sans-serif;
+    color: var(--color-dark-variant);
+    margin-right: 1rem;
+    
+    
+}
+.contenedor_Usuario input{
+    padding: .8em ;
+    border: none;
+    border-bottom: 2px solid rgb(46, 52, 139);
+    outline: none;
+    border-radius: 5px;
+    background: none;
+    color: var(--color-dark-variant);
+}
+
+.contenedor_Usuario input::placeholder{
+    color: var(--color-dark-variant);
+}
+
+.contenedor_Usuario input[type="text"],
+.contenedor_Usuario input[type="number"]
+{
+    margin-bottom: 0rem;
+    width: 18rem;
+}
+
+.form-group-Detalles-Usuario select{
+    width: 16rem;
+    padding: .6rem;
+    font-family: "Poppins",sans-serif;
+    outline: none;
+    border-radius: 5%;
+    border: none;
+    border-bottom: 2px solid rgb(46, 52, 139);
+    background-color: none
+}
+
+
+.contenedor_Usuario form button{
+    width: 10rem;
+    height: 3rem;
+    border-radius: 5px;
+    background-color: rgb(7, 107, 161);
+    border: none;
+    outline: none;
+    cursor: pointer;
+    box-shadow: var(--box-shadow);
+    font-family: "Poppins",sans-serif;
+    font-weight: 600;
+    font-size: 1rem;
+    color: white;
+}
+
+.error-form{
+    margin: 0;
+background-color: aquamarine
+};

@@ -1,141 +1,303 @@
-.container-detalle-alumno{
+.contenedor_Editar-alumno{
     width: 100%;
     height: 100vh;
+   position: absolute;
+   background-color:var(--color-background);
 }
 
 
 
 
-/*Detaleeesss*/
 
-.contenedor-detalles{
-    width: 95%;
-    height: 75%;
-    
-    padding: 2% 2%;
+
+.cabeza-usuario2{
+    min-width: 15%;
+    height: 6%;
     display: flex;
-    flex-direction: column;
-    overflow: scroll;
+    justify-content: flex-start;
+    align-items: flex-start;
+    padding: 1rem 0;
+   float: right;
+   
 }
 
-.contenedor-detalles-alum{
-    width: 100%;
-    min-height: 66%;
+
+.cabeza-usuario2 .top{
     display: flex;
-    background-color: var(--color-white);
-    margin-bottom: 2%;
-    text-align: center;
-}
-
-.contenedor-detalles-alum h2{
-   margin: 0;
-   line-height: 4rem;
-}
-
-.contenedor-detalles-img{
-    width: 20%;
+    justify-content: center;
+    width:100%;
     height: 100%;
    
 }
 
-.contenedor-detalles-datos{
-    width: 76%;
-    height: 92%;
-    display: flex;
-    flex-direction: column;
-    padding: 1% 2%;
+.cabeza-usuario2 .top button{
+    display: none;
 }
 
-.caja-con-info{
+.cabeza-usuario2 .theme-toggler{
+    background: var(--color-light);
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 1px solid  rgb(214, 214, 214);
-}
-
-.caja-con-info > h4{
- font-size: 1rem;
- margin: 0;
- color: var(--color-dark-variant);
-}
-
-.caja-con-info > p{
-    font-size: 1rem;
-    font-family: "Poppins",sans-serif;
+    height: 1.6rem;
+    width: 4.2rem;
+    cursor: pointer;
+    border-radius: var(--border-radius-1);
+   
 }
 
 
-
-.contenedor-detalles-alumno-re{
-    width: 96%;
-    min-height: 56%;
-    padding: 2% 2%;
-    background-color: var(--color-white);
+.cabeza-usuario2 .theme-toggler span{
+    font-size: 1.2rem;
+    width: 500%;
+    height: 100%;
     display: flex;
-    justify-content: center;
     align-items: center;
-    flex-direction: column;
-    margin-bottom: 2%;
+    justify-content: center;
+    
 }
 
-.contenedor-detalles-alumno-re > .caja-con-info{
-    width: 100%;
+.cabeza-usuario2 .theme-toggler .active{
+    background: var(--color-primary);
+    color: white;
+   
+    border-radius: var(--border-radius-1);
 }
 
-
-.contenedor-detalles-alumno-ubic{
-    width: 96%;
-    min-height: 50%;
-    padding: 2% 2%;
-    background-color: var(--color-white);
+ .cabeza-usuario2 .top .profilee .info{
     display: flex;
-    justify-content: center;
-    align-items: center;
     flex-direction: column;
-    margin-bottom: 2%;
+    justify-content: flex-start;
+    align-items: flex-start;
+   gap: 0;
+    text-align: right;
+    
 }
 
-.contenedor-detalles-alumno-ubic > .caja-con-info{
-    width: 100%;
+
+.cabeza-usuario2 .top .profilee .info p{
+ margin: .5rem;
 }
 
-.contenedor-detalles-alumno-instr{
-    width: 96%;
-    min-height: 50%;
-    padding: 2% 2%;
-    background-color: var(--color-white);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.contenedor-opciones-alumno{
+    padding-right: 2%;
+    width: 80%;
+    height: 8vh;
     display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    margin-bottom: 2%;
+    justify-content: space-between;
+   align-items: center;
+   font-family: "Poppins",sans-serif;
+
+  margin-left: 2rem;
+  margin-top: 0;
+
 }
 
-.contenedor-detalles-alumno-instr > .caja-con-info{
-    width: 100%;
-}
-
-
-.contenedor-detalles-alumno-otros{
-    width: 96%;
-    min-height: 50%;
-    padding: 2% 2%;
-    background-color: var(--color-white);
+   .contenedor-back-alumno{
+    width: 60%;
+    height: 100%;
     display: flex;
-    justify-content: center;
+    justify-content: start;
     align-items: center;
-    flex-direction: column;
-    margin-bottom: 2%;
+    gap: 1%;
+   
 }
 
-.contenedor-detalles-alumno-otros > .caja-con-info{
-    width: 100%;
+.contenedor-back-alumno > h6{
+    font-weight: 400;
 }
-
-.contenedor-detalles-alumno-ubic h2,
-.contenedor-detalles-alumno-otros h2,
-.contenedor-detalles-alumno-re h2,
-.contenedor-detalles-alumno-instr h2,
-.contenedor-detalles-alum{
+.contenedor-opciones-alumno > h3{
     color: var(--color-dark-variant);
 }
+
+.contenedor-opciones-alumno button{
+    width: 5em;
+    height: 50%;
+    color: white;
+    border-radius:5%;
+    border: none;
+    cursor: pointer;
+    font-weight: 500;
+    margin-left: 1rem;
+    background-color: transparent;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.contenedor-formulario-editar-alumno{
+    width: 100%;
+   height: 80%;
+ 
+    
+
+}
+
+.contenedor-formulario-editar-alumno form{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+
+}
+
+
+.contenedor-formulario-editar-alumno .container-form-info{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 1rem 1rem;
+   
+}
+
+.contenedor-formulario-editar-alumno .container-form-info h3{
+    color:  rgb(7, 107, 161);
+}
+
+
+
+.form-group-alumno{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+ 
+    height: 3rem;
+    width: 30rem;
+    padding: 1rem;
+    margin: 1%;
+   
+   
+}
+
+.contenedor-formulario-editar-alumno label{
+    font-weight: 400;
+    font-size: 1.1rem;
+    font-family: "Poppins",sans-serif;
+    color: var(--color-dark-variant);
+    margin-right: 1rem;
+    
+}
+
+.contenedor-formulario-editar-alumno input{
+   
+    padding: .8em ;
+    border: none;
+    border-bottom: 2px solid rgb(46, 52, 139);
+    outline: none;
+    border-radius: 5px;
+    background: none;
+    color: var(--color-dark-variant);
+}
+
+.contenedor-formulario-editar-alumno input::placeholder{
+    color: var(--color-dark-variant);
+}
+.contenedor-formulario-editar-alumnoinput[type="text"],
+.contenedor-formulario-editar-alumnoinput[type="number"]
+{
+    margin-bottom: 0rem;
+    width: 18rem;
+}
+
+.form-group-alumno2 select{
+    width: 18rem;
+    padding: .6rem;
+    font-family: "Poppins",sans-serif;
+    outline: none;
+    border-radius: 5%;
+    border: none;
+    border-bottom: 2px solid rgb(46, 52, 139);
+    background-color: none;
+}
+
+.form-group-alumno22 select{
+    width: 18rem;
+    padding: .6rem;
+    font-family: "Poppins",sans-serif;
+    outline: none;
+    border-radius: 5%;
+    border: none;
+    border-bottom: 2px solid rgb(46, 52, 139);
+    background-color: none;
+}
+
+.contenedor-formulario-editar-alumno form button{
+    width: 10rem;
+    height: 3rem;
+    border-radius: 5px;
+    background-color: rgb(7, 107, 161);
+    border: none;
+    outline: none;
+    cursor: pointer;
+    box-shadow: var(--box-shadow);
+    font-family: "Poppins",sans-serif;
+    font-weight: 600;
+    font-size: 1rem;
+    color: white;
+}
+
+.error-form{
+    margin: 0;
+background-color: aquamarine
+};

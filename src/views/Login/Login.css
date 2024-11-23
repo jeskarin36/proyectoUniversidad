@@ -1,0 +1,146 @@
+@import url('https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,100..900;1,100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+.login_container {
+	width: 100vw;
+	min-height: 100vh;
+	background-color: rgb(236, 236, 236);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	
+}
+
+.login_form_container {
+    top: 0;
+	width: 800px;
+	height: 500px;
+	display: flex;
+    align-items: center;
+border-radius: 15px;
+	justify-content:space-between ;
+
+	box-shadow: 0px 3px 3px -2px rgb(0 0 0 / 20%),
+		0px 3px 4px 0px rgb(0 0 0 / 14%), 0px 1px 8px 0px rgb(0 0 0 / 12%);
+        background-color: rgb(209, 223, 218);
+		
+}
+
+
+
+
+.left {
+	width: 400px;
+	height: 500px;
+	display: flex;
+	flex-direction: column;
+	align-items: baseline;
+	justify-content: center;
+	border-radius: 15px;
+	background-color: rgb(209, 223, 218);
+	
+}
+
+.form_container {
+	height: 500px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	
+
+	margin-top: 40px;
+	margin-left: 40px;
+	border-top-right-radius: 10px;
+	border-bottom-right-radius: 10px;
+  
+}
+.form_container img{
+	
+
+	width: 177px;
+	height: 96px;
+		padding: 7px;
+		
+		border: 0; 
+	  
+}
+.form_container i{
+	position: absolute;
+	margin-left: 10px;
+	margin-top: 15px;
+}
+
+
+
+.form_container h3 {
+	font-size: 25px;
+	margin-top: 0;
+	margin-bottom: 30px;
+	color: var(--blakcolor);
+	font-weight: 600;
+	
+	align-items: center;
+}
+
+
+.input {
+	outline: none;
+	border: none;
+	width: 200px;
+	padding: 15px ;
+	padding-left: 40px;
+	margin-bottom: 12px;
+	border-radius: 8px;
+	background-color: #edf5f3;
+	margin: 5px 0;
+	font-size: 14px;
+    
+}
+.form_container.input{
+	position: relative;
+	
+	
+}
+.form_container button{
+border: none;
+outline: none;
+margin-top: 15px;
+cursor: pointer;
+border-radius: 8px;
+padding: 1rem 5rem;
+
+}
+.form_container button i{
+	position: absolute;
+	margin-left: 0px;
+	margin-top: -3px;
+}
+
+
+.error_msg {
+	width: 370px;
+	padding: 15px;
+	margin: 5px 0;
+	font-size: 14px;
+	background-color: #f34646;
+	color: white;
+	border-radius: 5px;
+	text-align: center;}
+
+    .right {
+        
+        width: 500px;
+        height: 500px;
+        display: flex;
+        flex-direction: column;
+        align-items: start;
+        justify-content: center;
+        background-color: #3bb19b;
+    border-radius: 15px;
+        overflow: hidden;
+        
+    }
+    .right video{
+        width: 27.8rem;
+        
+    }
+	

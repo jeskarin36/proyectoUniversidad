@@ -14,7 +14,8 @@ function Matricula({ Manejador }) {
   const [isCheckedFe, setIsCheckedFe] = useState(false);
   const [isCheckedMa, setIsCheckedMa] = useState(false);
   const navigate = useNavigate();
-
+  const UsuarioCabeza1=sessionStorage.getItem('Nombre');
+  const UsuarioCabeza2=sessionStorage.getItem('Cargo');
 
   useEffect(() => {
     getAlumnos();
@@ -47,6 +48,10 @@ function Matricula({ Manejador }) {
       createdAt: "2024-10-23",
       updatedAt: "2024-10-23"
     })
+
+    const res= await axios.get(`http://localhost:8000/Audiografia/${alum.Cedula}`)
+    await axios.delete(`http://localhost:8000/Audiografia/${res.data.id}`)
+    await axios.delete(`http://localhost:8000/EliminarFoto/${res.data.File}`)
     getAlumnos();
   }
 
@@ -138,7 +143,7 @@ function Matricula({ Manejador }) {
      
       const alumnosnew = alumnospor.filter(alum =>
 
-        alum.Cedula!=="No posee" &&  alum.Cedula.includes(inp)
+        alum.Cedula.toLowerCase() !=="No posee" &&  alum.Cedula.includes(inp.toLocaleLowerCase())
       )
       setAlumnos(alumnosnew)
     }
@@ -147,7 +152,7 @@ function Matricula({ Manejador }) {
       
       const alumnosnew = alumnospor.filter(alum =>
 
-        alum.Nombre.includes(inp)
+        alum.Nombre.toLowerCase().includes(inp.toLocaleLowerCase())
       )
       setAlumnos(alumnosnew)
     }
@@ -159,6 +164,10 @@ function Matricula({ Manejador }) {
     if (va === "") {
       setAlumnos(alumnospor)
     }
+  }
+
+  const VerDetalle=(id)=>{
+    navigate(`/Matricula/DetalleAlumno/${id}`)
   }
 
   const Mandaraeditar = (id) => {
@@ -178,10 +187,11 @@ function Matricula({ Manejador }) {
           </div>
           <div className="profilee">
             <div className="info">
-              <p>
-                Hey, <b>Daniel</b>
+            <p>
+                
+                Hey, <b>{UsuarioCabeza1}</b>
               </p>
-              <small className="text-muted">Admin</small>
+              <small className="text-muted">{UsuarioCabeza2}</small>
             </div>
             <div className="profile-photo">
               <img src="" alt="" />
@@ -193,8 +203,7 @@ function Matricula({ Manejador }) {
         <a href='/Matricula/nuevoalumno'>+ Nuevo Registro</a>
        
       </div>
-      <div className="contenedor-tabla">
-        <div className="contenedor-formularioo">
+      <div className="contenedor-formulario-Matricula">
           <form action="">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -286,6 +295,8 @@ function Matricula({ Manejador }) {
 
 
         </div>
+      <div className="contenedor-tabla-Matricula">
+       
         <div className="contenedor-registro">
           <table>
             <thead>
@@ -306,7 +317,7 @@ function Matricula({ Manejador }) {
 
 
 
-              <Tabla alumnos={alumnos}></Tabla>
+              <Tabla alumnos={alumnos} VerDetalle={VerDetalle} Mandaraeditar={Mandaraeditar} confirmacion={confirmacion}></Tabla>
 
 
 

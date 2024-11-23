@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import "./Representante.css";
 import axios from "axios"
 import swal from 'sweetalert';
-
+import Tabla from "./Tabla"
 import { useNavigate } from 'react-router-dom';
 
 
@@ -15,7 +15,10 @@ import { useNavigate } from 'react-router-dom';
 function Representante({ Manejador }) {
   const URL = "http://localhost:8000/Representante/"
   const [representantes, setRepresentantes] = useState([]);
+  const [representantes2, setRepresentantes2] = useState([]);
   const [busqueda, setBusqueda] = useState("");
+  const UsuarioCabeza1=sessionStorage.getItem('Nombre');
+  const UsuarioCabeza2=sessionStorage.getItem('Cargo');
   const navigate=useNavigate();
   useEffect(() => {
       getRepresentantes();
@@ -25,17 +28,21 @@ function Representante({ Manejador }) {
   const getRepresentantes = async () => {
       const res = await axios.get(URL)
       setRepresentantes(res.data)
-      
+      setRepresentantes2(res.data)
   }
 
-  const deleteRepresentantes = async (id) => {
+  const deleteRepresentantes = async (id,id_audio) => {
      await axios.delete(`${URL}${id}`)
+    const res= await axios.get(`http://localhost:8000/Audiografia/${id_audio}`)
+    await axios.delete(`http://localhost:8000/Audiografia/${res.data.id}`)
+    await axios.delete(`http://localhost:8000/EliminarFoto/${res.data.File}`)
+    
       getRepresentantes();
   }
 
  
   
-const confirmacion=(id)=>{
+const confirmacion=(id,id_audio)=>{
 swal({
 title:"Eliminar",
 text:"Seguro que deseas eliminar?",
@@ -45,7 +52,7 @@ buttons:["no","si"]
   if(respuesta){
     swal({text:"El archivo se a borrado con exito",icon:"success", timer:"1000"})
   
-    deleteRepresentantes(id)
+    deleteRepresentantes(id,id_audio)
      }
 })
 
@@ -53,13 +60,18 @@ buttons:["no","si"]
 };
 
 
-const buscar = (e)=>{
- setBusqueda(e.target.value)
- console.log(e.target)
+const buscar = (textt)=>{
+  const alumnosnew = representantes2.filter(repre =>
+
+     repre.Nombre.toLowerCase().includes(textt.toLocaleLowerCase())
+  )
+  setRepresentantes(alumnosnew)
 }
 
  
-  
+  const VerDetalles=(id)=>{
+    navigate(`/Representante/DetalleRepresentante/${id}`)
+  }
 
  
 
@@ -82,10 +94,11 @@ const buscar = (e)=>{
           </div>
           <div className="profilee">
             <div className="info">
-              <p>
-                Hey, <b>Daniel</b>
+            <p>
+                
+                Hey, <b>{UsuarioCabeza1}</b>
               </p>
-              <small className="text-muted">Admin</small>
+              <small className="text-muted">{UsuarioCabeza2}</small>
             </div>
             <div className="profile-photo">
               <img src="" alt="" />
@@ -95,23 +108,9 @@ const buscar = (e)=>{
       </div>
       <div className="contenedor-opcioness">
         <a href='/Representante/NuevoRepresentante'>+ Nuevo Registro</a>
-        <div className="opciones">
-          <label htmlFor="">
-            Orquesta
-            <input type="checkbox" value="n" />
-          </label>
-          <label htmlFor="">
-            Alma llanera
-            <input type="checkbox" value="n" />
-          </label>
-          <label htmlFor="">
-            Coro
-            <input type="checkbox" value="n" />
-          </label>
-        </div>
+      
       </div>
-      <div className="contenedor-tabla">
-        <div className="contenedor-formulario">
+      <div className="contenedor-formulario-representante">
           <form action="">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -122,9 +121,11 @@ const buscar = (e)=>{
             >
               <path d="M784-120 532-372q-30 24-69 38t-83 14q-109 0-184.5-75.5T120-580q0-109 75.5-184.5T380-840q109 0 184.5 75.5T640-580q0 44-14 83t-38 69l252 252-56 56ZM380-400q75 0 127.5-52.5T560-580q0-75-52.5-127.5T380-760q-75 0-127.5 52.5T200-580q0 75 52.5 127.5T380-400Z" />
             </svg>
-            <input value={busqueda} onChange={buscar}   type="text" placeholder="BUSCAR" />
+            <input  onChange={e=>buscar(e.target.value)}   type="text" placeholder="BUSCAR POR NOMBRE" />
           </form>
         </div>
+      <div className="contenedor-tabla-representante">
+
         <div className="contenedor-registro">
           <table>
             <thead>
@@ -142,44 +143,11 @@ const buscar = (e)=>{
             <tbody>
 
               {
-                representantes.filter((represen)=>
-               {return busqueda.toLowerCase=== ' ' ? represen : represen.Nombre.toLowerCase().includes(busqueda)}
-              ).map((represen) => (
-                  <tr key={represen.id} >
-                     <td>{represen.id}</td>
-                    <td>{represen.Nombre}</td>
-                    <td>{represen.Apellido}</td>
-                    <td>{represen.Cedula}</td>
-                    <td>{represen.Telefono}</td>
-                    <td>{represen.Sector}</td>
-                 
-                    <td className="primary">
-
-                  <button  onClick={()=>confirmacion(represen.id)}><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#EA3323"><path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z" /></svg>   </button>
-            
-                 
-                  <button onClick={(e)=>Mandaraeditar(represen.id)}><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368"><path d="M200-200h57l391-391-57-57-391 391v57Zm-80 80v-170l528-527q12-11 26.5-17t30.5-6q16 0 31 6t26 18l55 56q12 11 17.5 26t5.5 30q0 16-5.5 30.5T817-647L290-120H120Zm640-584-56-56 56 56Zm-141 85-28-29 57 57-29-28Z" /></svg></button></td>
-
-
-
-         
-
-                  </tr>
-                ))
+               <Tabla representantes={representantes} VerDetalles={VerDetalles} Mandaraeditar={Mandaraeditar} confirmacion={confirmacion}></Tabla>
+               
               }
 
-              <tr>
-              <td>100</td>
-                <td>Foldable Mini Drone</td>
-                <td>85331</td>
-                <td>Due</td>
-                <td>Due</td>
-                <td >Datale</td>
-                <td className="primary">
-                  <button><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#EA3323"><path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z" /></svg> </button>
-                  <button><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368"><path d="M200-200h57l391-391-57-57-391 391v57Zm-80 80v-170l528-527q12-11 26.5-17t30.5-6q16 0 31 6t26 18l55 56q12 11 17.5 26t5.5 30q0 16-5.5 30.5T817-647L290-120H120Zm640-584-56-56 56 56Zm-141 85-28-29 57 57-29-28Z" /></svg></button></td>
-
-              </tr>
+         
 
 
             </tbody>

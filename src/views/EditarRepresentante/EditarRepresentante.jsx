@@ -14,6 +14,8 @@ const EditarRepresentante = ({ Manejador }) => {
   
   const navigate = useNavigate();
   const URL = "http://localhost:8000/Representante/"
+  const URL2 = "http://localhost:8000/upload/"
+    const URL3 = "http://localhost:8000/Audiografia/"
 
   const [nombre, setNombre] = useState("");
   const [apellido, setApellido] = useState("");
@@ -24,6 +26,12 @@ const EditarRepresentante = ({ Manejador }) => {
   const [sector, setSector] = useState("");
   const [calle, setCalle] = useState("");
   const [representant, setRepresentante] = useState([]);
+  const UsuarioCabeza1=sessionStorage.getItem('Nombre');
+  const UsuarioCabeza2=sessionStorage.getItem('Cargo');
+  const [img, setimg] = useState("");
+  const [ruta, setRuta] = useState("");
+  const [ImagetBase, setImagetBase] = useState("");
+  const [CambiolaImagen, setCambiolaImagen] = useState(false);
 
   useEffect(() => {
     getRepresentante();
@@ -34,6 +42,7 @@ const EditarRepresentante = ({ Manejador }) => {
   const getRepresentante = async () => {
     
     const res = await axios.get(`${URL}${id}`);
+    const res2 = await axios.get(`http://localhost:8000/Audiografia/${res.data.Cedula}`);
     setRepresentante(res.data.Nombre);
     setNombre(res.data.Nombre)
     setApellido(res.data.Apellido)
@@ -43,14 +52,38 @@ const EditarRepresentante = ({ Manejador }) => {
     setMunicipio(res.data.Municipio)
     setSector(res.data.Sector)
     setCalle(res.data.Calle)
-    
+    setimg(res2.data.File)
+
+    setRuta(`http://localhost:8000/${res2.data.File}`)
   }
+
+
+  const cambiarImg=(e)=>{
+    e.preventDefault()
+    alert("cambio")
+    setRuta(null)
+    setRuta(e.target.files[0])
+    setImagetBase(e.target.files[0])
+   
+    setRuta(window.URL.createObjectURL(e.target.files[0]))
+   setCambiolaImagen(true)
+}
 
   const agregar = async (e) => {
    e.preventDefault()
     alert("hola")
-    await axios.put(`${URL}${id}`, {
+    
+    
 
+    await axios.put(`${URL3}${cedula}`,{
+      id:cedula,
+      Nombre:nombre,
+      File:ImagetBase.name,
+      createdAt:"2024-10-23",
+      updatedAt:"2024-10-23"
+    })
+
+    await axios.put(`${URL}${id}`, {
       Nombre: nombre,
       Apellido: apellido,
       Cedula: cedula,
@@ -59,9 +92,23 @@ const EditarRepresentante = ({ Manejador }) => {
       Municipio: municipio,
       Sector: sector,
       Calle: calle,
-      createdAt: "2024-10-23",
-      updatedAt: "2024-10-23"
+      Id_Audiografia:cedula,
+      createdAt:"2024-10-23",
+      updatedAt:"2024-10-23"
     })
+    
+
+    const formData = new FormData();
+    formData.append('file', ImagetBase);
+    await axios.post(URL2,formData)
+
+    if(CambiolaImagen===true){
+      await axios.delete(`http://localhost:8000/EliminarFoto/${img}`)
+    }
+
+
+
+    alert("holaa")
     navigate("/Representante")
   }
 
@@ -82,10 +129,11 @@ const EditarRepresentante = ({ Manejador }) => {
         </div>
         <div className="profilee">
           <div className="info">
-            <p>
-              Hey, <b>Daniel</b>
-            </p>
-            <small className="text-muted">Admin</small>
+          <p>
+                
+                Hey, <b>{UsuarioCabeza1}</b>
+              </p>
+              <small className="text-muted">{UsuarioCabeza2}</small>
           </div>
           <div className="profile-photo">
             <img src="" alt="" />
@@ -104,6 +152,8 @@ const EditarRepresentante = ({ Manejador }) => {
 
     </div>
 
+    
+
 
 
     <div className="contenedor-formulario-Editar-representante">
@@ -113,7 +163,16 @@ const EditarRepresentante = ({ Manejador }) => {
                     <h3>Datos Del Representante</h3>
       </div>
 
-        <div className="form-group-Editar-representante">
+      <div className="envoltorio">
+        <div className="form-group-representante-img">
+          <img src={ruta}  alt="" />
+          <label htmlFor="foto" className="foto">Subir Imagen aqui+</label>
+         <input type="file" name="foto" id="foto" onChange={e=>cambiarImg(e)} />
+         </div>
+ 
+ 
+      <div className="envoltorio-datos">
+      <div className="form-group-Editar-representante">
           <label htmlFor="">Nombre*</label>
           <input type="text" value={nombre} onChange={(e) => setNombre(e.target.value)} placeholder='ESCRIBA SU NOMBRE' />
 
@@ -133,9 +192,12 @@ const EditarRepresentante = ({ Manejador }) => {
           <input type="number" value={telefono} onChange={(e) => setTelefono(e.target.value)} placeholder='ESCRIBA SU TELEFONO' />
 
         </div>
+      </div>
+      </div>
+     
 
         <div className="container-form-info">
-                    <h3>Datos Del Representante</h3>
+                    <h3>Ubicacion Del Representante</h3>
                     </div>
 
         <div className="form-group-Editar-representante">

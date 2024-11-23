@@ -8,7 +8,8 @@ import axios from 'axios'
 function NuevoRegistroInstru({Manejador}) {
 
 
-  
+  const UsuarioCabeza1=sessionStorage.getItem('Nombre');
+    const UsuarioCabeza2=sessionStorage.getItem('Cargo');
   let { id } = useParams();
   const navigate=useNavigate();
   const URL = "http://localhost:8000/Instrumento/"
@@ -87,10 +88,11 @@ function NuevoRegistroInstru({Manejador}) {
         </div>
         <div className="profilee">
           <div className="info">
-            <p>
-              Hey, <b>Daniel</b>
-            </p>
-            <small className="text-muted">Admin</small>
+          <p>
+                
+                Hey, <b>{UsuarioCabeza1}</b>
+              </p>
+              <small className="text-muted">{UsuarioCabeza2}</small>
           </div>
           <div className="profile-photo">
             <img src="" alt="" />

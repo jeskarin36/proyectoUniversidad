@@ -4,7 +4,7 @@ import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import {useForm} from "react-hook-form"
 import { useEffect } from "react"
-
+import silueta from "../../assets/63699.png"
 
 const NuevoUsuario = ({ Manejador}) => {
 
@@ -15,17 +15,36 @@ const NuevoUsuario = ({ Manejador}) => {
 
   const navigate = useNavigate();
   const URL = "http://localhost:8000/Usuario/"
-
+  const URL2 = "http://localhost:8000/upload/"
+    const URL3 = "http://localhost:8000/Audiografia/"
+  const UsuarioCabeza1=sessionStorage.getItem('Nombre');
+  const UsuarioCabeza2=sessionStorage.getItem('Cargo');
   const [nombre,setNombre]=useState("");
   const [apellido,setApellido]=useState("");
   const [usuario,setUsuario]=useState("");
   const [contraseña,setContraseña]=useState("");
   const [cargo,setCargo]=useState("");
-
+  const [cedula,setCedula]=useState("");
+  const[img, setImg]=useState(silueta);
+  const[imgbase, setImgbase]=useState(silueta);
   const { register,formState:{errors}, handleSubmit } = useForm({mode:"all"});
 
   const agregar=async(e)=>{
-    
+    e.preventDefault()
+    alert(nombre)
+    alert(apellido)
+    alert(cedula)
+    alert(cargo)
+    alert(contraseña)
+   
+
+    await axios.post(URL3,{
+      id:cedula,
+      Nombre:nombre,
+      File:imgbase.name,
+      createdAt:"2024-10-23",
+      updatedAt:"2024-10-23"
+    })
     
     await axios.post(URL,{
       
@@ -34,14 +53,27 @@ const NuevoUsuario = ({ Manejador}) => {
       Usuario:usuario,
       Contraseña:contraseña,
       Cargo:cargo,
+      Cedula:cedula,
+      Id_Audiografia:cedula,
       createdAt:"2024-10-23",
       updatedAt:"2024-10-23"
     })
+
+    const formData = new FormData();
+    formData.append('file', imgbase);
+    await axios.post(URL2,formData)
     navigate("/Usuario")
   }
 
 
+  const cambiarImg=(e)=>{
+    e.preventDefault()
+    alert("cambio")
+    setImgbase(e.target.files[0])
+   
+    setImg(window.URL.createObjectURL(e.target.files[0]))
 
+}
 
 
 
@@ -57,10 +89,11 @@ const NuevoUsuario = ({ Manejador}) => {
         </div>
         <div className="profilee">
           <div className="info">
-            <p>
-              Hey, <b>Daniel</b>
-            </p>
-            <small className="text-muted">Admin</small>
+          <p>
+                
+                Hey, <b>{UsuarioCabeza1}</b>
+              </p>
+              <small className="text-muted">{UsuarioCabeza2}</small>
           </div>
           <div className="profile-photo">
             <img src="" alt="" />
@@ -82,12 +115,19 @@ const NuevoUsuario = ({ Manejador}) => {
 
     <div className="contenedor-formulario-nuevo-representante">
 
-      <form action="" onSubmit={handleSubmit(agregar)}>
+      <form action="" onSubmit={agregar}>
       <div className="container-form-info">
                     <h3>Datos Del Usuario</h3>
                     </div>
 
-        <div className="form-group-representante">
+        <div className="envoltorio">
+        <div className="form-group-usuario-img">
+          <img src={img} alt="" />
+          <label htmlFor="foto" className="foto">Subir Imagen aqui+</label>
+         <input type="file" name="foto" id="foto" onChange={e=>cambiarImg(e)} />
+         </div>
+          <div className="envoltorio-datos">
+          <div className="form-group-representante">
           <label htmlFor="">Nombre*</label>
           <input type="text"  value={nombre}{...register("nombre",{  required:true,  } )} onChange={(e)=>setNombre(e.target.value)} placeholder='ESCRIBA SU NOMBRE' />
         {errors.nombre?.type==='required'&& <p>El campo es necesario</p> } 
@@ -111,9 +151,12 @@ const NuevoUsuario = ({ Manejador}) => {
           {errors.contraseña?.type==='maxLength' && <small>no corresponde a un TELEFONO</small> }
          
         </div>
+        <div className="form-group-representante">
+          <label htmlFor="">Cedula*</label>
+          <input type="text" value={cedula} onChange={(e)=>setCedula(e.target.value)} placeholder='ESCRIBA SU CEDULA' />
         
-    
-
+        </div>
+ 
         <div className="form-group-representante">
           <label htmlFor="">Cargo*</label>
           <select {...register("estado",{  required:true } )} onChange={(e) => setCargo(e.target.value)}>
@@ -126,6 +169,8 @@ const NuevoUsuario = ({ Manejador}) => {
 
         </div>
 
+          </div>
+        </div>
         
        
         <div className="container-form-info">

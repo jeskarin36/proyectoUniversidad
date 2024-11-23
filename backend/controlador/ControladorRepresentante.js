@@ -1,8 +1,15 @@
+
 import RepresentanteModelo from "../modelo/RepresentanteModelo.js"
+import AudiografiaModelo from "../modelo/AudiografiaModelo.js"
 
 export const getallRepresentante= async (req, res) => {
     try{
-      const Representantes = await RepresentanteModelo.findAll()
+      const Representantes = await RepresentanteModelo.findAll(
+        {
+          include:[{model:AudiografiaModelo} ]
+         
+        }
+      )
       res.json(Representantes)
     }catch(error) {
     res.json({message: error.message})

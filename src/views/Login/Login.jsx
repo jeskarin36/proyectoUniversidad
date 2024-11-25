@@ -34,6 +34,7 @@ useEffect(()=>{
   
     sessionStorage.setItem("User", usua.Usuario)
     sessionStorage.setItem("Cargo", usua.Cargo)
+    sessionStorage.setItem("Rol", usua.Rol)
     sessionStorage.setItem("Nombre", usua.Nombre)
     sessionStorage.setItem("Id", usua.id)
     navigate(`/Inicio`)

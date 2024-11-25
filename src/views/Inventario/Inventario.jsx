@@ -12,6 +12,7 @@ function Inventario({ Manejador }) {
   const [busqueda, setBusqueda] = useState("");
   const UsuarioCabeza1=sessionStorage.getItem('Nombre');
   const UsuarioCabeza2=sessionStorage.getItem('Cargo');
+  const UsuarioCabeza4=sessionStorage.getItem('Rol');
   const navigate = useNavigate();
   useEffect(() => {
     getInstrumentos();
@@ -140,9 +141,11 @@ function Inventario({ Manejador }) {
         </div>
       </div>
       <div className="contenedor-opcionesss">
-        <a href='/Inventario/NuevoInstrumento'>+ Nuevo Registro</a>
+        {
+          UsuarioCabeza4==="Visor"?null:<a href='/Inventario/NuevoInstrumento'>+ Nuevo Registro</a>
+        }
 
-
+        
       </div>
 
       <div className="contenedor-formulario-Instrumento">
@@ -183,11 +186,13 @@ function Inventario({ Manejador }) {
                 <th>Marca</th>
                 <th>Tamaño</th>
                 <th>Estado</th>
-                <th>opciones</th>
+              {
+                UsuarioCabeza4==="Visor"?null:  <th>Acciones</th>
+              }
               </tr>
             </thead>
             <tbody>
-              <Tabla busqueda={busqueda} VerIntrumento={VerIntrumento} instrumentos={instrumentos} Mandaraeditar={Mandaraeditar} confirmacion={confirmacion}></Tabla>
+              <Tabla busqueda={busqueda} UsuarioCabeza4={UsuarioCabeza4} VerIntrumento={VerIntrumento} instrumentos={instrumentos} Mandaraeditar={Mandaraeditar} confirmacion={confirmacion}></Tabla>
 
 
 

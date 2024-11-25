@@ -19,6 +19,7 @@ function Representante({ Manejador }) {
   const [busqueda, setBusqueda] = useState("");
   const UsuarioCabeza1=sessionStorage.getItem('Nombre');
   const UsuarioCabeza2=sessionStorage.getItem('Cargo');
+  const UsuarioCabeza4=sessionStorage.getItem('Rol');
   const navigate=useNavigate();
   useEffect(() => {
       getRepresentantes();
@@ -107,8 +108,10 @@ const buscar = (textt)=>{
         </div>
       </div>
       <div className="contenedor-opcioness">
-        <a href='/Representante/NuevoRepresentante'>+ Nuevo Registro</a>
+        {
+          UsuarioCabeza4==="Visor"?null:<a href='/Representante/NuevoRepresentante'>+ Nuevo Registro</a>
       
+        }
       </div>
       <div className="contenedor-formulario-representante">
           <form action="">
@@ -136,14 +139,16 @@ const buscar = (textt)=>{
                 <th>Cedula</th>
                 <th>Telefono</th>
                 <th>Sector</th>
-                <th>Acciones</th>
+             {
+              UsuarioCabeza4==="Visor"?null:   <th>Acciones</th>
+             }
 
               </tr>
             </thead>
             <tbody>
 
               {
-               <Tabla representantes={representantes} VerDetalles={VerDetalles} Mandaraeditar={Mandaraeditar} confirmacion={confirmacion}></Tabla>
+               <Tabla representantes={representantes} UsuarioCabeza4={UsuarioCabeza4} VerDetalles={VerDetalles} Mandaraeditar={Mandaraeditar} confirmacion={confirmacion}></Tabla>
                
               }
 

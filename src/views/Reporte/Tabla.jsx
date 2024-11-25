@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import "./Tabla.css"
-function Tabla({cabecera,instrumentos,filtro,representantes,alumnos,setValorExport,Modulo}) {
+function Tabla({cabecera,instrumentos,setCabeceraInventario,filtro,representantes,SelecionModulo,alumnos,setValorExport,Modulo}) {
     
     const [Nombre,setNombre]=useState("")
     const [Codigo,setCodigo]=useState("")
@@ -26,6 +26,7 @@ function Tabla({cabecera,instrumentos,filtro,representantes,alumnos,setValorExpo
         setMarca("")
         setTamaño("")
         setEstado("")
+      
         cabecera.map(element => {
             element === "Nombre" ? setNombre(element) : null,
             element === "Codigo" ? setCodigo(element) : null,
@@ -34,6 +35,8 @@ function Tabla({cabecera,instrumentos,filtro,representantes,alumnos,setValorExpo
             element === "Estado" ? setEstado(element) : null
 
         }
+
+       
 
 
         )
@@ -46,6 +49,7 @@ function Tabla({cabecera,instrumentos,filtro,representantes,alumnos,setValorExpo
         setTelefono("")
         setSector("")
         cabecera.map(element => {
+            
             element === "Nombre" ? setNombre(element) : null,
             element === "Apellido" ? setApellido(element) : null,
             element === "Cedula" ? setCedula(element) : null,
@@ -77,26 +81,29 @@ function Tabla({cabecera,instrumentos,filtro,representantes,alumnos,setValorExpo
        }
        
 
-       else if(filtro==="Modulo"){
-      
-  
-
-        
-       }
-
     },[cabecera])
    
 
 
-    useEffect(()=>{
-        if(filtro==="Modulo"){
-      
-          
-        
-        }
-    },[Modulo])
  
         
+
+    useEffect(()=>{
+        if(SelecionModulo===""){
+            setCabeceraInventario([""])
+           }
+       if(SelecionModulo==="Representante"){
+        setCabeceraInventario(["Nombre","Apellido","Cedula","Telefono","Sector"])
+       }
+
+       if(SelecionModulo==="Inventario"){
+        setCabeceraInventario(["Nombre","Codigo","Marca","Tamaño","Estado"])
+       }
+       if(SelecionModulo==="Matricula"){
+        setCabeceraInventario(["Nombre","Apellido","Cedula","Edad","Programa","Instrumento"])
+       }
+
+    },[SelecionModulo])
 
 
 
@@ -106,7 +113,8 @@ function Tabla({cabecera,instrumentos,filtro,representantes,alumnos,setValorExpo
                 <thead>
                     <tr >
                       
-                    {cabecera.map(element =><th>{element}</th>
+                    {cabecera.map(element =>
+                       element!==""? <th>{element}</th>:null
                     
                 )}
                     </tr>
@@ -118,6 +126,17 @@ function Tabla({cabecera,instrumentos,filtro,representantes,alumnos,setValorExpo
                 
 {
  filtro==="Inventario"&&   Nombre==="Nombre" && Codigo===""  && Marca===""  && Tamaño===""  && Estado===""? instrumentos.map(ins=>( <tr><td>{ins.Nombre}</td></tr>) ) : null
+}
+
+{
+ filtro==="Inventario"&&   Nombre==="Nombre" && Codigo===""  && Marca==="Marca"  && Tamaño==="Tamaño"  && Estado===""? instrumentos.map(ins=>( <tr><td>{ins.Nombre}</td><td>{ins.Marca}</td><td>{ins.Tamaño}</td></tr>) ) : null
+}
+{
+ filtro==="Inventario"&&   Nombre==="Nombre" && Codigo===""  && Marca==="Marca"  && Tamaño==="Tamaño"  && Estado==="Estado"? instrumentos.map(ins=>( <tr><td>{ins.Nombre}</td><td>{ins.Marca}</td><td>{ins.Tamaño}</td><td>{ins.Estado}</td></tr>) ) : null
+}
+
+{
+ filtro==="Inventario"&&   Nombre==="Nombre" && Codigo===""  && Marca===""  && Tamaño==="Tamaño"  && Estado==="Estado"? instrumentos.map(ins=>( <tr><td>{ins.Nombre}</td><td>{ins.Tamaño}</td><td>{ins.Estado}</td></tr>) ) : null
 }
 
 {
@@ -223,6 +242,7 @@ function Tabla({cabecera,instrumentos,filtro,representantes,alumnos,setValorExpo
     
     Nombre==="" && Codigo==="" && Marca==="Marca" && Tamaño==="" && Estado==="Estado" ? instrumentos.map(ins=><tr><td>{ins.Marca}</td><td>{ins.Estado}</td></tr>) : null
 }
+
 
 
   {/*      ////////////////
@@ -444,6 +464,53 @@ function Tabla({cabecera,instrumentos,filtro,representantes,alumnos,setValorExpo
 
 {
  filtro==="Matricula"&&   Nombre==="Nombre" && Apellido===""  && Cedula===""  && Edad===""  && Programa===""  && Instrumento==="Instrumento"? alumnos.map(alum=><tr><td>{alum.Nombre}</td><td>{alum.id_instrumento===null?"No Posee":alum.Instrumento.Nombre}</td></tr>) : null
+}
+
+{
+ filtro==="Modulo"&& SelecionModulo==="Representante"?
+ alumnos.map(ma=>
+    
+    ma.Modulo.Nombre===Modulo?(
+        <tr><td>{ma.Representante.Nombre}</td><td>{ma.Representante.Apellido}</td><td>{ma.Representante.Cedula}</td><td>{ma.Representante.Telefono}</td><td>{ma.Representante.Sector}</td></tr>  
+    ):null
+ )
+
+  : null
+
+ 
+}
+
+{
+ filtro==="Modulo"&& SelecionModulo==="Inventario"? alumnos.map(ma=>
+    
+    ma.Modulo.Nombre===Modulo?(
+  
+ <tr><td>{ma.Instrumento.Nombre}</td><td>{ma.Instrumento.Codigo}</td><td>{ma.Instrumento.Marca}</td><td>{ma.Instrumento.Tamaño}</td><td>{ma.Instrumento.Estado}</td></tr>
+    ):null
+ )
+
+  : null
+} 
+
+
+{
+ filtro==="Modulo"&& SelecionModulo==="Inventario"? instrumentos.map(ins=>
+    
+    ins.Id_Deposito!==null?(
+    ins.Deposito.Nombre===Modulo? 
+    <tr><td>{ins.Nombre}</td><td>{ins.Codigo}</td><td>{ins.Marca}</td><td>{ins.Tamaño}</td><td>{ins.Estado}</td></tr>:null
+ ):null
+ )
+
+  : null
+} 
+
+{
+ filtro==="Modulo"&& SelecionModulo==="Matricula"? alumnos.map(alum=>
+    alum.Modulo.Nombre===Modulo?
+        <tr><td>{alum.Nombre}</td><td>{alum.Apellido}</td><td>{alum.Cedula}</td><td>{alum.Edad}</td><td>{alum.programa.Nombre}</td><td>{alum.Instrumento.Nombre}</td></tr>:null
+    
+ ) : null
 }
 
 

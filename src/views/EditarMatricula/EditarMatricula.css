@@ -184,7 +184,7 @@
 
 
 
-.contenedor-formulario-editar-alumno{
+.contenedor-formulario-editar-Matricula{
     width: 100%;
     height: 80%;
   
@@ -192,7 +192,7 @@
 
 }
 
-.contenedor-formulario-editar-alumno form{
+.contenedor-formulario-editar-Matricula form{
     display: flex;
     justify-content: center;
     align-items: center;
@@ -201,7 +201,7 @@
 }
 
 
-.contenedor-formulario-editar-alumno .container-form-info{
+.contenedor-formulario-editar-Matricula .container-form-info{
     width: 100%;
     display: flex;
     justify-content: center;
@@ -210,7 +210,7 @@
    
 }
 
-.contenedor-formulario-editar-alumno .container-form-info h3{
+.contenedor-formulario-editar-Matricula .container-form-info h3{
     color:  rgb(7, 107, 161);
 }
 
@@ -276,7 +276,7 @@
    
 }
 
-.contenedor-formulario-editar-alumno label{
+.contenedor-formulario-editar-Matricula label{
     font-weight: 400;
     font-size: 1.1rem;
     font-family: "Poppins",sans-serif;
@@ -285,28 +285,30 @@
     
 }
 
-.contenedor-formulario-editar-alumno input{
+.contenedor-formulario-editar-Matricula input{
    
-    padding: .8em ;
+    width: 16rem;
+    padding: .6rem;
+    height: 2.5rem;
     border: none;
     border-bottom: 2px solid rgb(46, 52, 139);
     outline: none;
     border-radius: 5px;
-    background: none;
+      font-family: "Poppins",sans-serif;
     color: var(--color-dark-variant);
 }
 
-.contenedor-formulario-editar-alumno input::placeholder{
+.contenedor-formulario-editar-Matricula input::placeholder{
     color: var(--color-dark-variant);
 }
 .contenedor-formulario-editar-alumnoinput[type="text"],
 .contenedor-formulario-editar-alumnoinput[type="number"]
 {
-    margin-bottom: 0rem;
+    
     width: 18rem;
 }
 
-.form-group-alumno select{
+.form-group-Matricula select{
     width: 16rem;
     padding: .6rem;
     font-family: "Poppins",sans-serif;
@@ -317,7 +319,7 @@
     background-color: none;
 }
 
-.contenedor-formulario-editar-alumno form button{
+.contenedor-formulario-editar-Matricula form button{
     width: 10rem;
     height: 3rem;
     border-radius: 5px;
@@ -336,3 +338,99 @@
     margin: 0;
 background-color: aquamarine
 };
+
+
+
+
+
+
+
+
+.envoltorio-Matricula{
+    width: 90%;
+    height: 23rem;
+    background-color: rgb(187, 0, 255);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    padding: 2rem 0;
+    clip-path: polygon(0 5%, 92% 6%, 100% 96%, 11% 95%);
+    z-index: 100000;
+position: relative;
+margin-bottom: 3rem;
+}
+
+.envoltorio-Matricula::before{
+  content: "";
+  width: 90%;
+  height: 23rem;
+  right: 0;
+  position: absolute;
+  background-color: gold;
+  clip-path: polygon(0 5%, 92% 6%, 100% 96%, 11% 95%);
+  z-index: -555;
+}
+
+.envoltorio-Matricula::after{
+    content: "";
+    width: 90%;
+    height: 23rem;
+    position: absolute;
+    background-color: var(--color-white);
+    clip-path: polygon(0 5%, 92% 6%, 100% 96%, 11% 95%);
+    z-index: -555;
+   margin-left: 22rem;
+  }
+
+.envoltorio-datos-Matricula{
+    width: 60%;
+    height: 100%;
+    
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    
+}
+
+.envoltorio-datos-Matricula-alum{
+    width: 65%;
+    height: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.form-group-Matricula{
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+
+.form-group-Matricula-sexo{
+    width: 20rem;
+    display: flex;
+     justify-content: center;
+     align-items: center;
+ 
+}
+
+.form-group-Matricula-sexo input{
+    width: 1rem;
+}
+
+.container-form-info-Matricula h3{
+    padding: 0;
+    margin: 0;
+    color: rgb(7, 107, 161);
+}
+
+
+
+ .form-group-matricula-img .foto{
+     position: relative;
+ }

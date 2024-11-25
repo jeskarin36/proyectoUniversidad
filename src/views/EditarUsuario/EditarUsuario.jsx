@@ -18,13 +18,14 @@ function Editar_Usuario({Manejador}) {
  const [cedula,setCedula]=useState("")
  const [img, setimg] = useState("");
   const [ruta, setRuta] = useState("");
+  const [rol, setRol] = useState("");
   const [ImagetBase, setImagetBase] = useState("");
   const [CambiolaImagen, setCambiolaImagen] = useState(false);
    const URL2 = "http://localhost:8000/upload/"
     const URL3 = "http://localhost:8000/Audiografia/"
  const UsuarioCabeza1=sessionStorage.getItem('Nombre');
  const UsuarioCabeza2=sessionStorage.getItem('Cargo');
-
+ const [codigoImagenVieja,setCodigoImagenVieja]=useState("")
 
  useEffect(() => {
     getUsuarioss();
@@ -34,15 +35,16 @@ function Editar_Usuario({Manejador}) {
 const getUsuarioss = async () => {
     
     const res = await axios.get(`${URL}${id}`)
-    const res2 = await axios.get(`http://localhost:8000/Audiografia/${res.data.Cedula}`);
+    const res2 = await axios.get(`http://localhost:8000/Audiografia/${res.data.Id_Audiografia}`);
     setNombre(res.data.Nombre)
     setApellido(res.data.Apellido)
     setUsuarionom(res.data.Usuario)
     setContraseña(res.data.Contraseña)
     setCargo(res.data.Cargo)
     setCedula(res.data.Cedula)
+    setRol(res.data.Rol)
     setimg(res2.data.File)
-
+    setCodigoImagenVieja(res.data.Id_Audiografia)
     setRuta(`http://localhost:8000/${res2.data.File}`)
 
 }
@@ -50,10 +52,16 @@ const getUsuarioss = async () => {
 
 const agregar = async (e) => {
     e.preventDefault()
-     alert("hola")
+    const res2 = await axios.get(`http://localhost:8000/Audiografia/`);
 
-     await axios.put(`${URL3}${cedula}`,{
-      id:cedula,
+    const dat= res2.data.filter(re=>re.File===ImagetBase.name)
+ 
+   if(dat.length!==0){
+    console.log(dat)
+    alert("El Nombre de esa Imagen no esta disponible")
+   }else{
+    await axios.put(`${URL3}${codigoImagenVieja}`,{
+      id:codigoImagenVieja,
       Nombre:nombre,
       File:ImagetBase.name,
       createdAt:"2024-10-23",
@@ -69,7 +77,8 @@ const agregar = async (e) => {
        Contraseña: contraseña,
        Cargo: cargo,
        Cedula:cedula,
-       Id_Audiografia:cedula,
+       Rol:rol,
+       Id_Audiografia:codigoImagenVieja,
        createdAt: "2024-10-23",
        updatedAt: "2024-10-23"
      })
@@ -78,18 +87,21 @@ const agregar = async (e) => {
      formData.append('file', ImagetBase);
      await axios.post(URL2,formData)
  
-
+ navigate("/Usuario")
      if(CambiolaImagen===true){
       await axios.delete(`http://localhost:8000/EliminarFoto/${img}`)
     }
 
-     navigate("/Usuario")
+    
+   }
+
+    
    }
 
 
    const cambiarImg=(e)=>{
     e.preventDefault()
-    alert("cambio")
+   
     setRuta(null)
     setRuta(e.target.files[0])
     setImagetBase(e.target.files[0])
@@ -139,35 +151,41 @@ const agregar = async (e) => {
                     <h3>Datos de mi Usuario</h3>
       </div>
 
-      <div className="envoltorio">
-        <div className="form-group-usuario-img">
+      <div className="envoltorio-Matricula">
+        <div className="form-group-matricula-img">
           <img src={ruta} alt="" />
           <label htmlFor="foto" className="foto">Subir Imagen aqui+</label>
          <input type="file" name="foto" id="foto" onChange={e=>cambiarImg(e)} />
          </div>
-          <div className="envoltorio-datos">
-        <div className="form-group-Detalles-Usuario">
+          <div className="envoltorio-datos-Matricula-alum">
+        <div className="form-group-Matricula">
           <label htmlFor="">Nombre*</label>
           <input type="text" value={nombre} onChange={(e) => setNombre(e.target.value)} placeholder='ESCRIBA SU NOMBRE' />
 
         </div>
-        <div className="form-group-Detalles-Usuario">
+        <div className="form-group-Matricula">
           <label htmlFor="">Apellido *</label>
           <input type="text" value={apellido} onChange={(e) => setApellido(e.target.value)} placeholder='ESCRIBA SU APELLIDO' />
 
         </div>
-        <div className="form-group-Detalles-Usuario">
+        <div className="form-group-Matricula">
           <label htmlFor="">Usuario *</label>
           <input type="text" value={usuarionom} onChange={(e) => setUsuarionom(e.target.value)} placeholder='ESCRIBA SU USUARIO'/>
 
         </div>
-        <div className="form-group-Detalles-Usuario">
+        <div className="form-group-Matricula">
           <label htmlFor="">Contraseña*</label>
           <input type="text" value={contraseña} onChange={(e) => setContraseña(e.target.value)} placeholder='ESCRIBA SU CONTRASEÑA' />
 
         </div>
+ <div className="form-group-Matricula">
+          <label htmlFor="">Cedula *</label>
+          <input type="number" value={cedula} onChange={(e) => setCedula(e.target.value)} placeholder='ESCRIBA SU USUARIO'/>
 
-        <div className="form-group-Detalles-Usuario">
+        </div>
+
+
+        <div className="form-group-Matricula">
           <label htmlFor="">Cargo*</label>
           <select onChange={(e) => setCargo(e.target.value)}>
           <option value="Coordinadora">{cargo} </option>
@@ -179,11 +197,21 @@ const agregar = async (e) => {
 
          
         </div>
-        <div className="form-group-Detalles-Usuario">
-          <label htmlFor="">Cedula *</label>
-          <input type="number" value={cedula} onChange={(e) => setCedula(e.target.value)} placeholder='ESCRIBA SU USUARIO'/>
+       
 
+        <div className="form-group-Matricula">
+          <label htmlFor="">Rol del Usuario*</label>
+          <select onChange={(e) => setRol(e.target.value)}>
+          <option value={rol}>{rol} </option>
+          <option value="Coordinadora">Selecione Una Opcion</option>
+          <option value="Administrador">Administrador</option>
+            <option value="Visor">Visor</option>
+            <option value="Usuario">Usuario</option>
+          </select>
+
+         
         </div>
+
         </div>
         </div>
        

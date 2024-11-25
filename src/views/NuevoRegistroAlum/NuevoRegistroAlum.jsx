@@ -67,16 +67,26 @@ function NuevoRegistroAlum({ Manejador }) {
   const[imgbase, setImgbase]=useState(silueta);
   const[img,setImg]=useState(silueta)
  
-
+  const[embaseCodigo,setembaseCodigo]=useState([])
    
 
   const[mostrari,setmostrari]=useState(false)
   const subirAlumno = async (e) => {
    e.preventDefault()
-     alert(imgbase)
+     
 
      if(imgbase==="/src/assets/63699.png"){
         alert("Por Favor Eliga Una Imagen para subir")
+     }else{
+
+
+      const res2 = await axios.get(`http://localhost:8000/Audiografia/`);
+
+      const dat= res2.data.filter(re=>re.File===imgbase.name)
+  
+     if(dat.length!==0){
+      console.log(dat)
+      alert("El Nombre de esa Imagen no esta disponible")
      }else{
       await axios.post(URL6,{
         id:codigoImg,
@@ -135,6 +145,9 @@ function NuevoRegistroAlum({ Manejador }) {
           navigate("/Matricula")
      }
 
+    
+     }
+
   }
 
 
@@ -149,6 +162,37 @@ function NuevoRegistroAlum({ Manejador }) {
     getAlumnos()
     
 }, [])
+
+
+   useEffect(()=>{
+ 
+    if(id_programa==="7"){
+      const nudata=  embaseCodigo.filter((co)=> co.Nombre==="Mandolina" ||
+      co.Nombre==="Mandola"||
+      co.Nombre==="Cuatro"||
+      co.Nombre==="Guitarra"||
+      co.Nombre==="Bandola"||
+      co.Nombre==="Contrabajo"
+    )
+    setcodigo(nudata)
+    }
+
+   else if(id_programa==="8"){
+      const nudata=  embaseCodigo.filter((co)=> co.Nombre==="Trompeta" ||
+      co.Nombre==="Flauta"||
+      co.Nombre==="Cello"||
+      co.Nombre==="Violin"||
+      co.Nombre==="Viola"||
+      co.Nombre==="Oboe"||
+      co.Nombre==="Clarinete"||
+      co.Nombre==="Trombon"||
+      co.Nombre==="Fagot"||
+      co.Nombre==="Contrabajo"
+    )
+    setcodigo(nudata)
+    }
+
+   },[id_programa])
 
 
 
@@ -187,37 +231,7 @@ const verificarCedula=async(cedul)=>{
  }
 
 
- const revisondePrograma=(prog)=>{
-  setid_programa(prog)
 
-     if(prog==="9" && id_instrumento!==null){
-      alert("El Programa Coro No lleva Instrumento")
-      setid_instrumento(null)
-      setcodigo2("")
-        setinstrumento("")
-        setmarca("")
-        settamaño("")
-        setprograma("")
-      
-        setestadoinstr("")
-        setmoduloinstru("")
-     }
-
-     if(prog==="10" && id_instrumento!==null){
-      alert("El Programa Kinder Musical No lleva Instrumento")
-      setid_instrumento(null)
-      setcodigo2("")
-        setinstrumento("")
-        setmarca("")
-        settamaño("")
-        setprograma("")
-      
-        setestadoinstr("")
-        setmoduloinstru("")
-     }
-
-   
- }
 
 
  const revisondeGrado=(grad)=>{
@@ -234,7 +248,8 @@ const verificarCedula=async(cedul)=>{
       const co2= await axios.get(url3);
       const co3= await axios.get(url4);
       const co4= await axios.get(url5);
-      setcodigo(co.data)
+      
+        setembaseCodigo(co.data)
       setcedularepresen(co2.data)
       setGetprogr(co3.data)
       setModel(co4.data)
@@ -247,16 +262,6 @@ const verificarCedula=async(cedul)=>{
 const BuscarInstrumento= async(id)=>{
   const instru= await axios.get(`${url2}${id}`);
   
-  if(id_programa==="9" && instru.data.Nombre!==null){
-    alert("El Programa Coro no necesita Instrumento")
-  }
-
-  else if(id_programa==="10" && instru.data.Nombre!==null){
-    alert("El Programa Kinder Musical no necesita Instrumento")
-   
-  }
-  else{
- 
     setid_instrumento(instru.data.id)
     setcodigo2(instru.data.Codigo)
       setinstrumento(instru.data.Nombre)
@@ -266,76 +271,8 @@ const BuscarInstrumento= async(id)=>{
     
       setestadoinstr(instru.data.Estado)
       setmoduloinstru(instru.data.Deposito.Nombre)
-  }
-
-
-  if(id_programa===null ){
-    alert("Seleccione el Programa Primero")
-    setid_instrumento(null)
-        setcodigo2("")
-          setinstrumento("")
-          setmarca("")
-          settamaño("")
-          setprograma("")
-        
-          setestadoinstr("")
-          setmoduloinstru("")
-  }
- 
-
-
-  if(id_programa==="8" && instru.data.Nombre==="Trompeta" ||
-    id_programa==="8" && instru.data.Nombre==="Flauta"||
-    id_programa==="8" && instru.data.Nombre==="Cello"||
-    id_programa==="8" && instru.data.Nombre==="Violin"||
-    id_programa==="8" && instru.data.Nombre==="Viola"||
-    id_programa==="8" && instru.data.Nombre==="Oboe"||
-    id_programa==="8" && instru.data.Nombre==="Clarinete"||
-    id_programa==="8" && instru.data.Nombre==="Trombon"||
-    id_programa==="8" && instru.data.Nombre==="Fagot"||
-    id_programa==="8" && instru.data.Nombre==="Contrabajo"
-  ){
-     
-  }else{
-     if(id_programa==="8"){
-      alert("No Puedes Ingresar "+ instru.data.Nombre+"Con el programa "+"Sinfonico")
-      setid_instrumento(null)
-        setcodigo2("")
-          setinstrumento("")
-          setmarca("")
-          settamaño("")
-          setprograma("")
-        
-          setestadoinstr("")
-          setmoduloinstru("")
-     }
-  }
+  
    
-
-
-  if(id_programa==="7" && instru.data.Nombre==="Mandolina" ||
-    id_programa==="7" && instru.data.Nombre==="Mandola"||
-    id_programa==="7" && instru.data.Nombre==="Cuatro"||
-    id_programa==="7" && instru.data.Nombre==="Guitarra"||
-    id_programa==="7" && instru.data.Nombre==="Bandola"||
-    id_programa==="7" && instru.data.Nombre==="Contrabajo"
-
-  ){
-     
-  }else{
-    if(id_programa==="7"){
-      alert("No Puedes Ingresar "+ instru.data.Nombre+"Con el programa "+"Alma Llanera")
-    setid_instrumento(null)
-      setcodigo2("")
-        setinstrumento("")
-        setmarca("")
-        settamaño("")
-        setprograma("")
-      
-        setestadoinstr("")
-        setmoduloinstru("")
-    }
-  }
 }
 
 const BuscarRepresentante= async(id)=>{
@@ -357,16 +294,13 @@ const BuscarRepresentante= async(id)=>{
 
 const cambiarImg=(e)=>{
   e.preventDefault()
-  alert("cambio")
+
   setImgbase(e.target.files[0])
  
   setImg(window.URL.createObjectURL(e.target.files[0]))
 
 }
-const confirmacion=()=>{
-  
-  
-  };
+
 
   return (
     <div className="container-nuevo-alumno2">
@@ -406,54 +340,54 @@ const confirmacion=()=>{
       <div className='contenedor-formulario-nuevo-alumno'>
 
         <form action="" onSubmit={subirAlumno}>
-          <div className="container-form-info">
+          <div className="container-form-info-Matricula">
             <h3>Datos Del Alumno</h3>
           </div>
-          <div className="envoltorio2">
+          <div className="envoltorio-Matricula">
             <div className="form-group-matricula-img">
               <img src={img} alt="" />
               <label htmlFor="foto" className="foto">Subir Imagen aqui+</label>
               <input type="file" name="foto" id="foto" onChange={e => cambiarImg(e)} />
              
             </div>
-            <div className="envoltorio-datos2">
-              <div className="form-group-alumno2">
+            <div className="envoltorio-datos-Matricula-alum">
+              <div className="form-group-Matricula">
                 <label htmlFor="">NOMBRES* </label>
-                <input type="text"{...register("nombre", { required: true})} name="" value={nombre} onChange={(e) => setnombre(e.target.value)} id="" placeholder='ESCRIBA LOS NOMBRES' />
+                <input type="text"{...register("nombre", { required: true})} name=""  value={nombre} onChange={(e) => setnombre(e.target.value)} id="" placeholder='ESCRIBA LOS NOMBRES' />
                 {errors.nombre?.type === 'required' && <p>introduzca el nombre</p>}
           
               </div>
 
-              <div className="form-group-alumno2">
+              <div className="form-group-Matricula">
                 <label htmlFor="">APELLIDOS*</label>
                 <input type="text" {...register("apellido", { required: true})} name="" value={apellido} onChange={(e) => setapellido(e.target.value)} id="" placeholder='ESCRIBA LOS APELLIDOS' />
                 {errors.apellido?.type === 'required' && <p>introduzca el apellido</p>}
               
               </div>
-              <div className="form-group-alumno2">
+              <div className="form-group-Matricula">
                 <label htmlFor="">CEDULA*</label>
                 <input type="text"   name="" value={cedula} onChange={(e) => verificarCedula(e.target.value)} id="" placeholder='ESCRIBA LA CEDULA' />
                 {err === true ? <p className="text-error">La Cedula Ya Existe</p> : null}
                 {erredad === true ? <p className="text-error">Digite La Cedula Del Alumno</p> : null}
                 
               </div>
-              <div className="form-group-alumno2">
+              <div className="form-group-Matricula-sexo">
                 <label htmlFor="">SEXO*</label>
                
                   <label htmlFor="">Femenino</label>   <input type="checkbox" name="sexo" value="femenino" id="" onChange={(e) => setsexoo("femenino")} />
                   <label htmlFor="">Masculino </label> <input type="checkbox" name="sexo" value="masculino" id="" onChange={(e) => setsexoo("masculino")} />
                
               </div>
-              <div className="form-group-alumno2">
+              <div className="form-group-Matricula">
                 <label htmlFor="">EDAD*</label>
                 <input type="number"  {...register("edad", { required: true})}  value={edad} onChange={(e) => revisondeEdad(e.target.value)} name="" id="" placeholder='ESCRIBA LA EDAD' />
                 {errors.edad?.type === 'required' && <p>introduzca el edad</p>}
               
               </div>
 
-              <div className="form-group-alumno2">
+              <div className="form-group-Matricula">
             <label htmlFor="">PROGRAMA*</label>
-            <select name="" {...register("programa", { required: true, })}id="" onChange={e=>revisondePrograma(e.target.value)}>
+            <select name="" {...register("programa", { required: true, })}id="" onChange={e=>setid_programa(e.target.value)}>
             <option value="">Seleccione una Opcion</option>
             {  getprogr.map(prog=>(
               <option value={prog.id}>{prog.Nombre}</option>
@@ -463,10 +397,8 @@ const confirmacion=()=>{
             {errors.programa?.type === 'required' && <p>seleccione un programa</p>}
 
           </div>
-            </div>
-            
-          </div>
-          <div className="form-group-alumno2">
+
+          <div className="form-group-Matricula">
             <label htmlFor="">MODULO*</label>
             <select name="" {...register("modulo", { required: true, })} id=""  onChange={e=>setid_modulo(e.target.value)} >
               <option value="">Selecciones una Opcion</option>
@@ -477,6 +409,11 @@ const confirmacion=()=>{
             {errors.modulo?.type === 'required' && <p>seleccione un modulo</p>}
 
           </div>
+            </div>
+            
+            
+          </div>
+         
         
          {
          
@@ -551,18 +488,18 @@ const confirmacion=()=>{
             <hr />
           </div>
 
-          <div className="container-form-info">
+          <div className="container-form-info-Matricula">
             <h3>Datos Del Representante</h3>
           </div>
 
 
-      <div className="envoltorio2">
+      <div className="envoltorio-Matricula">
       <div className="form-group-matricula-img">
               <img src={imgRepre} alt="" />
             
             </div>
-    <div className="envoltorio-datos">
-    <div className="form-group-alumno2">
+    <div className="envoltorio-datos-Matricula">
+    <div className="form-group-Matricula">
             <label htmlFor="">CEDULA*</label>
             <select name="" {...register("cedula", { required: true, })} id="" onChange={(e)=>BuscarRepresentante(e.target.value)}>
             <option value="">"SELECCIONA UNA OPCION"</option>
@@ -575,7 +512,7 @@ const confirmacion=()=>{
             {errors.cedula?.type === 'required' && <p>seleccione un cedula</p>}
 
           </div>
-          <div className="form-group-alumno2">
+          <div className="form-group-Matricula">
             <label htmlFor="">NOMBRE*</label>
             <select name=""  id="" >
               <option value="">{nombrerepre}</option>
@@ -583,7 +520,7 @@ const confirmacion=()=>{
             </select>
          
           </div>
-          <div className="form-group-alumno2">
+          <div className="form-group-Matricula">
             <label htmlFor="">APELLIDO*</label>
             <select name="" id="" >
               <option value="">{apellidorepre}</option>
@@ -591,7 +528,7 @@ const confirmacion=()=>{
             </select>
           
           </div>
-          <div className="form-group-alumno2">
+          <div className="form-group-Matricula">
             <label htmlFor="">TELEFONO*</label>
             <select name="" id="" >
               <option value="">{telefonorepresenta}</option>
@@ -600,14 +537,14 @@ const confirmacion=()=>{
            
           </div>
 
-          <div className="form-group-alumno2">
+          <div className="form-group-Matricula">
             <label htmlFor="">ESTADO*</label>
             <select name="" id="">
               <option value="">{estadoubica}</option>
             </select>
         
           </div>
-          <div className="form-group-alumno2">
+          <div className="form-group-Matricula">
             <label htmlFor="">MUNICIPIO*</label>
             <select name="" id="" >
               <option value="">{municipioubica}</option>
@@ -615,7 +552,7 @@ const confirmacion=()=>{
             </select>
           
           </div>
-          <div className="form-group-alumno2">
+          <div className="form-group-Matricula">
             <label htmlFor="">SECTOR*</label>
             <select name="" id="" >
               <option value="">{sectorrepresen}</option>
@@ -623,7 +560,7 @@ const confirmacion=()=>{
             </select>
         
           </div>
-          <div className="form-group-alumno2">
+          <div className="form-group-Matricula">
             <label htmlFor="">CALLE*</label>
             <select name="" id="" >
               <option value="">{callerepresenta}</option>
@@ -634,15 +571,15 @@ const confirmacion=()=>{
     </div>
       </div>
          
-          <div className="container-form-info">
+          <div className="container-form-info-Matricula">
                     <h3>Datos Del Alumno</h3>
                     </div>
-         <div className="envoltorio">
+         <div className="envoltorio-Matricula">
          <div className="form-group-matricula-img">
              
             </div>
-          <div className="envoltorio-datos">
-          <div className="form-group-alumno2">
+          <div className="envoltorio-datos-Matricula">
+          <div className="form-group-Matricula">
             <label htmlFor="">Donde Estudia*</label>
             <select name="" id="" onChange={(e) => setcolegio(e.target.value)}>
               <option value="">SELECCIONA UNA OPCION</option>
@@ -651,7 +588,7 @@ const confirmacion=()=>{
               <option value="San Jose">San Jose</option>
             </select>
           </div>
-          <div className="form-group-alumno22">
+          <div className="form-group-Matricula">
             <label htmlFor="">Turno del cole*</label>
             <select name="" id="" onChange={(e) => setturno(e.target.value)}>
               <option value="">SELECCIONA UNA OPCION</option>
@@ -660,7 +597,8 @@ const confirmacion=()=>{
 
             </select>
           </div>
-          <div className="form-group-alumno2">
+          
+          <div className="form-group-Matricula">
             <label htmlFor="">Grado*</label>
             <select name="" id="" onChange={(e) => setgrado(e.target.value)}>
               <option value="">SELECCIONA UNA OPCION</option>
@@ -680,7 +618,7 @@ const confirmacion=()=>{
             </select>
           </div>
           
-          <div className="form-group-alumno22">
+          <div className="form-group-Matricula">
             <label htmlFor="">Padece alguna Enfermedad*</label>
             <input type="text" name="" placeholder='Escriba la Enfermedad' id="" onChange={(e) => setenfermedad(e.target.value)} />
           </div>

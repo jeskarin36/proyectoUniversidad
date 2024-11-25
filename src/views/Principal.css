@@ -6,7 +6,7 @@
     --color-danger: #ff7782;
     --color-success: #41f1a6;
     --color-warning: #ffbb55;
-    --color-white:#fff;
+    --color-white:#f1f1f1c2;
     --color-info-dark:#7d8da1; 
     --color-info-light:#dce1eb ;
     --color-dark: #363949;
@@ -32,7 +32,7 @@
 .dark-theme-variable{
     --color-background:#181a1e;
     --color-white:#202528;
-    --color-dark:#edeffd;
+    --color-dark:#d7d7d7;
     --color-dark-variant:#a3bdcc;
     --color-light:rga(0,0,0,0.4);
     --box-shadow:0 2rem 3rem var(--color-light);

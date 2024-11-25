@@ -238,7 +238,39 @@
     display: flex;
     flex-wrap: wrap;
     position: relative;
+    background-color:blue;
+    padding-bottom: 3rem;
+    clip-path: polygon(0 5%, 92% 6%, 100% 96%, 11% 95%);
+    margin-bottom: 3rem;
+    position: relative;
 }
+
+
+.envoltorio2::before{
+    content: "";
+    width: 90%;
+    height: 23rem;
+    right: 0;
+    position: absolute;
+    background-color: gold;
+    clip-path: polygon(0 5%, 92% 6%, 100% 96%, 11% 95%);
+    z-index: -555;
+  }
+  
+  .envoltorio2::after{
+      content: "";
+      width: 90%;
+      height: 23rem;
+      position: absolute;
+      background-color: var(--color-white);
+      clip-path: polygon(0 5%, 92% 6%, 100% 96%, 11% 95%);
+      z-index: -555;
+     margin-left: 16rem;
+     background-color: var(--color-white);
+    }
+  
+
+
 
 .envoltorio-datos2{
     width:85%;
@@ -319,18 +351,20 @@
 }
 
 .contenedor-formulario-nuevo-alumno input{
-   
-    padding: .8em ;
+    width: 16rem;
+    padding: .6rem;
+    height: 2.5rem;
     border: none;
     border-bottom: 2px solid rgb(46, 52, 139);
     outline: none;
     border-radius: 5px;
-    background: none;
+   
     color: var(--color-dark-variant);
 }
 
 .contenedor-formulario-nuevo-alumno input::placeholder{
     color: var(--color-dark-variant);
+    font-family: "Poppins",sans-serif;
 }
 .contenedor-formulario-nuevo-alumnoinput[type="text"],
 .contenedor-formulario-nuevo-alumno input[type="number"]
@@ -366,4 +400,108 @@
     font-weight: 600;
     font-size: 1rem;
     color: white;
+    margin-bottom: 5rem;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.envoltorio-Matricula{
+    width: 90%;
+    height: 23rem;
+    background-color: rgb(187, 0, 255);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    padding: 2rem 0;
+    clip-path: polygon(0 5%, 92% 6%, 100% 96%, 11% 95%);
+    z-index: 100000;
+position: relative;
+margin-bottom: 3rem;
+}
+
+.envoltorio-Matricula::before{
+  content: "";
+  width: 90%;
+  height: 23rem;
+  right: 0;
+  position: absolute;
+  background-color: gold;
+  clip-path: polygon(0 5%, 92% 6%, 100% 96%, 11% 95%);
+  z-index: -555;
+}
+
+.envoltorio-Matricula::after{
+    content: "";
+    width: 90%;
+    height: 23rem;
+    position: absolute;
+    background-color: var(--color-white);
+    clip-path: polygon(0 5%, 92% 6%, 100% 96%, 11% 95%);
+    z-index: -555;
+   margin-left: 22rem;
+  }
+
+.envoltorio-datos-Matricula{
+    width: 60%;
+    height: 100%;
+    
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    
+}
+
+.envoltorio-datos-Matricula-alum{
+    width: 65%;
+    height: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.form-group-Matricula{
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+
+.form-group-Matricula-sexo{
+    width: 20rem;
+    display: flex;
+     justify-content: center;
+     align-items: center;
+  
+ 
+}
+
+.container-form-info-Matricula h3{
+    padding: 0;
+    margin: 0;
+    color: rgb(7, 107, 161);
+}
+
+
+

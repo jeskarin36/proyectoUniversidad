@@ -31,7 +31,7 @@ function Reporte({ Manejador }) {
   const [nuevoarray, setNuevoArray] = useState([])
   const [Modulo, setModulo] = useState("")
   const [CabeceraInventario, setCabeceraInventario] = useState([])
-  const [Nombre, setNombre] = useState("")
+  const [SelecionModulo, setSelecionModulo] = useState("")
 
 
 
@@ -74,7 +74,6 @@ function Reporte({ Manejador }) {
 
   const HangleOnExel = () => {
 
-    const Nombre = ""
 
 
 
@@ -277,7 +276,7 @@ function Reporte({ Manejador }) {
        
 
 
-        setCabeceraInventario([...CabeceraInventario, e.target.value])
+        setCabeceraInventario([...CabeceraInventario,e.target.value])
 
 
       }
@@ -289,11 +288,21 @@ function Reporte({ Manejador }) {
     }
 
 
-
-
-
-
   }
+
+
+
+  const verificarModulo=(e)=>{
+    
+    if (e.target.checked) {
+      setSelecionModulo(e.target.value)
+      
+    } else if (e.target.checked === false) {
+       setSelecionModulo("")
+    }
+  }
+
+
   return (
     <div className="container-reporte">
       <div className="cabeza">
@@ -332,7 +341,6 @@ function Reporte({ Manejador }) {
           <option value="Representante">Representante</option>
           <option value="Matricula">Matricula</option>
           <option value="Modulo">Modulo</option>
-          <option value="Modulo">Edad</option>
         </select>
 
 
@@ -450,20 +458,20 @@ function Reporte({ Manejador }) {
         }
 
         {
-          valor === "Modulo" && <label htmlFor="">
+          valor === "Modulo" && Modulo!=="" &&<label htmlFor="">
             <label htmlFor="">
 
-              <input type="checkbox" />
+              <input type="checkbox" value="Representante" onChange={verificarModulo} />
               Representante
             </label>
             <label htmlFor="">
 
-              <input type="checkbox" />
+              <input type="checkbox" value="Inventario" onChange={verificarModulo}/>
               Inventario
             </label>
             <label htmlFor="">
 
-              <input type="checkbox" />
+              <input type="checkbox" value="Matricula" onChange={verificarModulo}/>
               Matricula
             </label>
 
@@ -477,7 +485,7 @@ function Reporte({ Manejador }) {
 
 
             {
-              <Tabla cabecera={CabeceraInventario} Modulo={Modulo} setValorExport={setValorExport} instrumentos={instrumentos} filtro={filtrarpor} representantes={representante} alumnos={Alumnos}></Tabla>
+              <Tabla cabecera={CabeceraInventario} SelecionModulo={SelecionModulo} setCabeceraInventario={setCabeceraInventario} Modulo={Modulo} setValorExport={setValorExport} instrumentos={instrumentos} filtro={filtrarpor} representantes={representante} alumnos={Alumnos}></Tabla>
 
             }
 

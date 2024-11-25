@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import "./Menu.css"
 import imggg from "../../assets/NI-COLOR-H.png"
+import { useNavigate } from 'react-router-dom';
 
 function Menu({cambio}) {
 
@@ -9,11 +10,8 @@ function Menu({cambio}) {
     const [colorInventario,setColorInventario]= useState(false)
     const [colorRepresentante,setColorRepresentante]= useState(false)
     const [colorReporte,setColorReporte]= useState(false)
-
-    const handleclick = ()=>{
-       
-    }
-
+    const navigate=useNavigate();
+  
 useEffect(()=>{
   
     const actualUrl = window.location.href;
@@ -38,6 +36,16 @@ useEffect(()=>{
 },[])
 
 
+
+  const handleLogin=()=>{
+    sessionStorage.removeItem("Nombre");
+    sessionStorage.removeItem("Rol");
+    sessionStorage.removeItem("Cargo");
+    sessionStorage.removeItem("User");
+    sessionStorage.removeItem("Id");
+
+    navigate("/Login")
+  }
 
 
   return (
@@ -68,9 +76,9 @@ useEffect(()=>{
                     <span className="material-icons-sharp">receipt_long</span>
                     <h3>MATRICULA</h3>
                 </a>
-                <a href="/Inventario"  onClick={handleclick} className={colorInventario===true? 'color':null }>
+                <a href="/Inventario"  className={colorInventario===true? 'color':null }>
                     <span className="material-icons-sharp">insights</span>
-                    <h3>INVENTARIO</h3>
+                    <h3>INSTRUMENTOS</h3>
                 </a>
                
                 <a href="/Representante" className={colorRepresentante===true? 'color':null }>
@@ -81,12 +89,9 @@ useEffect(()=>{
                     <span className="material-icons-sharp">report_gmailerrorred</span>
                     <h3>REPORTES</h3>
                 </a>
-                <a href="#">
-                    <span className="material-icons-sharp">settings</span>
-                    <h3>CONFIGURACION</h3>
-                </a>
                
-                <a href="#">
+                
+                <a href="" onClick={handleLogin}>
                     <span className="material-icons-sharp">logout</span>
                     <h3>SALIR</h3>
                 </a>

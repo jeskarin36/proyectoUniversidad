@@ -11,6 +11,7 @@ const UsuarioModelo= db.define('Usuario', {
     Contraseña:{ type: DataTypes.STRING},
     Cargo:{ type: DataTypes.STRING},
     Cedula:{ type: DataTypes.INTEGER},
+    Rol:{ type: DataTypes.STRING},
     id_audiografia:{ type: DataTypes.INTEGER},
     createdAt: Sequelize.DATE,
     updatedAt: Sequelize.DATE

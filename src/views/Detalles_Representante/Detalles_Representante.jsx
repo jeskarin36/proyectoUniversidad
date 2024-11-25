@@ -108,42 +108,37 @@ function Detalles_Representante({Manejador}) {
                     <h3>Datos Del Representante</h3>
       </div>
 
-      <div className="envoltorio">
-      <div className="form-group-representante-img">
+      <div className="envoltorio-Matricula">
+      <div className="form-group-matricula-img">
     
           <img src={`http://localhost:8000/${img}`} alt="" />
         
          </div>
 
-         <div className="envoltorio-datos">
-         <div className="form-group-Editar-representante">
+         <div className="envoltorio-datos-Matricula-alum">
+         <div className="form-group-Matricula2">
           <label htmlFor="">Nombre*</label>
           <input type="text" value={nombre}  readOnly />
 
         </div>
-        <div className="form-group-Editar-representante">
+        <div className="form-group-Matricula2">
           <label htmlFor="">Apellido *</label>
           <input type="text" value={apellido}  readOnly  />
 
         </div>
-        <div className="form-group-Editar-representante">
+        <div className="form-group-Matricula2">
           <label htmlFor="">CEDULA *</label>
           <input type="number" value={cedula}  readOnly/>
 
         </div>
-        <div className="form-group-Editar-representante">
+        <div className="form-group-Matricula2">
           <label htmlFor="">TELEFONO*</label>
           <input type="number" value={telefono}  readOnly  />
 
         </div>
-         </div>
-      </div>
+      
 
-        <div className="container-form-info">
-                    <h3>Ubicacion Del Representante</h3>
-                    </div>
-
-        <div className="form-group-Editar-representante">
+        <div className="form-group-Matricula2">
           <label htmlFor="">ESTADO*</label>
           <select>
                <option value={estado}>{estado}</option>
@@ -151,7 +146,7 @@ function Detalles_Representante({Manejador}) {
 
 
         </div>
-        <div className="form-group-Editar-representante">
+        <div className="form-group-Matricula2">
           <label htmlFor="">MUNICIPIO*</label>
           <select>
           <option value={municipio}>{municipio}</option>
@@ -159,14 +154,14 @@ function Detalles_Representante({Manejador}) {
 
 
         </div>
-        <div className="form-group-Editar-representante">
+        <div className="form-group-Matricula2">
           <label htmlFor="">SECTOR*</label>
           <select >
           <option value={sector}>{sector}</option>
           </select>
 
         </div>
-        <div className="form-group-Editar-representante">
+        <div className="form-group-Matricula2">
           <label htmlFor="">CALLE*</label>
           <select >
           <option value={calle}>{calle}</option>
@@ -177,7 +172,11 @@ function Detalles_Representante({Manejador}) {
         <div className="container-form-info">
                 
                     </div>
-    
+         </div>
+      
+
+       
+     </div>
       </form>
 
 

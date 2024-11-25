@@ -258,44 +258,41 @@ const BuscarInstrumento= async(id)=>{
       <div className="container-form-info">
                     <h3>Datos Del Alumno</h3>
                     </div>
-        <div className="envoltorio2">
+        <div className="envoltorio-Matricula">
         <div className="form-group-matricula-img">
               <img src={`http://localhost:8000/${imgAlumno}`} alt="" />
              
             </div>
-          <div className="envoltorio-datos2">
-          <div className="form-group-alumno2">
+          <div className="envoltorio-datos-Matricula">
+          <div className="form-group-Matricula">
             <label htmlFor="">NOMBRES* </label>
             <input type="text" name="" value={nombre}  readOnly />
           </div>
-          <div className="form-group-alumno2">
+          <div className="form-group-Matricula">
             <label htmlFor="">APELLIDOS*</label>
             <input type="text" name="" value={apellido} readOnly />
           </div>
-          <div className="form-group-alumno2">
+          <div className="form-group-Matricula">
             <label htmlFor="">CEDULA*</label>
             <input type="text" name="" value={cedula} readOnly />
           </div>
-          <div className="form-group-alumno2">
+          <div className="form-group-Matricula">
             <label htmlFor="">SEXO*</label>
           
               <label htmlFor="">Femenino</label>  <input type="checkbox" name="sexo" value="femenino" id=""  checked={sexoo==="femenino"?"checked":null} onChange={(e) => setSexoo("femenino")} />
               <label htmlFor="">Masculino </label> <input type="checkbox" name="sexo" value="masculino" id="" checked={sexoo==="masculino"?"checked":null} onChange={(e) => setSexoo("masculino")} />
           
           </div>
-          <div className="form-group-alumno2">
+          <div className="form-group-Matricula">
             <label htmlFor="">EDAD*</label>
             <input type="number" value={edad} readOnly />
           </div>
-          <div className="form-group-alumno2">
+          <div className="form-group-Matricula">
             <label htmlFor="">PROGRAMA*</label>
             <select name="" id="" >
             <option value={programa3.id}>{programa3.Nombre}</option>
             </select>
           </div>
-          </div>
-        </div>
-
           <div className="form-group-alumno2">
             <label htmlFor="">MODULO*</label>
             <select name="" id=""  >
@@ -303,6 +300,11 @@ const BuscarInstrumento= async(id)=>{
              
             </select>
           </div>
+          </div>
+          
+        </div>
+
+       
           
       {
         mostrarIns===true ?   <div className="envoltorio2">
@@ -359,33 +361,33 @@ const BuscarInstrumento= async(id)=>{
           <div className="container-form-info">
                     <h3>Datos Del Representante</h3>
                     </div>
-       <div className="envoltorio2">
+       <div className="envoltorio-Matricula">
         <div className="form-group-matricula-img">
               <img src={`http://localhost:8000/${imgRepre}`} alt="" />
              
             </div>
-          <div className="envoltorio-datos2">
-          <div className="form-group-alumno2">
+          <div className="envoltorio-datos-Matricula">
+          <div className="form-group-Matricula">
             <label htmlFor="">CEDULA*</label>
             <select name="" id="" >
            <option value="">{cedulaRe}</option>
             </select>
           </div>
-          <div className="form-group-alumno2">
+          <div className="form-group-Matricula">
             <label htmlFor="">NOMBRE*</label>
             <select name="" id="" >
               <option value="">{nombrerepre}</option>
              
             </select>
           </div>
-          <div className="form-group-alumno2">
+          <div className="form-group-Matricula">
             <label htmlFor="">APELLIDO*</label>
             <select name="" id="" >
               <option value="">{apellidorepre}</option>
              
             </select>
           </div>
-          <div className="form-group-alumno2">
+          <div className="form-group-Matricula">
             <label htmlFor="">TELEFONO*</label>
             <select name="" id="" >
               <option value="">{telefonorepresenta}</option>
@@ -393,27 +395,27 @@ const BuscarInstrumento= async(id)=>{
             </select>
           </div>
 
-          <div className="form-group-alumno2">
+          <div className="form-group-Matricula">
             <label htmlFor="">ESTADO*</label>
             <select name="" id="">
               <option value="">{estadoubica}</option>
             </select>
           </div>
-          <div className="form-group-alumno2">
+          <div className="form-group-Matricula">
             <label htmlFor="">MUNICIPIO*</label>
             <select name="" id="" >
               <option value="">{municipioubica}</option>
             
             </select>
           </div>
-          <div className="form-group-alumno2">
+          <div className="form-group-Matricula">
             <label htmlFor="">SECTOR*</label>
             <select name="" id="" >
               <option value="">{sectorrepresen}</option>
               
             </select>
           </div>
-          <div className="form-group-alumno2">
+          <div className="form-group-Matricula">
             <label htmlFor="">CALLE*</label>
             <select name="" id="" >
               <option value="">{callerepresenta}</option>

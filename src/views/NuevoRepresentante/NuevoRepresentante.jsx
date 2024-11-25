@@ -32,7 +32,7 @@ const NuevoRepresentante = ({ Manejador}) => {
   const[img, setImg]=useState(silueta);
   const[imgbase, setImgbase]=useState(silueta);
   const [codigoImg, setcodigoImg] = useState((Date.now()*Math.random()-Math.random()-Math.random() ))
-  
+  const[igual, setIgual]=useState(false);
 
   const { register,formState:{errors}, handleSubmit } = useForm({mode:"all"});
 
@@ -41,8 +41,20 @@ const NuevoRepresentante = ({ Manejador}) => {
 
   const agregar=async(e)=>{
     
+   if(imgbase==="/src/assets/63699.png"){
+    alert("Por Favor Eliga Una Imagen para subir")
+   }
    
-    
+   else{
+     
+    const res2 = await axios.get(`http://localhost:8000/Audiografia/`);
+
+    const dat= res2.data.filter(re=>re.File===imgbase.name)
+
+   if(dat.length!==0){
+    console.log(dat)
+    alert("El Nombre de esa Imagen no esta disponible")
+   }else{
     await axios.post(URL3,{
       id:codigoImg.toString(),
       Nombre:nombre,
@@ -69,6 +81,10 @@ const NuevoRepresentante = ({ Manejador}) => {
     formData.append('file', imgbase);
     await axios.post(URL2,formData)
     navigate("/Representante")
+   }
+
+ }
+   
   }
 
 
@@ -111,7 +127,7 @@ useEffect(()=>{
 
     const cambiarImg=(e)=>{
       e.preventDefault()
-      alert("cambio")
+    
       setImgbase(e.target.files[0])
      
       setImg(window.URL.createObjectURL(e.target.files[0]))
@@ -162,47 +178,40 @@ useEffect(()=>{
                     <h3>Datos Del Representante</h3>
                     </div>
 
-        <div className="envoltorio">
-        <div className="form-group-representante-img">
+        <div className="envoltorio-Matricula">
+        <div className="form-group-matricula-img">
           <img src={img} alt="" />
           <label htmlFor="foto" className="foto">Subir Imagen aqui+</label>
          <input type="file" name="foto" id="foto" onChange={e=>cambiarImg(e)} />
          </div>
  
  
-       <div className="envoltorio-datos">
-       <div className="form-group-representante">
+       <div className="envoltorio-datos-Matricula-alum">
+       <div className="form-group-Matricula">
            <label htmlFor="">Nombre*</label>
            <input type="text"  value={nombre} {...register("nombre",{  required:true,  } )} onChange={(e)=>setNombre(e.target.value)} placeholder='ESCRIBA SU NOMBRE' />
          {errors.nombre?.type==='required'&& <p>El campo es necesario</p> } 
          </div>
-         <div className="form-group-representante">
+         <div className="form-group-Matricula">
            <label htmlFor="">Apellido *</label>
            <input type="text" value={apellido}{...register("apellido",{  required:true,  } )} onChange={(e)=>setApellido(e.target.value)} placeholder='ESCRIBA SU APELLIDO' />
            {errors.apellido?.type==='required' && <p>El campo es necesario</p> } 
          </div>
-         <div className="form-group-representante">
+         <div className="form-group-Matricula">
            <label htmlFor="">CEDULA *</label>
            <input type="number" value={cedula}{...register("cedula",{  required:true, maxLength:8 } )}  onChange={(e)=>verificarCedula(e.target.value)} placeholder='ESCRIBA SU CEDULA' />
            {errors.cedula?.type==='required' && <small>El campo es necesario</small> }
            {errors.cedula?.type==='maxLength' && <small>No corresponde a una cedula</small> }
             {erro===true? <p className="text-error">La Cedula Ya Existe</p>:null}
            </div>
-         <div className="form-group-representante">
+         <div className="form-group-Matricula">
            <label htmlFor="">TELEFONO*</label>
            <input type="number" value={telefono}{...register("telefono",{  required:true, maxLength:11, } )} onChange={(e)=>setTelefono(e.target.value)} placeholder='ESCRIBA SU TELEFONO' />
            {errors.telefono?.type==='required' && <small>El campo es necesario</small> }
            {errors.telefono?.type==='maxLength' && <small>no corresponde a un TELEFONO</small> }
           
          </div>
-       </div>
-        </div>
-     
-        <div className="container-form-info">
-                    <h3>Ubicacion Del Representante</h3>
-                    </div>
-
-        <div className="form-group-representante">
+         <div className="form-group-Matricula">
           <label htmlFor="">ESTADO*</label>
           <select {...register("estado",{  required:true } )} onChange={(e) => setEstado(e.target.value)}>
             <option value="">SELECCIONA UNA OPCION</option>
@@ -213,7 +222,7 @@ useEffect(()=>{
           {errors.estado?.type==='required' && <small>seleccione un estado</small> }
 
         </div>
-        <div className="form-group-representante">
+        <div className="form-group-Matricula">
           <label htmlFor="">MUNICIPIO*</label>
           <select {...register("municipio",{  required:true } )}  onChange={(e) => setMunicipio(e.target.value)}>
             <option value="">SELECCIONA UNA OPCION</option>
@@ -224,7 +233,7 @@ useEffect(()=>{
           {errors.municipio?.type==='required' && <small>seleccione un municipio</small> }
 
         </div>
-        <div className="form-group-representante">
+        <div className="form-group-Matricula">
           <label htmlFor="">SECTOR*</label>
           <select {...register("sector",{  required:true } )} onChange={(e) => setSector(e.target.value)}>
             <option value="">SELECCIONA UNA OPCION</option>
@@ -235,7 +244,7 @@ useEffect(()=>{
           {errors.sector?.type==='required' && <small>seleccione un sector</small> }
 
         </div>
-        <div className="form-group-representante">
+        <div className="form-group-Matricula">
           <label htmlFor="">CALLE*</label>
           <select {...register("calle",{  required:true } )} onChange={(e)=>setCalle(e.target.value)} >
             <option value="">SELECCIONA UNA OPCION</option>
@@ -246,6 +255,11 @@ useEffect(()=>{
           {errors.calle?.type==='required' && <small>seleccione una</small> }
 
         </div>
+       </div>
+        </div>
+    
+
+      
         <div className="container-form-info">
                
         </div>

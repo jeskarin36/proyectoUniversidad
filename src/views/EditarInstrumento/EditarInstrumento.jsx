@@ -116,101 +116,102 @@ function NuevoRegistroInstru({Manejador}) {
     <div className="container-form-info">
                     <h3>Datos Del Instrumento</h3>
                     </div>
-<div className="form-group-instrumento">
+    <div className="envoltorio-Matricula">
+      <div className="envoltorio-datos-Matricula-alum">
+      <div className="form-group-Matricula">
 
-      <label htmlFor="">INSTRUMENTO*</label>
-      <select  onChange={(e) => setNombre(e.target.value)}>
-      <option value={nombre}>{nombre}</option>
-      <option value="flauta">Flauta</option>
-              <option value="violin">Violin</option>
-              <option value="cuatro">Cuatro</option>
-              <option value="Mandolina">Mandolina</option>
-              <option value="Mandola">Mandola</option>
-              <option value="Guitarra">Guitarra</option>
-              <option value="Clarinete">Clarinete</option>
-              <option value="Oboe">Oboe</option>
-              <option value="Viola">Viola</option>
-              <option value="Cello">Cello</option>
-              <option value="Trompeta">Trompeta</option>
-              <option value="Trombon">Trombon</option>
-              <option value="Fagot">Fagot</option>
-              <option value="Percusion">Percusion</option>
-              <option value="Corno">Corno</option>
-     </select>
-     
+<label htmlFor="">INSTRUMENTO*</label>
+<select  onChange={(e) => setNombre(e.target.value)}>
+<option value={nombre}>{nombre}</option>
+<option value="flauta">Flauta</option>
+        <option value="violin">Violin</option>
+        <option value="cuatro">Cuatro</option>
+        <option value="Mandolina">Mandolina</option>
+        <option value="Mandola">Mandola</option>
+        <option value="Guitarra">Guitarra</option>
+        <option value="Clarinete">Clarinete</option>
+        <option value="Oboe">Oboe</option>
+        <option value="Viola">Viola</option>
+        <option value="Cello">Cello</option>
+        <option value="Trompeta">Trompeta</option>
+        <option value="Trombon">Trombon</option>
+        <option value="Fagot">Fagot</option>
+        <option value="Percusion">Percusion</option>
+        <option value="Corno">Corno</option>
+</select>
 
-    </div>
 
-    <div className="form-group-instrumento">
+</div>
+
+<div className="form-group-Matricula">
 
 <label htmlFor="">MARCA*</label>
 <select  onChange={(e) => setMarca(e.target.value)}>
 <option value="">{marca}</option>
 <option value="Yamaha">Yahama</option>
-              <option value="Sherechazde">Sherechazde</option>
-              <option value="Quirma">Quirma</option>
-              <option value="Jiplf">Jiplf</option>
-              <option value="Optelf">Optelf</option>
-              <option value="Britest">Britest</option>
+        <option value="Sherechazde">Sherechazde</option>
+        <option value="Quirma">Quirma</option>
+        <option value="Jiplf">Jiplf</option>
+        <option value="Optelf">Optelf</option>
+        <option value="Britest">Britest</option>
 </select>
 
 
 </div>
-    
-    <div className="form-group-instrumento">
-      <label htmlFor="">TAMAÑO*</label>
-      <select   onChange={(e) => setTamaño(e.target.value)}>
-      <option value="">{tamaño}</option>
-      <option value="2/4">2/4</option>
-              <option value="3/4">3/4</option>
-              <option value="4/4">4/4</option>
-              <option value="Estandar">Estandar</option>
-     </select>
-  
 
-    </div>
-   
-    
-      
-  
-    
-    <div className="form-group-instrumento">
-      <label htmlFor="">Codigo*</label>
-      <input type="text" value={codigo}  onChange={(e) => setCodigo(e.target.value)} id="" placeholder='ESCRIBA EL CODIGO' readOnly/>
-     
-    </div>
-    <div><bt /></div>
-   
-      
-       <div className="form-group-instrumento">
-      <label htmlFor="">ESTADO*</label>
-     <select  onChange={(e) => setEstado(e.target.value)}>
-     <option value="">{estado}</option>
-     <option value="Asignado">Asignado</option>
-     <option value="Deposito">Deposito</option>
-     </select>
-     
+<div className="form-group-Matricula">
+<label htmlFor="">TAMAÑO*</label>
+<select   onChange={(e) => setTamaño(e.target.value)}>
+<option value="">{tamaño}</option>
+<option value="2/4">2/4</option>
+        <option value="3/4">3/4</option>
+        <option value="4/4">4/4</option>
+        <option value="Estandar">Estandar</option>
+</select>
 
-    </div>
-    
-    {
-      estado==="Deposito"? <div className="form-group-instrumento">
-      <label htmlFor="">Deposito*</label>
-     <select  onChange={(e) => setModulo(e.target.value)}>
-    { modulo2?<option value="">{modulo2}</option>:<option value="">"No Tiene Modulo Asignado"</option>
-   }
-    
-   {
-    modulos.map(mon=>(
-      <option value={mon.id}>{mon.Nombre}</option>
-    ))
-   }
-     </select>
-    
 
-    </div>:null
-    }
-          
+</div>
+
+
+<div className="form-group-Matricula">
+<label htmlFor="">Codigo*</label>
+<input type="text" value={codigo}  onChange={(e) => setCodigo(e.target.value)} id="" placeholder='ESCRIBA EL CODIGO' readOnly/>
+
+</div>
+<div><bt /></div>
+
+
+ <div className="form-group-Matricula">
+<label htmlFor="">ESTADO*</label>
+<select  onChange={(e) => setEstado(e.target.value)}>
+<option value="">{estado}</option>
+<option value="Asignado">Asignado</option>
+<option value="Deposito">Deposito</option>
+</select>
+
+
+</div>
+
+{
+estado==="Deposito"? <div className="form-group-Matricula">
+<label htmlFor="">Deposito*</label>
+<select  onChange={(e) => setModulo(e.target.value)}>
+{ modulo2?<option value="">{modulo2}</option>:<option value="">"No Tiene Modulo Asignado"</option>
+}
+
+{
+modulos.map(mon=>(
+<option value={mon.id}>{mon.Nombre}</option>
+))
+}
+</select>
+
+
+</div>:null
+}
+    
+      </div>
+    </div>
    
     <div className='bloquee'>
       

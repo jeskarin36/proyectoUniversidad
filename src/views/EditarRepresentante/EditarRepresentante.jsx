@@ -32,6 +32,7 @@ const EditarRepresentante = ({ Manejador }) => {
   const [ruta, setRuta] = useState("");
   const [ImagetBase, setImagetBase] = useState("");
   const [CambiolaImagen, setCambiolaImagen] = useState(false);
+  const [codigoImagenVieja, setCodigoImagenVieja] = useState("");
 
   useEffect(() => {
     getRepresentante();
@@ -42,7 +43,7 @@ const EditarRepresentante = ({ Manejador }) => {
   const getRepresentante = async () => {
     
     const res = await axios.get(`${URL}${id}`);
-    const res2 = await axios.get(`http://localhost:8000/Audiografia/${res.data.Cedula}`);
+    const res2 = await axios.get(`http://localhost:8000/Audiografia/${res.data.Id_Audiografia}`);
     setRepresentante(res.data.Nombre);
     setNombre(res.data.Nombre)
     setApellido(res.data.Apellido)
@@ -53,14 +54,14 @@ const EditarRepresentante = ({ Manejador }) => {
     setSector(res.data.Sector)
     setCalle(res.data.Calle)
     setimg(res2.data.File)
-
+    setCodigoImagenVieja(res.data.Id_Audiografia)
     setRuta(`http://localhost:8000/${res2.data.File}`)
   }
 
 
   const cambiarImg=(e)=>{
     e.preventDefault()
-    alert("cambio")
+  
     setRuta(null)
     setRuta(e.target.files[0])
     setImagetBase(e.target.files[0])
@@ -71,12 +72,17 @@ const EditarRepresentante = ({ Manejador }) => {
 
   const agregar = async (e) => {
    e.preventDefault()
-    alert("hola")
-    
-    
+  
+   const res2 = await axios.get(`http://localhost:8000/Audiografia/`);
 
-    await axios.put(`${URL3}${cedula}`,{
-      id:cedula,
+   const dat= res2.data.filter(re=>re.File===ImagetBase.name)
+
+  if(dat.length!==0){
+   console.log(dat)
+   alert("El Nombre de esa Imagen no esta disponible")
+  }else{
+    await axios.put(`${URL3}${codigoImagenVieja}`,{
+      id:codigoImagenVieja,
       Nombre:nombre,
       File:ImagetBase.name,
       createdAt:"2024-10-23",
@@ -92,7 +98,7 @@ const EditarRepresentante = ({ Manejador }) => {
       Municipio: municipio,
       Sector: sector,
       Calle: calle,
-      Id_Audiografia:cedula,
+      Id_Audiografia:codigoImagenVieja,
       createdAt:"2024-10-23",
       updatedAt:"2024-10-23"
     })
@@ -101,15 +107,17 @@ const EditarRepresentante = ({ Manejador }) => {
     const formData = new FormData();
     formData.append('file', ImagetBase);
     await axios.post(URL2,formData)
-
+ navigate("/Representante")
     if(CambiolaImagen===true){
       await axios.delete(`http://localhost:8000/EliminarFoto/${img}`)
     }
 
+   
+  }
+    
+    
 
-
-    alert("holaa")
-    navigate("/Representante")
+  
   }
 
 
@@ -163,44 +171,36 @@ const EditarRepresentante = ({ Manejador }) => {
                     <h3>Datos Del Representante</h3>
       </div>
 
-      <div className="envoltorio">
-        <div className="form-group-representante-img">
+      <div className="envoltorio-Matricula">
+        <div className="form-group-matricula-img">
           <img src={ruta}  alt="" />
           <label htmlFor="foto" className="foto">Subir Imagen aqui+</label>
          <input type="file" name="foto" id="foto" onChange={e=>cambiarImg(e)} />
          </div>
  
  
-      <div className="envoltorio-datos">
-      <div className="form-group-Editar-representante">
+      <div className="envoltorio-datos-Matricula-alum">
+      <div className="form-group-Matricula">
           <label htmlFor="">Nombre*</label>
           <input type="text" value={nombre} onChange={(e) => setNombre(e.target.value)} placeholder='ESCRIBA SU NOMBRE' />
 
         </div>
-        <div className="form-group-Editar-representante">
+        <div className="form-group-Matricula">
           <label htmlFor="">Apellido *</label>
           <input type="text" value={apellido} onChange={(e) => setApellido(e.target.value)} placeholder='ESCRIBA SU APELLIDO' />
 
         </div>
-        <div className="form-group-Editar-representante">
+        <div className="form-group-Matricula">
           <label htmlFor="">CEDULA *</label>
           <input type="number" value={cedula} onChange={(e) => setCedula(e.target.value)} placeholder='ESCRIBA SU CEDULA' readOnly/>
 
         </div>
-        <div className="form-group-Editar-representante">
+        <div className="form-group-Matricula">
           <label htmlFor="">TELEFONO*</label>
           <input type="number" value={telefono} onChange={(e) => setTelefono(e.target.value)} placeholder='ESCRIBA SU TELEFONO' />
 
         </div>
-      </div>
-      </div>
-     
-
-        <div className="container-form-info">
-                    <h3>Ubicacion Del Representante</h3>
-                    </div>
-
-        <div className="form-group-Editar-representante">
+        <div className="form-group-Matricula">
           <label htmlFor="">ESTADO*</label>
           <select onChange={(e) => setEstado(e.target.value)}>
                <option value={estado}>{estado}</option>
@@ -208,7 +208,7 @@ const EditarRepresentante = ({ Manejador }) => {
 
 
         </div>
-        <div className="form-group-Editar-representante">
+        <div className="form-group-Matricula">
           <label htmlFor="">MUNICIPIO*</label>
           <select onChange={(e) => setMunicipio(e.target.value)}>
           <option value={municipio}>{municipio}</option>
@@ -216,14 +216,14 @@ const EditarRepresentante = ({ Manejador }) => {
 
 
         </div>
-        <div className="form-group-Editar-representante">
+        <div className="form-group-Matricula">
           <label htmlFor="">SECTOR*</label>
           <select onChange={(e) => setSector(e.target.value)}>
           <option value={sector}>{sector}</option>
           </select>
 
         </div>
-        <div className="form-group-Editar-representante">
+        <div className="form-group-Matricula">
           <label htmlFor="">CALLE*</label>
           <select onChange={(e) => setCalle(e.target.value)} >
           <option value={calle}>{calle}</option>
@@ -231,6 +231,10 @@ const EditarRepresentante = ({ Manejador }) => {
 
 
         </div>
+      </div>
+      </div>
+
+       
         <div className="container-form-info">
                 
                     </div>

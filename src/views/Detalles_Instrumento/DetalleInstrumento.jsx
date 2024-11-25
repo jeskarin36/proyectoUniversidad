@@ -93,17 +93,19 @@ function DetalleInstrumento({Manejador}) {
     <div className="container-form-info">
                     <h3>Datos Del Instrumento</h3>
                     </div>
-<div className="form-group-instrumento">
+           <div className="envoltorio-Matricula">
+                <div className="envoltorio-datos-Matricula-alum">
+                <div className="form-group-Matricula">
 
-      <label htmlFor="">INSTRUMENTO*</label>
-      <select  onChange={(e) => setNombre(e.target.value)}>
-      <option value={nombre}>{nombre}</option>
-     </select>
-     
+<label htmlFor="">INSTRUMENTO*</label>
+<select  onChange={(e) => setNombre(e.target.value)}>
+<option value={nombre}>{nombre}</option>
+</select>
 
-    </div>
 
-    <div className="form-group-instrumento">
+</div>
+
+<div className="form-group-Matricula">
 
 <label htmlFor="">MARCA*</label>
 <select  onChange={(e) => setMarca(e.target.value)}>
@@ -113,58 +115,60 @@ function DetalleInstrumento({Manejador}) {
 
 
 </div>
-    
-    <div className="form-group-instrumento">
-      <label htmlFor="">TAMAÑO*</label>
-      <select   onChange={(e) => setTamaño(e.target.value)}>
-      <option value="">{tamaño}</option>
-    
-     </select>
-  
 
-    </div>
-   
-    
-      
-  
-    
-    <div className="form-group-instrumento">
-      <label htmlFor="">Codigo*</label>
-      <input type="text" value={codigo}  readOnly/>
-     
-    </div>
-    <div><bt /></div>
-   
-      
-       <div className="form-group-instrumento">
-      <label htmlFor="">ESTADO*</label>
-     <select  >
-     <option value="">{estado}</option>
-   
-     </select>
-     
+<div className="form-group-Matricula">
+<label htmlFor="">TAMAÑO*</label>
+<select   onChange={(e) => setTamaño(e.target.value)}>
+<option value="">{tamaño}</option>
 
-    </div>
-    
-    {
-      estado==="Deposito"? <div className="form-group-instrumento">
-      <label htmlFor="">Deposito*</label>
-     <select  onChange={(e) => setModulo(e.target.value)}>
-    { modulo2?<option value="">{modulo2}</option>:<option value="">"No Tiene Modulo Asignado"</option>
-   }
-    
-   {
-    modulos.map(mon=>(
-      <option value={mon.id}>{mon.Nombre}</option>
-    ))
-   }
-     </select>
+</select>
+
+
+</div>
+
+
+
+
+
+<div className="form-group-Matricula">
+<label htmlFor="">Codigo*</label>
+<input type="text" value={codigo}  readOnly/>
+
+</div>
+<div><bt /></div>
+
+
+ <div className="form-group-Matricula">
+<label htmlFor="">ESTADO*</label>
+<select  >
+<option value="">{estado}</option>
+
+</select>
+
+
+</div>
+
+{
+estado==="Deposito"? <div className="form-group-Matricula">
+<label htmlFor="">Deposito*</label>
+<select  onChange={(e) => setModulo(e.target.value)}>
+{ modulo2?<option value="">{modulo2}</option>:<option value="">"No Tiene Modulo Asignado"</option>
+}
+
+{
+modulos.map(mon=>(
+<option value={mon.id}>{mon.Nombre}</option>
+))
+}
+</select>
+
+
+</div>:null
+}
     
 
-    </div>:null
-    }
-          
-   
+                </div>
+           </div>
    
 </form>
 

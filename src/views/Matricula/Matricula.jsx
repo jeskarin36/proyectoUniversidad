@@ -16,7 +16,7 @@ function Matricula({ Manejador }) {
   const navigate = useNavigate();
   const UsuarioCabeza1=sessionStorage.getItem('Nombre');
   const UsuarioCabeza2=sessionStorage.getItem('Cargo');
-
+  const UsuarioCabeza4=sessionStorage.getItem('Rol');
   useEffect(() => {
     getAlumnos();
   }, [])
@@ -200,7 +200,9 @@ function Matricula({ Manejador }) {
         </div>
       </div>
       <div className="contenedor-opcioness">
-        <a href='/Matricula/nuevoalumno'>+ Nuevo Registro</a>
+       {
+        UsuarioCabeza4==="Visor"?null: <a href='/Matricula/nuevoalumno'>+ Nuevo Registro</a>
+       }
        
       </div>
       <div className="contenedor-formulario-Matricula">
@@ -309,7 +311,9 @@ function Matricula({ Manejador }) {
                 <th>Cedula</th>
                 <th>Edad</th>
                 <th>Programa</th>
-                <th>Acciones</th>
+             {
+              UsuarioCabeza4==="Visor"?null:   <th>Acciones</th>
+             }
 
               </tr>
             </thead>
@@ -317,7 +321,7 @@ function Matricula({ Manejador }) {
 
 
 
-              <Tabla alumnos={alumnos} VerDetalle={VerDetalle} Mandaraeditar={Mandaraeditar} confirmacion={confirmacion}></Tabla>
+              <Tabla alumnos={alumnos} UsuarioCabeza4={UsuarioCabeza4} VerDetalle={VerDetalle} Mandaraeditar={Mandaraeditar} confirmacion={confirmacion}></Tabla>
 
 
 

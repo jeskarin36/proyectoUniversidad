@@ -290,9 +290,16 @@
     font-weight: 600;
     font-size: 1rem;
     color: white;
+    margin-bottom: 2rem;
 }
 
 .error-form{
     margin: 0;
 background-color: aquamarine
 };
+
+
+.form-group-representante-img .foto{
+   
+ position:relative;
+  }

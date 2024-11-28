@@ -32,7 +32,7 @@ function Reporte({ Manejador }) {
   const [Modulo, setModulo] = useState("")
   const [CabeceraInventario, setCabeceraInventario] = useState([])
   const [SelecionModulo, setSelecionModulo] = useState("")
-
+  const [guardari, setGuardari] = useState([])
 
 
   const navigate = useNavigate();
@@ -54,7 +54,16 @@ function Reporte({ Manejador }) {
   }, [])
 
   useEffect(() => {
+   /**if(nuevoarray.length!==0){
+    let wb = XLSX.utils.book_new()
+    let ws = XLSX.utils.json_to_sheet(nuevoarray)
 
+    XLSX.utils.book_append_sheet(wb, ws, "Mihoja")
+
+    XLSX.writeFile(wb, "MYExcel.xlsx") 
+   } */
+
+   console.log(nuevoarray)
   }, [nuevoarray])
 
   const [seleccionado, setSeleccionado] = useState(
@@ -74,10 +83,10 @@ function Reporte({ Manejador }) {
 
   const HangleOnExel = () => {
 
+   
 
 
-
-    if (CabeceraInventario[0] === "Nombre" && CabeceraInventario[1]===undefined) {
+    if (filtrarpor==="Inventario" &&  CabeceraInventario[0] === "" &&CabeceraInventario[1] === "Nombre" && CabeceraInventario[2]===undefined) {
 
       const data = instrumentos.filter(ins =>
       (delete ins.Codigo,
@@ -95,7 +104,7 @@ function Reporte({ Manejador }) {
 
     }
 
-    if (CabeceraInventario[0] === "Codigo") {
+    if (filtrarpor==="Inventario" &&  CabeceraInventario[0] === "" && CabeceraInventario[1] === "Codigo" && CabeceraInventario[2]===undefined) {
 
       const data = instrumentos.filter(ins =>
       (delete ins.Nombre,
@@ -113,7 +122,7 @@ function Reporte({ Manejador }) {
 
     }
 
-    if (CabeceraInventario[0] === "Marca") {
+    if (filtrarpor==="Inventario" &&  CabeceraInventario[0] === "" && CabeceraInventario[1] === "Marca" && CabeceraInventario[2] === undefined) {
 
       const data = instrumentos.filter(ins =>
       (delete ins.Codigo,
@@ -131,7 +140,7 @@ function Reporte({ Manejador }) {
 
     }
 
-    if (CabeceraInventario[0] === "Tamaño") {
+    if (filtrarpor==="Inventario" &&  CabeceraInventario[0] === "" && CabeceraInventario[1] === "Tamaño" && CabeceraInventario[2] === undefined) {
 
       const data = instrumentos.filter(ins =>
       (delete ins.Codigo,
@@ -150,7 +159,7 @@ function Reporte({ Manejador }) {
     }
 
 
-    if (CabeceraInventario[0] === "Estado") {
+    if (filtrarpor==="Inventario" &&  CabeceraInventario[0] === "" && CabeceraInventario[1] === "Estado" && CabeceraInventario[2] === undefined) {
 
       const data = instrumentos.filter(ins =>
       (delete ins.Codigo,
@@ -169,8 +178,9 @@ function Reporte({ Manejador }) {
     }
 
 
-    if (CabeceraInventario[0] === "Nombre" && CabeceraInventario[1] === "Codigo" && CabeceraInventario[2] ===undefined) {
+    if (filtrarpor==="Inventario" &&  CabeceraInventario[0] === "" && CabeceraInventario[1] === "Nombre" && CabeceraInventario[2] === "Codigo" && CabeceraInventario[3] ===undefined) {
 
+    
       const data = instrumentos.filter(ins =>
       (
         delete ins.Tamaño,
@@ -188,7 +198,7 @@ function Reporte({ Manejador }) {
     }
 
 
-    if (CabeceraInventario[0] ==="Nombre" && CabeceraInventario[1] ==="Codigo" && CabeceraInventario[2] === "Marca" && CabeceraInventario[3] === undefined) {
+    if (filtrarpor==="Inventario" &&  CabeceraInventario[0] === "" &&CabeceraInventario[1] ==="Nombre" && CabeceraInventario[2] ==="Codigo" && CabeceraInventario[3] === "Marca" && CabeceraInventario[4] === undefined) {
      
       const data = instrumentos.filter(ins =>
       (
@@ -205,8 +215,8 @@ function Reporte({ Manejador }) {
 
     }
 
-    if (CabeceraInventario[0] === "Nombre" && CabeceraInventario[1] === "Codigo" && CabeceraInventario[2] === "Marca" && CabeceraInventario[3] === "Tamaño" && CabeceraInventario[4] === undefined) {
-
+    if (filtrarpor==="Inventario" &&  CabeceraInventario[0] === "" && CabeceraInventario[1] === "Nombre" && CabeceraInventario[2] === "Codigo" && CabeceraInventario[3] === "Marca" && CabeceraInventario[4] === "Tamaño" && CabeceraInventario[5] === undefined) {
+      
       const data = instrumentos.filter(ins =>
       (
         
@@ -222,7 +232,7 @@ function Reporte({ Manejador }) {
 
     }
 
-    if (CabeceraInventario[0] === "Nombre" && CabeceraInventario[1] === "Codigo" && CabeceraInventario[2] === "Marca" && CabeceraInventario[3] === "Tamaño" && CabeceraInventario[4] === "Estado") {
+    if (filtrarpor==="Inventario" &&  CabeceraInventario[0] === "" && CabeceraInventario[1] === "Nombre" && CabeceraInventario[2] === "Codigo" && CabeceraInventario[3] === "Marca" && CabeceraInventario[4] === "Tamaño" && CabeceraInventario[5] === "Estado" && CabeceraInventario[6] ===undefined) {
 
       const data = instrumentos.filter(ins =>
       (
@@ -238,13 +248,690 @@ function Reporte({ Manejador }) {
 
     }
 
+
+    if (filtrarpor==="Inventario" &&  CabeceraInventario[0] === "" && CabeceraInventario[1] === "Nombre" && CabeceraInventario[2] === "Marca" && CabeceraInventario[3] ===undefined) {
+
+      const data = instrumentos.filter(ins =>
+      (
+        delete ins.Tamaño,
+        delete ins.Estado,
+        delete ins.Id_Deposito,
+        delete ins.createdAt,
+        delete ins.updatedAt,
+        delete ins.Codigo,
+        delete ins.Deposito
+      )
+      )
+      setNuevoArray(data)
+
+
+    }
+
+    if (filtrarpor==="Inventario" &&  CabeceraInventario[0] === "" && CabeceraInventario[1] === "Nombre" && CabeceraInventario[2] === "Tamaño" && CabeceraInventario[3] ===undefined) {
+
+      const data = instrumentos.filter(ins =>
+      (
+        delete ins.Marca,
+        delete ins.Estado,
+        delete ins.Id_Deposito,
+        delete ins.createdAt,
+        delete ins.updatedAt,
+        delete ins.Codigo,
+        delete ins.Deposito
+      )
+      )
+      setNuevoArray(data)
+
+
+    }
+
+    if (filtrarpor==="Inventario" &&  CabeceraInventario[0] === "" && CabeceraInventario[1] === "Nombre" && CabeceraInventario[2] === "Estado" && CabeceraInventario[3] ===undefined) {
+
+      const data = instrumentos.filter(ins =>
+      (
+        delete ins.Marca,
+        delete ins.Tamaño,
+        delete ins.Id_Deposito,
+        delete ins.createdAt,
+        delete ins.updatedAt,
+        delete ins.Codigo,
+        delete ins.Deposito
+      )
+      )
+      setNuevoArray(data)
+
+
+    }
+
+  //********************Representanteee******************** *****************//
+  
+
+  if (filtrarpor==="Representante" &&  CabeceraInventario[0] === "" && CabeceraInventario[1] === "Nombre" && CabeceraInventario[2] === undefined) {
+
+    const data = representante.filter(ins =>
+    (
+      delete ins.Apellido,
+      delete ins.Cedula,
+      delete ins.Telefono,
+      delete ins.createdAt,
+      delete ins.updatedAt,
+      delete ins.Id_Audiografia,
+      delete ins.Estado,
+      delete ins.Municipio,
+      delete ins.Sector,
+      delete ins.Calle,
+      delete ins.audiografium
+      
+    )
+    )
+    setNuevoArray(data)
+
+
+  }
+
+  if (filtrarpor==="Representante" &&  CabeceraInventario[0] === "" && CabeceraInventario[1] === "Apellido" && CabeceraInventario[2] === undefined) {
+
+    const data = representante.filter(ins =>
+    (
+      delete ins.Nombre,
+      delete ins.Cedula,
+      delete ins.Telefono,
+      delete ins.createdAt,
+      delete ins.updatedAt,
+      delete ins.Id_Audiografia,
+      delete ins.Estado,
+      delete ins.Municipio,
+      delete ins.Sector,
+      delete ins.Calle,
+      delete ins.audiografium
+      
+    )
+    )
+    setNuevoArray(data)
+
+
+  }
+
+  if (filtrarpor==="Representante" &&  CabeceraInventario[0] === "" && CabeceraInventario[1] === "Cedula" && CabeceraInventario[2] === undefined) {
+
+    const data = representante.filter(ins =>
+    (
+      delete ins.Apellido,
+      delete ins.Nombre,
+      delete ins.Telefono,
+      delete ins.createdAt,
+      delete ins.updatedAt,
+      delete ins.Id_Audiografia,
+      delete ins.Estado,
+      delete ins.Municipio,
+      delete ins.Sector,
+      delete ins.Calle,
+      delete ins.audiografium
+      
+    )
+    )
+    setNuevoArray(data)
+
+
+  }
+
+  if (filtrarpor==="Representante" &&  CabeceraInventario[0] === "" && CabeceraInventario[1] === "Telefono" && CabeceraInventario[2] === undefined) {
+
+    const data = representante.filter(ins =>
+    (
+      delete ins.Apellido,
+      delete ins.Cedula,
+      delete ins.Nombre,
+      delete ins.createdAt,
+      delete ins.updatedAt,
+      delete ins.Id_Audiografia,
+      delete ins.Estado,
+      delete ins.Municipio,
+      delete ins.Sector,
+      delete ins.Calle,
+      delete ins.audiografium
+      
+    )
+    )
+    setNuevoArray(data)
+
+
+  }
+
+
+  if (filtrarpor==="Representante" &&  CabeceraInventario[0] === "" && CabeceraInventario[1] === "Sector" && CabeceraInventario[2] === undefined) {
+
+    const data = representante.filter(ins =>
+    (
+      delete ins.Apellido,
+      delete ins.Cedula,
+      delete ins.Telefono,
+      delete ins.createdAt,
+      delete ins.updatedAt,
+      delete ins.Id_Audiografia,
+      delete ins.Estado,
+      delete ins.Municipio,
+      delete ins.Nombre,
+      delete ins.Calle,
+      delete ins.audiografium
+      
+    )
+    )
+    setNuevoArray(data)
+
+
+  }
+
+
+
+  if (filtrarpor==="Representante" &&  CabeceraInventario[0] === "" && CabeceraInventario[1] === "Nombre" &&  CabeceraInventario[2] === "Apellido" && CabeceraInventario[3] === undefined) {
+
+    const data = representante.filter(ins =>
+    (
+     
+      delete ins.Cedula,
+      delete ins.Telefono,
+      delete ins.createdAt,
+      delete ins.updatedAt,
+      delete ins.Id_Audiografia,
+      delete ins.Estado,
+      delete ins.Municipio,
+      delete ins.Sector,
+      delete ins.Calle,
+      delete ins.audiografium
+      
+    )
+    )
+    setNuevoArray(data)
+
+
+  }
+
+
+
+  if (filtrarpor==="Representante" &&  CabeceraInventario[0] === "" && CabeceraInventario[1] === "Nombre" &&  CabeceraInventario[2] === "Apellido" &&  CabeceraInventario[3] === "Cedula" && CabeceraInventario[4] === undefined) {
+
+    const data = representante.filter(ins =>
+    (
+     
+      
+      delete ins.Telefono,
+      delete ins.createdAt,
+      delete ins.updatedAt,
+      delete ins.Id_Audiografia,
+      delete ins.Estado,
+      delete ins.Municipio,
+      delete ins.Sector,
+      delete ins.Calle,
+      delete ins.audiografium
+      
+    )
+    )
+    setNuevoArray(data)
+
+
+  }
+
+
+  if (filtrarpor==="Representante" &&  CabeceraInventario[0] === "" && CabeceraInventario[1] === "Nombre" &&  CabeceraInventario[2] === "Apellido" &&  CabeceraInventario[3] === "Cedula" && CabeceraInventario[4] === "Telefono" && CabeceraInventario[5] === undefined) {
+
+    const data = representante.filter(ins =>
+    (
+     
+      
+      
+      delete ins.createdAt,
+      delete ins.updatedAt,
+      delete ins.Id_Audiografia,
+      delete ins.Estado,
+      delete ins.Municipio,
+      delete ins.Sector,
+      delete ins.Calle,
+      delete ins.audiografium
+      
+    )
+    )
+    setNuevoArray(data)
+
+
+  }
+ 
+
+
+  if (filtrarpor==="Representante" &&  CabeceraInventario[0] === "" && CabeceraInventario[1] === "Nombre" &&  CabeceraInventario[2] === "Apellido" &&  CabeceraInventario[3] === "Cedula" && CabeceraInventario[4] === "Telefono" && CabeceraInventario[5] === "Sector" && CabeceraInventario[6] === undefined) {
+
+    const data = representante.filter(ins =>
+    (
+     
+      
+      
+      delete ins.createdAt,
+      delete ins.updatedAt,
+      delete ins.Id_Audiografia,
+      delete ins.Estado,
+      delete ins.Municipio,
+      delete ins.Calle,
+      delete ins.audiografium
+      
+    )
+    )
+    setNuevoArray(data)
+
+
+  }
+
+
+  
+  if (filtrarpor==="Representante" &&  CabeceraInventario[0] === "" && CabeceraInventario[1] === "Nombre" &&  CabeceraInventario[2] === "Cedula" && CabeceraInventario[3] === undefined) {
+
+    const data = representante.filter(ins =>
+    (
+      delete ins.Apellido,
+      delete ins.Telefono,
+      delete ins.createdAt,
+      delete ins.updatedAt,
+      delete ins.Id_Audiografia,
+      delete ins.Estado,
+      delete ins.Municipio,
+      delete ins.Sector,
+      delete ins.Calle,
+      delete ins.audiografium
+      
+    )
+    )
+    setNuevoArray(data)
+
+
+  }
+
+
+  if (filtrarpor==="Representante" &&  CabeceraInventario[0] === "" && CabeceraInventario[1] === "Nombre" &&  CabeceraInventario[2] === "Telefono" && CabeceraInventario[3] === undefined) {
+
+    const data = representante.filter(ins =>
+    (
+      delete ins.Apellido,
+      delete ins.Cedula,
+      delete ins.createdAt,
+      delete ins.updatedAt,
+      delete ins.Id_Audiografia,
+      delete ins.Estado,
+      delete ins.Municipio,
+      delete ins.Sector,
+      delete ins.Calle,
+      delete ins.audiografium
+      
+    )
+    )
+    setNuevoArray(data)
+
+
+  }
+
+
+  if (filtrarpor==="Representante" &&  CabeceraInventario[0] === "" && CabeceraInventario[1] === "Nombre" &&  CabeceraInventario[2] === "Sector" && CabeceraInventario[3] === undefined) {
+
+    const data = representante.filter(ins =>
+    (
+      delete ins.Apellido,
+      delete ins.Cedula,
+      delete ins.createdAt,
+      delete ins.updatedAt,
+      delete ins.Id_Audiografia,
+      delete ins.Estado,
+      delete ins.Municipio,
+      delete ins.Telefono,
+      delete ins.Calle,
+      delete ins.audiografium
+      
+    )
+    )
+    setNuevoArray(data)
+
+
+  }
+
+
+ //*****************************Matriculaa****************************************** */
+
+
+ if (filtrarpor==="Matricula" &&  CabeceraInventario[0] === "" && CabeceraInventario[1] === "Nombre"&& CabeceraInventario[2] === undefined) {
+
+  const data = Alumnos.filter(ins =>
+  (
+    delete ins.Apellido,
+    delete ins.Cedula,
+    delete ins.createdAt,
+    delete ins.updatedAt,
+    delete ins.id_audiografia,
+    delete ins.id_representante,
+    delete ins.id_instrumento,
+    delete ins.Edad,
+    delete ins.Sexo,
+    delete ins.Colegio,
+    delete ins.Turno,
+    delete ins.Grado,
+    delete ins.Enfermedad,
+    delete ins.id_modulo,
+    delete ins.id_programa,
+    delete ins.Representante,
+    delete ins.Instrumento,
+    delete ins.Modulo,
+    delete ins.programa,
+    delete ins.id_Modulo,
+    delete ins.id_Audiografia
+  )
+  )
+  setNuevoArray(data)
+
+
+}
+
+
+if (filtrarpor==="Matricula" &&  CabeceraInventario[0] === "" && CabeceraInventario[1] === "Apellido" && CabeceraInventario[2] === undefined) {
+
+  const data = Alumnos.filter(ins =>
+  (
+    delete ins.Nombre,
+    delete ins.Cedula,
+    delete ins.createdAt,
+    delete ins.updatedAt,
+    delete ins.id_audiografia,
+    delete ins.id_representante,
+    delete ins.id_instrumento,
+    delete ins.Edad,
+    delete ins.Sexo,
+    delete ins.Colegio,
+    delete ins.Turno,
+    delete ins.Grado,
+    delete ins.Enfermedad,
+    delete ins.id_modulo,
+    delete ins.id_programa,
+    delete ins.Representante,
+    delete ins.Instrumento,
+    delete ins.Modulo,
+    delete ins.programa,
+    delete ins.id_Modulo,
+    delete ins.id_Audiografia
+  )
+  )
+  setNuevoArray(data)
+
+
+}
+
+
+if (filtrarpor==="Matricula" &&  CabeceraInventario[0] === "" && CabeceraInventario[1] === "Cedula"&& CabeceraInventario[2] === undefined) {
+
+  const data = Alumnos.filter(ins =>
+  (
+    delete ins.Apellido,
+    delete ins.Nombre,
+    delete ins.createdAt,
+    delete ins.updatedAt,
+    delete ins.id_audiografia,
+    delete ins.id_representante,
+    delete ins.id_instrumento,
+    delete ins.Edad,
+    delete ins.Sexo,
+    delete ins.Colegio,
+    delete ins.Turno,
+    delete ins.Grado,
+    delete ins.Enfermedad,
+    delete ins.id_modulo,
+    delete ins.id_programa,
+    delete ins.Representante,
+    delete ins.Instrumento,
+    delete ins.Modulo,
+    delete ins.programa,
+    delete ins.id_Modulo,
+    delete ins.id_Audiografia
+  )
+  )
+  setNuevoArray(data)
+
+
+}
+
+
+
+if (filtrarpor==="Matricula" &&  CabeceraInventario[0] === "" && CabeceraInventario[1] === "Edad"&& CabeceraInventario[2] === undefined) {
+
+  const data = Alumnos.filter(ins =>
+  (
+    delete ins.Apellido,
+    delete ins.Cedula,
+    delete ins.createdAt,
+    delete ins.updatedAt,
+    delete ins.id_audiografia,
+    delete ins.id_representante,
+    delete ins.id_instrumento,
+    delete ins.Nombre,
+    delete ins.Sexo,
+    delete ins.Colegio,
+    delete ins.Turno,
+    delete ins.Grado,
+    delete ins.Enfermedad,
+    delete ins.id_modulo,
+    delete ins.id_programa,
+    delete ins.Representante,
+    delete ins.Instrumento,
+    delete ins.Modulo,
+    delete ins.programa,
+    delete ins.id_Modulo,
+    delete ins.id_Audiografia
+  )
+  )
+  setNuevoArray(data)
+
+
+}
+
+
+if (filtrarpor==="Matricula" &&  CabeceraInventario[0] === "" && CabeceraInventario[1] === "Programa"&& CabeceraInventario[2] === undefined) {
+
+  const data = Alumnos.filter(ins =>
+  (
+    delete ins.Apellido,
+    delete ins.Cedula,
+    delete ins.createdAt,
+    delete ins.updatedAt,
+    delete ins.id_audiografia,
+    delete ins.id_representante,
+    delete ins.id_instrumento,
+    delete ins.Edad,
+    delete ins.Sexo,
+    delete ins.Colegio,
+    delete ins.Turno,
+    delete ins.Grado,
+    delete ins.Enfermedad,
+    delete ins.id_modulo,
+    delete ins.id_programa,
+    delete ins.Representante,
+    delete ins.Instrumento,
+    delete ins.Modulo,
+    delete ins.Nombre,
+    delete ins.id_Modulo,
+    delete ins.id_Audiografia
+  )
+  )
+  setNuevoArray(data[0].programa.Nombre)
+
+
+}
+
+
+if (filtrarpor==="Matricula" &&  CabeceraInventario[0] === "" && CabeceraInventario[1] === "Instrumento"&& CabeceraInventario[2] === undefined) {
+
+  const data = Alumnos.filter(ins =>
+  (
+    delete ins.Apellido,
+    delete ins.Cedula,
+    delete ins.createdAt,
+    delete ins.updatedAt,
+    delete ins.id_audiografia,
+    delete ins.id_representante,
+    delete ins.Nombre,
+    delete ins.Edad,
+    delete ins.Sexo,
+    delete ins.Colegio,
+    delete ins.Turno,
+    delete ins.Grado,
+    delete ins.Enfermedad,
+    delete ins.id_modulo,
+    delete ins.id_programa,
+    delete ins.Representante,
+    delete ins.Modulo,
+    delete ins.programa,
+    delete ins.id_Modulo,
+    delete ins.id_Audiografia
+  )
+  )
+ 
+    const r= data.filter(d=>d.Instrumento!==null)
+   
+    setNuevoArray(r)
     
-    let wb = XLSX.utils.book_new()
+}
+
+
+
+if (filtrarpor==="Matricula" &&  CabeceraInventario[0] === "" && CabeceraInventario[1] === "Nombre"&& CabeceraInventario[2] === "Apellido"&& CabeceraInventario[3] === undefined) {
+
+  const data = Alumnos.filter(ins =>
+  (
+    
+    delete ins.Cedula,
+    delete ins.createdAt,
+    delete ins.updatedAt,
+    delete ins.id_audiografia,
+    delete ins.id_representante,
+    delete ins.id_instrumento,
+    delete ins.Edad,
+    delete ins.Sexo,
+    delete ins.Colegio,
+    delete ins.Turno,
+    delete ins.Grado,
+    delete ins.Enfermedad,
+    delete ins.id_modulo,
+    delete ins.id_programa,
+    delete ins.Representante,
+    delete ins.Instrumento,
+    delete ins.Modulo,
+    delete ins.programa,
+    delete ins.id_Modulo,
+    delete ins.id_Audiografia
+  )
+  )
+  setNuevoArray(data)
+
+
+}
+
+
+
+
+if (filtrarpor==="Matricula" &&  CabeceraInventario[0] === "" && CabeceraInventario[1] === "Nombre"&& CabeceraInventario[2] === "Apellido"&& CabeceraInventario[3] === "Cedula"&& CabeceraInventario[4] === undefined) {
+
+  const data = Alumnos.filter(ins =>
+  (
+    
+    
+    delete ins.createdAt,
+    delete ins.updatedAt,
+    delete ins.id_audiografia,
+    delete ins.id_representante,
+    delete ins.id_instrumento,
+    delete ins.Edad,
+    delete ins.Sexo,
+    delete ins.Colegio,
+    delete ins.Turno,
+    delete ins.Grado,
+    delete ins.Enfermedad,
+    delete ins.id_modulo,
+    delete ins.id_programa,
+    delete ins.Representante,
+    delete ins.Instrumento,
+    delete ins.Modulo,
+    delete ins.programa,
+    delete ins.id_Modulo,
+    delete ins.id_Audiografia
+  )
+  )
+  setNuevoArray(data)
+
+
+}
+
+
+if (filtrarpor==="Matricula" &&  CabeceraInventario[0] === "" && CabeceraInventario[1] === "Nombre"&& CabeceraInventario[2] === "Apellido"&& CabeceraInventario[3] === "Cedula"&& CabeceraInventario[4] === "Edad"&& CabeceraInventario[5] === undefined) {
+
+  const data = Alumnos.filter(ins =>
+  (
+    
+    
+    delete ins.createdAt,
+    delete ins.updatedAt,
+    delete ins.id_audiografia,
+    delete ins.id_representante,
+    delete ins.id_instrumento,
+    delete ins.Sexo,
+    delete ins.Colegio,
+    delete ins.Turno,
+    delete ins.Grado,
+    delete ins.Enfermedad,
+    delete ins.id_modulo,
+    delete ins.id_programa,
+    delete ins.Representante,
+    delete ins.Instrumento,
+    delete ins.Modulo,
+    delete ins.programa,
+    delete ins.id_Modulo,
+    delete ins.id_Audiografia
+  )
+  )
+  setNuevoArray(data)
+
+
+}
+
+
+if (filtrarpor==="Matricula" &&  CabeceraInventario[0] === "" && CabeceraInventario[1] === "Nombre"&& CabeceraInventario[2] === "Apellido"&& CabeceraInventario[3] === "Cedula"&& CabeceraInventario[4] === "Edad"&& CabeceraInventario[5] === "Programa"&& CabeceraInventario[6] === undefined) {
+
+  const data = Alumnos.filter(ins =>
+  (
+    
+    
+    delete ins.createdAt,
+    delete ins.updatedAt,
+    delete ins.id_audiografia,
+    delete ins.id_representante,
+    delete ins.id_instrumento,
+    delete ins.Sexo,
+    delete ins.Colegio,
+    delete ins.Turno,
+    delete ins.Grado,
+    delete ins.Enfermedad,
+    delete ins.id_modulo,
+    delete ins.id_programa,
+    delete ins.Representante,
+    delete ins.Instrumento,
+    delete ins.Modulo,
+    delete ins.id_Modulo,
+    delete ins.id_Audiografia
+  )
+  )
+  setNuevoArray(data)
+
+
+}
+
+  console.log(CabeceraInventario)
+    /*let wb = XLSX.utils.book_new()
     let ws = XLSX.utils.json_to_sheet(nuevoarray)
 
     XLSX.utils.book_append_sheet(wb, ws, "Mihoja")
 
-    XLSX.writeFile(wb, "MYExcel.xlsx")
+    XLSX.writeFile(wb, "MYExcel.xlsx") */
 
 
 

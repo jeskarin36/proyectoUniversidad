@@ -431,6 +431,13 @@ margin-bottom: 3rem;
 
 
 
- .form-group-matricula-img .foto{
-     position: relative;
+ .form-group-matricula-img {
+
+     width: 160px;
+     height: 240px;
+     object-fit: contain;
  }
+
+ .form-group-matricula-img .foto{
+   position: relative;
+}
